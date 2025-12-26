@@ -8,6 +8,39 @@ declare global {
   }
 }
 
+// Floating particle component
+const FloatingParticles = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[5]">
+      {Array.from({ length: 20 }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1 h-1 rounded-full opacity-60"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            backgroundColor: `hsl(${Math.random() * 60 + 15}, 100%, 60%)`, // Warm colors only (red to yellow)
+            animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
+            animationDelay: `${Math.random() * 2}s`,
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px);
+            opacity: 0.4;
+          }
+          50% {
+            transform: translateY(-20px) translateX(10px);
+            opacity: 0.8;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const appRef = useRef<any>(null);
@@ -20,30 +53,31 @@ const Hero = () => {
       if (canvasRef.current && window.TubesCursor && !appRef.current && isMounted) {
         appRef.current = window.TubesCursor(canvasRef.current, {
           tubes: {
-            colors: ["#ff0000", "#00ff00", "#0000ff"],
+            colors: ["#ff4500", "#ff8c00", "#ffd700", "#32cd32", "#00ced1"],
             lights: {
               intensity: 250,
-              colors: ["#ff0000", "#00ff00", "#0000ff", "#ff00ff"]
+              colors: ["#ff0000", "#ff6600", "#ffcc00", "#00ff88", "#00cccc"]
             }
           }
         });
 
-        // Rainbow loop
+        // Warm rainbow loop (no blue/purple)
         let hue = 0;
         const rainbowLoop = () => {
           if (!isMounted) return;
           
-          hue = (hue + 1) % 360;
+          hue = (hue + 1) % 180; // Only cycle through warm colors (0-180)
 
-          const generateRainbowColors = (count: number) => {
+          const generateWarmColors = (count: number) => {
             return Array.from({ length: count }, (_, i) => {
-              const h = (hue + (i * (360 / count))) % 360;
+              // Map to warm colors: red (0), orange (30), yellow (60), green (120), teal (160)
+              const h = (hue + (i * (180 / count))) % 180;
               return `hsl(${h}, 100%, 50%)`;
             });
           };
 
-          const tubeColors = generateRainbowColors(10);
-          const lightColors = generateRainbowColors(12);
+          const tubeColors = generateWarmColors(10);
+          const lightColors = generateWarmColors(12);
 
           if (appRef.current?.tubes) {
             appRef.current.tubes.setColors(tubeColors);
@@ -96,16 +130,19 @@ const Hero = () => {
         style={{ zIndex: 0 }}
       />
 
+      {/* Floating Particles */}
+      <FloatingParticles />
+
       {/* Hero Content Overlay */}
       <div className="relative z-10 container px-6 lg:px-12 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
-          {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground uppercase tracking-wide animate-fade-up drop-shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+          {/* Main Heading with Gradient */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wide animate-fade-up text-gradient-rainbow glow-text">
             TechPivot
           </h1>
           
-          {/* Subheading */}
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-primary-foreground uppercase tracking-wider animate-fade-up drop-shadow-[0_0_25px_rgba(0,0,0,0.8)]" style={{ animationDelay: "0.1s" }}>
+          {/* Subheading with Gradient */}
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold uppercase tracking-wider animate-fade-up text-gradient-warm" style={{ animationDelay: "0.1s" }}>
             Technologies
           </h2>
           
@@ -118,7 +155,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
             <Button 
               size="lg" 
-              className="bg-primary/80 backdrop-blur-sm hover:bg-primary text-primary-foreground border border-primary-foreground/20 px-8 py-6 text-lg font-semibold"
+              className="bg-primary/90 backdrop-blur-sm hover:bg-primary text-primary-foreground border border-primary-foreground/20 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
               onClick={() => window.location.href = "/contact"}
             >
               Get Started
