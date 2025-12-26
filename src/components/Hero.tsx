@@ -1,192 +1,131 @@
-import { useEffect, useRef } from "react";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
-declare global {
-  interface Window {
-    TubesCursor: (canvas: HTMLCanvasElement, options: any) => any;
-  }
-}
-
-// Floating particle component
-const FloatingParticles = () => {
+// Geometric shapes component
+const GeometricShapes = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[5]">
-      {Array.from({ length: 20 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-1 h-1 rounded-full opacity-60"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            backgroundColor: `hsl(${[25, 45, 145, 174][Math.floor(Math.random() * 4)]}, 85%, 55%)`, // Orange, Yellow, Green, Teal
-            animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
-            animationDelay: `${Math.random() * 2}s`,
-          }}
-        />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Large circle outline - top right */}
+      <div className="absolute -top-20 -right-20 w-96 h-96 border border-primary/20 rounded-full" />
+      <div className="absolute -top-10 -right-10 w-72 h-72 border border-secondary/15 rounded-full" />
+      
+      {/* Triangle - bottom left */}
+      <div className="absolute bottom-20 left-10 w-0 h-0 border-l-[60px] border-l-transparent border-b-[100px] border-b-accent/10 border-r-[60px] border-r-transparent" />
+      
+      {/* Small circles */}
+      <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-primary/30 rounded-full" />
+      <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-secondary/40 rounded-full" />
+      <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-accent/50 rounded-full" />
+      
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
+                         linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+        backgroundSize: '60px 60px'
+      }} />
+    </div>
+  );
+};
+
+// Trust badges
+const TrustBadges = () => {
+  const badges = [
+    { rating: "5.0", label: "Clutch Reviews" },
+    { rating: "98%", label: "Client Satisfaction" },
+    { rating: "500+", label: "Projects Delivered" },
+  ];
+
+  return (
+    <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+      {badges.map((badge, index) => (
+        <div 
+          key={badge.label}
+          className="flex items-center gap-2 animate-fade-up"
+          style={{ animationDelay: `${0.5 + index * 0.1}s` }}
+        >
+          <div className="flex items-center gap-1">
+            <Star className="w-4 h-4 fill-primary text-primary" />
+            <span className="font-bold text-foreground">{badge.rating}</span>
+          </div>
+          <span className="text-sm text-muted-foreground">{badge.label}</span>
+        </div>
       ))}
-      <style>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px) translateX(0px);
-            opacity: 0.4;
-          }
-          50% {
-            transform: translateY(-20px) translateX(10px);
-            opacity: 0.8;
-          }
-        }
-      `}</style>
     </div>
   );
 };
 
 const Hero = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const appRef = useRef<any>(null);
-  const animationRef = useRef<number>();
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const initTubesCursor = () => {
-      if (canvasRef.current && window.TubesCursor && !appRef.current && isMounted) {
-        appRef.current = window.TubesCursor(canvasRef.current, {
-          tubes: {
-            colors: ["#f97316", "#14b8a6", "#22c55e", "#fbbf24", "#0d9488"],
-            lights: {
-              intensity: 250,
-              colors: ["#ff6b00", "#2dd4bf", "#4ade80", "#fcd34d", "#14b8a6"]
-            }
-          }
-        });
-
-        // Orange, Teal, Green color loop (no blue/purple)
-        let hue = 0;
-        const colorStops = [25, 45, 145, 174]; // Orange, Yellow-orange, Green, Teal
-        
-        const rainbowLoop = () => {
-          if (!isMounted) return;
-          
-          hue = (hue + 1) % 360;
-
-          const generateColors = (count: number) => {
-            return Array.from({ length: count }, (_, i) => {
-              const stopIndex = i % colorStops.length;
-              const baseHue = colorStops[stopIndex];
-              const variation = (hue + (i * 10)) % 30 - 15;
-              return `hsl(${baseHue + variation}, 85%, 50%)`;
-            });
-          };
-
-          const tubeColors = generateColors(10);
-          const lightColors = generateColors(12);
-
-          if (appRef.current?.tubes) {
-            appRef.current.tubes.setColors(tubeColors);
-            appRef.current.tubes.setLightsColors(lightColors);
-          }
-
-          animationRef.current = requestAnimationFrame(rainbowLoop);
-        };
-
-        rainbowLoop();
-      }
-    };
-
-    // Check if script is already loaded
-    if (window.TubesCursor) {
-      initTubesCursor();
-    } else {
-      const script = document.createElement("script");
-      script.src = "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.umd.js";
-      script.async = true;
-      script.onload = initTubesCursor;
-      document.head.appendChild(script);
-    }
-
-    return () => {
-      isMounted = false;
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      if (appRef.current?.destroy) {
-        appRef.current.destroy();
-      }
-    };
-  }, []);
-
-  const scrollToServices = () => {
-    const servicesSection = document.getElementById("services");
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Tubes Cursor Canvas Background */}
-      <canvas 
-        ref={canvasRef} 
-        id="tubes-canvas"
-        className="absolute inset-0 w-full h-full"
-        style={{ zIndex: 0 }}
-      />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
+      {/* Geometric decorations */}
+      <GeometricShapes />
 
-      {/* Floating Particles */}
-      <FloatingParticles />
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 via-transparent to-accent/5 pointer-events-none" />
 
-      {/* Hero Content Overlay */}
-      <div className="relative z-10 container px-6 lg:px-12 text-center">
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Main Heading with Gradient */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wide animate-fade-up text-gradient-rainbow glow-text">
-            TechPivot
+      {/* Hero Content */}
+      <div className="relative z-10 container px-6 lg:px-12 py-20">
+        <div className="max-w-5xl mx-auto text-center space-y-8">
+          {/* Eyebrow text */}
+          <div className="animate-fade-up">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card/50 text-sm font-medium text-muted-foreground">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+              GLOBAL TECHNOLOGY PARTNER
+            </span>
+          </div>
+
+          {/* Main Heading - Linnify style bold uppercase */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[0.9] animate-fade-up" style={{ animationDelay: "0.1s" }}>
+            <span className="block text-foreground">We Help Brands</span>
+            <span className="block text-foreground">Accelerate Their</span>
+            <span className="block text-gradient">Digital Initiatives</span>
           </h1>
-          
-          {/* Subheading with Gradient */}
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold uppercase tracking-wider animate-fade-up text-gradient-warm" style={{ animationDelay: "0.1s" }}>
-            Technologies
-          </h2>
-          
-          {/* Tagline */}
-          <p className="text-lg md:text-xl lg:text-2xl text-primary-foreground/90 font-medium tracking-widest uppercase animate-fade-up drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]" style={{ animationDelay: "0.2s" }}>
-            Innovate • Transform • Deliver
+
+          {/* Subheading */}
+          <p 
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up" 
+            style={{ animationDelay: "0.2s" }}
+          >
+            Your trusted partner in delivering on your most ambitious AI and digital transformation initiatives. From strategy to execution.
           </p>
-          
+
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+          <div 
+            className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-up" 
+            style={{ animationDelay: "0.3s" }}
+          >
             <Button 
               size="lg" 
-              className="bg-primary/90 backdrop-blur-sm hover:bg-primary text-primary-foreground border border-primary-foreground/20 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
-              onClick={() => window.location.href = "/contact"}
+              className="px-8 py-6 text-base font-semibold group"
+              asChild
             >
-              Get Started
+              <Link to="/contact">
+                Start Your Project
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
             <Button 
               size="lg" 
               variant="outline"
-              className="bg-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30 px-8 py-6 text-lg font-semibold"
-              onClick={scrollToServices}
+              className="px-8 py-6 text-base font-semibold"
+              asChild
             >
-              Explore Services
+              <Link to="/#services">
+                View Our Services
+              </Link>
             </Button>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="pt-12 animate-fade-up" style={{ animationDelay: "0.4s" }}>
+            <TrustBadges />
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 cursor-pointer animate-bounce"
-        onClick={scrollToServices}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-sm font-medium text-primary-foreground/70 uppercase tracking-widest drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
-            Scroll
-          </span>
-          <ChevronDown className="w-8 h-8 text-primary-foreground/80 drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]" />
-        </div>
-      </div>
+      {/* Bottom geometric accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
     </section>
   );
 };
