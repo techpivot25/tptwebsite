@@ -44,6 +44,7 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
+            <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Home</Link>
             <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
               <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 Services <ChevronDown className="w-4 h-4" />
@@ -77,6 +78,7 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-6 border-t border-border/50 animate-fade-in">
             <nav className="flex flex-col gap-2">
+              <Link to="/" className="py-2 text-base font-medium text-muted-foreground hover:text-foreground">Home</Link>
               <div className="py-2">
                 <button onClick={() => setIsServicesOpen(!isServicesOpen)} className="flex items-center justify-between w-full text-base font-medium text-muted-foreground">
                   Services <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
