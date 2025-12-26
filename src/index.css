@@ -16,8 +16,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
 
-    /* Teal/Cyan primary (Linnify style) */
-    --primary: 174 72% 40%;
+    /* Teal/Cyan primary (Linnify style) - darkened for 4.5:1 contrast */
+    --primary: 174 72% 28%;
     --primary-foreground: 0 0% 100%;
 
     /* Dark secondary */
@@ -25,7 +25,7 @@
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 35%;
 
     /* Teal accent */
     --accent: 174 60% 45%;
