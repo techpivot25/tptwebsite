@@ -83,7 +83,7 @@ const Footer = () => {
 
           {/* Services Column 2 */}
           <div>
-            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background invisible">Services</h4>
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Services</h4>
             <ul className="space-y-3">
               {servicesColumn2.map((item) => (
                 <li key={item.label}>
