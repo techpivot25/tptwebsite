@@ -18,6 +18,47 @@ const GeometricShapes = () => {
       <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-primary/60 rounded-full" />
       <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-primary/40 rounded-full" />
       
+      {/* Vector lines - circuit style behind heading */}
+      <svg 
+        className="absolute inset-0 w-full h-full opacity-[0.08]" 
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        {/* Horizontal lines */}
+        <line x1="0" y1="30%" x2="25%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="75%" y1="30%" x2="100%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="0" y1="50%" x2="20%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="80%" y1="50%" x2="100%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="0" y1="70%" x2="15%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="85%" y1="70%" x2="100%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        
+        {/* Diagonal connecting lines - left side */}
+        <line x1="25%" y1="30%" x2="20%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="20%" y1="50%" x2="15%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="10%" y1="20%" x2="25%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="5%" y1="80%" x2="15%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        
+        {/* Diagonal connecting lines - right side */}
+        <line x1="75%" y1="30%" x2="80%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="80%" y1="50%" x2="85%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="90%" y1="20%" x2="75%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <line x1="95%" y1="80%" x2="85%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        
+        {/* Node circles at intersections */}
+        <circle cx="25%" cy="30%" r="4" fill="currentColor" className="text-primary" />
+        <circle cx="20%" cy="50%" r="3" fill="currentColor" className="text-primary" />
+        <circle cx="15%" cy="70%" r="4" fill="currentColor" className="text-primary" />
+        <circle cx="75%" cy="30%" r="4" fill="currentColor" className="text-primary" />
+        <circle cx="80%" cy="50%" r="3" fill="currentColor" className="text-primary" />
+        <circle cx="85%" cy="70%" r="4" fill="currentColor" className="text-primary" />
+        
+        {/* Additional accent lines */}
+        <line x1="30%" y1="25%" x2="35%" y2="35%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
+        <line x1="65%" y1="25%" x2="70%" y2="35%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
+        <line x1="28%" y1="65%" x2="32%" y2="75%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
+        <line x1="68%" y1="65%" x2="72%" y2="75%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
+      </svg>
+      
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 opacity-[0.015]" style={{
         backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
