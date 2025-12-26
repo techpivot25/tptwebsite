@@ -1,45 +1,74 @@
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight, Linkedin, Twitter, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/techpivot-logo.jpg";
 
 const Footer = () => {
   const services = [
-    { label: "AI Agent Development", href: "/services/agentic-ai" },
-    { label: "SaaS Development", href: "/services/saas-platform" },
-    { label: "Mobile Apps", href: "/services/mobile-app" },
+    { label: "Generative AI", href: "/services/generative-ai" },
+    { label: "Agentic AI", href: "/services/agentic-ai" },
+    { label: "Custom Software", href: "/services/custom-software" },
+    { label: "SaaS Platform", href: "/services/saas-platform" },
+    { label: "Mobile App Development", href: "/services/mobile-app" },
+    { label: "Web Development", href: "/services/web-development" },
     { label: "Cloud & Security", href: "/services/cloud-security" },
+    { label: "IoT Solutions", href: "/services/iot" },
+    { label: "Staff Augmentation", href: "/services/staff-augmentation" },
+    { label: "Software Consultancy", href: "/services/consultancy" },
   ];
 
   const company = [
     { label: "About Us", href: "/#about" },
+    { label: "Case Studies", href: "/#case-studies" },
     { label: "Technologies", href: "/technologies" },
+    { label: "Testimonials", href: "/#testimonials" },
+    { label: "FAQ", href: "/#faq" },
     { label: "Contact", href: "/contact" },
   ];
 
+  const social = [
+    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: Github, href: "https://github.com", label: "GitHub" },
+  ];
+
   return (
-    <footer className="bg-background border-t border-border">
-      <div className="container px-6 lg:px-12 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-foreground text-background">
+      <div className="container px-6 lg:px-12 py-16 lg:py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand */}
-          <div>
-            <Link to="/" className="flex items-center gap-3 mb-4">
+          <div className="lg:col-span-1">
+            <Link to="/" className="flex items-center gap-3 mb-6">
               <img src={logo} alt="TechPivot Logo" className="h-10 w-auto rounded" />
-              <span className="font-semibold text-lg text-foreground">TechPivot</span>
+              <span className="font-bold text-xl text-background">TechPivot</span>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Your trusted partner for cutting-edge AI and digital transformation solutions.
+            <p className="text-background/60 text-sm leading-relaxed mb-6">
+              Your trusted partner for cutting-edge AI and digital transformation solutions. Building the future, one project at a time.
             </p>
+            <div className="flex gap-4">
+              {social.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full border border-background/20 flex items-center justify-center hover:bg-background/10 hover:border-primary transition-colors"
+                  aria-label={item.label}
+                >
+                  <item.icon className="w-4 h-4 text-background/80" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold uppercase tracking-wide text-sm mb-4 text-foreground">Services</h4>
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Services</h4>
             <ul className="space-y-3">
               {services.map((item) => (
                 <li key={item.label}>
                   <Link 
                     to={item.href} 
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group"
+                    className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group"
                   >
                     {item.label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -51,13 +80,13 @@ const Footer = () => {
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold uppercase tracking-wide text-sm mb-4 text-foreground">Company</h4>
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Company</h4>
             <ul className="space-y-3">
               {company.map((item) => (
                 <li key={item.label}>
                   <Link 
                     to={item.href} 
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 group"
+                    className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group"
                   >
                     {item.label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -69,20 +98,26 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold uppercase tracking-wide text-sm mb-4 text-foreground">Get in Touch</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <Mail size={16} className="text-primary" />
-                <a href="mailto:contact@techpivot.com" className="hover:text-foreground transition-colors">
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Get in Touch</h4>
+            <ul className="space-y-4 text-sm text-background/60">
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                  <Mail size={14} className="text-primary" />
+                </div>
+                <a href="mailto:contact@techpivot.com" className="hover:text-primary transition-colors">
                   contact@techpivot.com
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone size={16} className="text-primary" />
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                  <Phone size={14} className="text-primary" />
+                </div>
                 <span>+1 (123) 456-7890</span>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin size={16} className="mt-0.5 text-primary" />
+              <li className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <MapPin size={14} className="text-primary" />
+                </div>
                 <span>Chandigarh, India</span>
               </li>
             </ul>
@@ -90,11 +125,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+        <div className="mt-16 pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/50">
           <p>© 2025 TechPivot Technologies & Consulting. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link to="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link to="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link to="#" className="hover:text-primary transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

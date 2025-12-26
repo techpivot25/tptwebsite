@@ -1,5 +1,6 @@
 import { Sparkles, FileText, Image, Code, Video, Music, Palette, ShoppingCart, Megaphone, Film } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import ServiceFAQ from "@/components/ServiceFAQ";
 
 const capabilities = [
   { icon: FileText, title: "Text Generation", description: "Create articles, product descriptions, marketing copy, and documentation at scale" },
@@ -28,6 +29,29 @@ const industries = [
     title: "Media & Entertainment",
     description: "Script generation, content creation, and automated media production",
     features: ["Script and storyboard generation", "Subtitle and caption creation", "Content localization"],
+  },
+];
+
+const faqs = [
+  {
+    question: "What types of content can Generative AI create?",
+    answer: "Our Generative AI solutions can create a wide range of content including text (articles, product descriptions, marketing copy), images (product visuals, creative assets, graphics), code (automated development, bug fixes), video (promotional content, tutorials), and audio (voiceovers, music, sound effects)."
+  },
+  {
+    question: "How do you ensure the quality of AI-generated content?",
+    answer: "We implement multi-layer quality assurance including human review workflows, content validation algorithms, brand guideline checks, and iterative refinement processes. Our custom models are fine-tuned on your specific requirements to ensure consistent, high-quality output."
+  },
+  {
+    question: "Can the AI be trained on our company's brand voice?",
+    answer: "Absolutely. We specialize in fine-tuning models on your brand guidelines, tone of voice, and content style. This ensures all generated content aligns perfectly with your brand identity and maintains consistency across all channels."
+  },
+  {
+    question: "What's the typical timeline for implementing a Generative AI solution?",
+    answer: "Implementation timelines vary based on complexity. A basic content generation solution can be deployed in 4-6 weeks, while more complex custom model training and integration projects typically take 8-12 weeks. We provide detailed timelines during the discovery phase."
+  },
+  {
+    question: "How do you handle data privacy and security?",
+    answer: "We follow strict data privacy protocols including data encryption, secure processing environments, and compliance with GDPR, CCPA, and other regulations. Your training data and generated content remain confidential and secure."
   },
 ];
 
@@ -102,6 +126,9 @@ const GenerativeAI = () => {
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      <ServiceFAQ faqs={faqs} serviceName="Generative AI" />
     </ServicePageLayout>
   );
 };

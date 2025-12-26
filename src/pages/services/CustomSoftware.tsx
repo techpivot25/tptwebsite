@@ -1,5 +1,6 @@
 import { Code, Database, Cloud, Link, RefreshCw, Shield, Building, Heart, FileText, Factory } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import ServiceFAQ from "@/components/ServiceFAQ";
 
 const services = [
   { icon: Code, title: "Custom Application Development", description: "Tailored software solutions designed to address your specific business challenges" },
@@ -24,6 +25,29 @@ const industries = [
   { icon: Heart, title: "Healthcare", description: "EHR systems, patient portals, and HIPAA-compliant solutions" },
   { icon: FileText, title: "Insurance", description: "Claims processing, underwriting, and customer management" },
   { icon: Factory, title: "Manufacturing", description: "ERP systems, supply chain, and production optimization" },
+];
+
+const faqs = [
+  {
+    question: "How long does custom software development take?",
+    answer: "Project timelines depend on complexity and scope. A simple MVP typically takes 8-12 weeks, while enterprise-grade applications may require 4-8 months. During discovery, we provide detailed timelines with milestones and deliverables."
+  },
+  {
+    question: "What technologies do you use for development?",
+    answer: "We select technologies based on your project requirements. Our stack includes React, Node.js, Python, .NET, Java, AWS, Azure, GCP, PostgreSQL, MongoDB, and more. We prioritize scalability, maintainability, and long-term support."
+  },
+  {
+    question: "How do you handle project communication?",
+    answer: "We maintain transparent communication through regular sprint demos, weekly status updates, and dedicated project managers. You'll have access to project management tools like Jira or Asana for real-time progress tracking."
+  },
+  {
+    question: "What happens after the software is launched?",
+    answer: "We offer comprehensive post-launch support including bug fixes, security updates, performance monitoring, and feature enhancements. Our SLA-backed maintenance packages ensure your application runs smoothly 24/7."
+  },
+  {
+    question: "Can you integrate with our existing systems?",
+    answer: "Absolutely. We specialize in system integration, whether it's connecting to legacy systems, third-party APIs, or enterprise platforms like Salesforce, SAP, or Oracle. We ensure seamless data flow across your technology ecosystem."
+  },
 ];
 
 const CustomSoftware = () => {
@@ -94,6 +118,9 @@ const CustomSoftware = () => {
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      <ServiceFAQ faqs={faqs} serviceName="Custom Software Development" />
     </ServicePageLayout>
   );
 };
