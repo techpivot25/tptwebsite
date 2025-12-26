@@ -45,10 +45,7 @@ const FAQ = () => {
     <section className="py-24 md:py-32">
       <div className="container mx-auto px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16">
-          <span className="text-sm font-medium tracking-wider text-muted-foreground uppercase mb-4 block">
-            FAQ
-          </span>
+        <div className="max-w-3xl mb-16 -mt-[50px]">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground uppercase mb-6">
             FREQUENTLY ASKED
             <br />
