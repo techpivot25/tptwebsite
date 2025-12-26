@@ -22,6 +22,7 @@ import Consultancy from "./pages/services/Consultancy";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopOnNavigate from "./components/ScrollToTopOnNavigate";
 import ChatBot from "./components/ChatBot";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTopOnNavigate />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
