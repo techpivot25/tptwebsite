@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
 import { useEffect } from "react";
 
 declare global {
@@ -52,31 +50,6 @@ const Hero = () => {
             <span className="text-sm font-medium text-primary">
               Innovation • Excellence • Collaboration • Growth
             </span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            Built to Perform.
-            <br />
-            <span className="text-gradient">Supported for Growth.</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            With development hubs in India, USA, Middle East, and Canada, we deliver
-            cutting-edge digital solutions that transform businesses and drive innovation.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-            <Button size="xl" variant="hero" className="group">
-              Start Your Project
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-            </Button>
-            <Button size="xl" variant="heroOutline" className="group">
-              <Play size={18} className="mr-2" />
-              Watch Our Story
-            </Button>
           </div>
 
           {/* Trust Indicators */}
