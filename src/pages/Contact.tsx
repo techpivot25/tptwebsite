@@ -4,17 +4,35 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Mail, Phone, MapPin, ArrowRight, Upload } from "lucide-react";
+import { useState, useRef } from "react";
 import { toast } from "sonner";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "" });
+  const [formData, setFormData] = useState({ 
+    name: "", 
+    email: "", 
+    company: "", 
+    message: "",
+    timeline: "",
+    budget: "",
+    source: ""
+  });
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Thank you! We'll get back to you soon.");
-    setFormData({ name: "", email: "", company: "", message: "" });
+    setFormData({ name: "", email: "", company: "", message: "", timeline: "", budget: "", source: "" });
+    setFile(null);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
   };
 
   const contactInfo = [
@@ -86,6 +104,55 @@ const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })} 
                     className="h-12 border-border bg-card"
                   />
+                  
+                  {/* Timeline Select */}
+                  <div>
+                    <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
+                      <SelectTrigger className="h-12 border-border bg-card">
+                        <SelectValue placeholder="When do you want to launch your solution?" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-card border-border">
+                        <SelectItem value="immediate">Immediately (0–1 month)</SelectItem>
+                        <SelectItem value="1-3months">Within 1–3 months</SelectItem>
+                        <SelectItem value="3-6months">Within 3–6 months</SelectItem>
+                        <SelectItem value="6+months">Within 6+ months</SelectItem>
+                        <SelectItem value="exploring">Exploring / need consultation</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Budget Select */}
+                  <div>
+                    <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
+                      <SelectTrigger className="h-12 border-border bg-card">
+                        <SelectValue placeholder="Project Budget Range" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-card border-border">
+                        <SelectItem value="evaluating">Evaluating</SelectItem>
+                        <SelectItem value="5k-25k">$5K - $25K</SelectItem>
+                        <SelectItem value="25k-50k">$25K - $50K</SelectItem>
+                        <SelectItem value="50k-100k">$50K - $100K</SelectItem>
+                        <SelectItem value="100k+">More than $100K</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Source Select */}
+                  <div>
+                    <Select value={formData.source} onValueChange={(value) => setFormData({ ...formData, source: value })}>
+                      <SelectTrigger className="h-12 border-border bg-card">
+                        <SelectValue placeholder="How Did You Find Us?" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-card border-border">
+                        <SelectItem value="social-media">Social Media</SelectItem>
+                        <SelectItem value="linkedin">LinkedIn</SelectItem>
+                        <SelectItem value="referral">Referral</SelectItem>
+                        <SelectItem value="clutch">Clutch</SelectItem>
+                        <SelectItem value="google">Google Search</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   <Textarea 
                     placeholder="Tell us about your project..." 
                     rows={6} 
@@ -94,6 +161,27 @@ const Contact = () => {
                     required 
                     className="border-border bg-card resize-none"
                   />
+
+                  {/* File Upload */}
+                  <div>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      className="hidden"
+                      accept=".pdf,.doc,.docx,.txt,.xls,.xlsx,.ppt,.pptx"
+                    />
+                    <div 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="h-12 border border-dashed border-border rounded-md bg-card flex items-center justify-center gap-2 cursor-pointer hover:border-primary/50 transition-colors"
+                    >
+                      <Upload className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-muted-foreground text-sm">
+                        {file ? file.name : "Upload Project Document (Optional)"}
+                      </span>
+                    </div>
+                  </div>
+
                   <Button type="submit" size="lg" className="w-full group">
                     Send Message
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
