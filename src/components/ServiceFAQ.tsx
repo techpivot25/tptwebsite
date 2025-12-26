@@ -19,7 +19,7 @@ interface ServiceFAQProps {
 
 const ServiceFAQ = ({ faqs, serviceName = "this service" }: ServiceFAQProps) => {
   return (
-    <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
+    <section className="py-20 lg:py-28 animate-section">
       <div className="container px-6 lg:px-12">
         <div className="max-w-3xl mb-12">
           <span className="text-sm font-medium tracking-wider text-muted-foreground uppercase mb-4 block">
