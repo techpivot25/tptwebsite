@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import Contact from "./pages/Contact";
 import Technologies from "./pages/Technologies";
+import Careers from "./pages/Careers";
 import AgenticAI from "./pages/services/AgenticAI";
 import GenerativeAI from "./pages/services/GenerativeAI";
 import SaaSPlatform from "./pages/services/SaaSPlatform";
@@ -32,6 +33,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/careers" element={<Careers />} />
             <Route path="/technologies" element={<Technologies />} />
             <Route path="/services/agentic-ai" element={<AgenticAI />} />
             <Route path="/services/generative-ai" element={<GenerativeAI />} />
