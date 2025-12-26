@@ -29,33 +29,42 @@ const ServicePageLayout = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".hero-content",
-        { opacity: 0, y: 60 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
-      );
-
-      gsap.utils.toArray(".animate-section").forEach((section: any) => {
+    // Use RAF to ensure DOM is fully ready before measuring
+    const rafId = requestAnimationFrame(() => {
+      const ctx = gsap.context(() => {
         gsap.fromTo(
-          section,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
+          ".hero-content",
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
         );
+
+        gsap.utils.toArray(".animate-section").forEach((section: any) => {
+          gsap.fromTo(
+            section,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
       });
+
+      // Store cleanup in ref for proper cleanup
+      return () => ctx.revert();
     });
 
-    return () => ctx.revert();
+    return () => {
+      cancelAnimationFrame(rafId);
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (

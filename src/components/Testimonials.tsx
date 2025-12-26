@@ -1,5 +1,5 @@
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 const testimonials = [
   {
@@ -53,14 +53,32 @@ const Testimonials = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const rafRef = useRef<number | null>(null);
 
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+  const checkScroll = useCallback(() => {
+    // Cancel any pending RAF to avoid stacking
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
     }
-  };
+    
+    // Use RAF to batch the DOM reads and state updates
+    rafRef.current = requestAnimationFrame(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+      }
+    });
+  }, []);
+
+  // Cleanup RAF on unmount
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, []);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -69,7 +87,8 @@ const Testimonials = () => {
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth',
       });
-      setTimeout(checkScroll, 300);
+      // Delay check to allow smooth scroll to complete
+      setTimeout(checkScroll, 350);
     }
   };
 
