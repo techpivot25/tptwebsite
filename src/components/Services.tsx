@@ -23,7 +23,7 @@ const Services = () => {
           <span className="text-sm font-semibold text-primary uppercase tracking-wider">Our Services</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
             <span className="text-foreground">Comprehensive </span>
-            <span className="text-gradient">Technology Solutions</span>
+            <span className="text-foreground">Technology Solutions</span>
           </h2>
           <p className="text-lg text-muted-foreground">From AI-powered automation to enterprise-grade cloud solutions, we deliver end-to-end services that drive digital transformation.</p>
         </div>
