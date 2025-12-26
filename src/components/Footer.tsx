@@ -24,7 +24,6 @@ const Footer = () => {
     { label: "Case Studies", href: "/#case-studies" },
     { label: "Technologies", href: "/technologies" },
     { label: "Testimonials", href: "/#testimonials" },
-    { label: "FAQ", href: "/#faq" },
     { label: "Contact", href: "/contact" },
   ];
 
@@ -149,6 +148,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/50">
           <p>© 2025 TechPivot Technologies & Consulting. All rights reserved.</p>
           <div className="flex gap-6">
+            <Link to="/#faq" className="hover:text-primary transition-colors">FAQ</Link>
             <Link to="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
             <Link to="#" className="hover:text-primary transition-colors">Terms of Service</Link>
           </div>
