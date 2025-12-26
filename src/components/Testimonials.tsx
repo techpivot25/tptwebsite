@@ -93,7 +93,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-24 lg:py-32 bg-muted/30 relative overflow-hidden">
+    <section className="py-24 lg:py-32 relative overflow-hidden" style={{ backgroundColor: '#EAEAEA' }}>
       {/* Geometric decoration */}
       <div className="absolute top-0 right-1/4 w-px h-32 bg-gradient-to-b from-transparent via-border to-transparent" />
       
