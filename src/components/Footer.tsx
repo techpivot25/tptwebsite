@@ -43,7 +43,7 @@ const Footer = () => {
         aria-hidden="true"
       >
         <span 
-          className="text-[120px] md:text-[200px] lg:text-[280px] font-bold uppercase tracking-tighter whitespace-nowrap"
+          className="text-[180px] md:text-[280px] lg:text-[380px] font-bold uppercase tracking-tighter whitespace-nowrap"
           style={{ color: 'rgba(29, 40, 57, 0.3)' }}
         >
           TECHPIVOT
