@@ -8,20 +8,20 @@
   :root {
     /* Linnify-inspired: Black, White, Teal/Cyan palette */
     --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
+    --foreground: 217 33% 17%;
 
     --card: 0 0% 98%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 217 33% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 217 33% 17%;
 
     /* Teal/Cyan primary (Linnify style) - darkened for 4.5:1 contrast */
     --primary: 174 72% 28%;
     --primary-foreground: 0 0% 100%;
 
-    /* Dark secondary */
-    --secondary: 0 0% 10%;
+    /* Dark secondary - navy blue */
+    --secondary: 217 33% 17%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
@@ -41,7 +41,7 @@
     --radius: 0.5rem;
 
     /* Clean gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5%) 0%, hsl(0 0% 8%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(217 33% 17%) 0%, hsl(217 33% 22%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
     --gradient-text: linear-gradient(135deg, hsl(174 72% 45%) 0%, hsl(174 60% 35%) 100%);
