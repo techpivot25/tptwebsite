@@ -101,7 +101,7 @@ const Header = () => {
           <div className="hidden md:block">
             <Button size="lg" className="group" asChild>
               <Link to="/contact">
-                Get Started
+                Talk To Expert
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -135,7 +135,7 @@ const Header = () => {
               <Link to="/careers" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Careers</Link>
               <Link to="/contact" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Contact</Link>
               <Button className="mt-4 w-full" size="lg" asChild>
-                <Link to="/contact">Get Started</Link>
+                <Link to="/contact">Talk To Expert</Link>
               </Button>
             </nav>
           </div>
