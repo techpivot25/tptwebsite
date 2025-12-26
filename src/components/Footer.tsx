@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, ArrowUpRight, Linkedin, Twitter, Github } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight, Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/techpivot-logo.jpg";
 
@@ -28,9 +28,10 @@ const Footer = () => {
   ];
 
   const social = [
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Github, href: "https://github.com", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/techpivot-technologies/", label: "LinkedIn" },
+    { icon: Twitter, href: "https://x.com/Techpivot.Technologies/", label: "X" },
+    { icon: Instagram, href: "https://www.instagram.com/Techpivot.Technologies/", label: "Instagram" },
+    { icon: Facebook, href: "https://www.facebook.com/techpivot.technologies/", label: "Facebook" },
   ];
 
   return (
