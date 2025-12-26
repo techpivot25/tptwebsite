@@ -18,6 +18,7 @@ import StaffAugmentation from "./pages/services/StaffAugmentation";
 import IoT from "./pages/services/IoT";
 import Consultancy from "./pages/services/Consultancy";
 import NotFound from "./pages/NotFound";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/services/consultancy" element={<Consultancy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <WhatsAppButton />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
