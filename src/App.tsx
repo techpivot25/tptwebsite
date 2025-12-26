@@ -21,6 +21,7 @@ import IoT from "./pages/services/IoT";
 import Consultancy from "./pages/services/Consultancy";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           <WhatsAppButton />
+          <ScrollToTop />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
