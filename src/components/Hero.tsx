@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import vectorBg from "@/assets/vector-bg.jpg";
 
 // Geometric shapes component
 const GeometricShapes = () => {
@@ -72,6 +73,12 @@ const GeometricShapes = () => {
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
+      {/* Vector Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{ backgroundImage: `url(${vectorBg})` }}
+      />
+      
       {/* Geometric decorations */}
       <GeometricShapes />
 
