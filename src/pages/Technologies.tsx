@@ -53,11 +53,8 @@ const Technologies = () => (
         <div className="absolute top-1/2 left-1/3 w-4 h-4 bg-primary/30 rounded-full" />
 
         <div className="container px-6 lg:px-12 relative z-10">
-          <div className="max-w-3xl">
-            <span className="text-sm font-semibold text-primary uppercase tracking-widest">
-              OUR STACK
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mt-4 mb-6">
+          <div className="max-w-3xl -mt-[20px]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mb-6">
               Technology Excellence
             </h1>
             <p className="text-xl text-background/70">
