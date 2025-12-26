@@ -23,11 +23,8 @@ const Services = () => {
 
       <div className="container px-6 lg:px-12 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-sm font-semibold text-primary uppercase tracking-widest">
-            KEY BENEFITS
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mt-4 mb-6 text-foreground">
+        <div className="text-center max-w-3xl mx-auto mb-16 -mt-[100px]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-6 text-foreground">
             What We Deliver
           </h2>
           <p className="text-lg text-muted-foreground">
