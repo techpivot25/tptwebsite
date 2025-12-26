@@ -1,18 +1,46 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import { useEffect } from "react";
+
+declare global {
+  interface Window {
+    UnicornStudio: {
+      isInitialized: boolean;
+      init: () => void;
+    };
+  }
+}
 
 const Hero = () => {
+  useEffect(() => {
+    const win = window as Window;
+    if (!win.UnicornStudio) {
+      win.UnicornStudio = { isInitialized: false, init: () => {} };
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.5.3/dist/unicornStudio.umd.js";
+      script.onload = function () {
+        if (!win.UnicornStudio.isInitialized) {
+          win.UnicornStudio.init();
+          win.UnicornStudio.isInitialized = true;
+        }
+      };
+      document.head.appendChild(script);
+    } else if (!win.UnicornStudio.isInitialized) {
+      win.UnicornStudio.init();
+      win.UnicornStudio.isInitialized = true;
+    }
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* UnicornStudio Animation Background */}
       <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt="Digital technology background"
-          className="w-full h-full object-cover"
+        <div 
+          data-us-project="Dm1DjFxRRpslwJBORUBN" 
+          className="w-full h-full"
+          style={{ width: '100%', height: '100%', minHeight: '100vh' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/70 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground/40 via-foreground/50 to-background" />
       </div>
 
       {/* Content */}
