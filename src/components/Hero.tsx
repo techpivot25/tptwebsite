@@ -19,7 +19,7 @@ const FloatingParticles = () => {
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            backgroundColor: `hsl(${Math.random() * 60 + 15}, 100%, 60%)`, // Warm colors only (red to yellow)
+            backgroundColor: `hsl(${[25, 45, 145, 174][Math.floor(Math.random() * 4)]}, 85%, 55%)`, // Orange, Yellow, Green, Teal
             animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
             animationDelay: `${Math.random() * 2}s`,
           }}
@@ -53,31 +53,34 @@ const Hero = () => {
       if (canvasRef.current && window.TubesCursor && !appRef.current && isMounted) {
         appRef.current = window.TubesCursor(canvasRef.current, {
           tubes: {
-            colors: ["#ff4500", "#ff8c00", "#ffd700", "#32cd32", "#00ced1"],
+            colors: ["#f97316", "#14b8a6", "#22c55e", "#fbbf24", "#0d9488"],
             lights: {
               intensity: 250,
-              colors: ["#ff0000", "#ff6600", "#ffcc00", "#00ff88", "#00cccc"]
+              colors: ["#ff6b00", "#2dd4bf", "#4ade80", "#fcd34d", "#14b8a6"]
             }
           }
         });
 
-        // Warm rainbow loop (no blue/purple)
+        // Orange, Teal, Green color loop (no blue/purple)
         let hue = 0;
+        const colorStops = [25, 45, 145, 174]; // Orange, Yellow-orange, Green, Teal
+        
         const rainbowLoop = () => {
           if (!isMounted) return;
           
-          hue = (hue + 1) % 180; // Only cycle through warm colors (0-180)
+          hue = (hue + 1) % 360;
 
-          const generateWarmColors = (count: number) => {
+          const generateColors = (count: number) => {
             return Array.from({ length: count }, (_, i) => {
-              // Map to warm colors: red (0), orange (30), yellow (60), green (120), teal (160)
-              const h = (hue + (i * (180 / count))) % 180;
-              return `hsl(${h}, 100%, 50%)`;
+              const stopIndex = i % colorStops.length;
+              const baseHue = colorStops[stopIndex];
+              const variation = (hue + (i * 10)) % 30 - 15;
+              return `hsl(${baseHue + variation}, 85%, 50%)`;
             });
           };
 
-          const tubeColors = generateWarmColors(10);
-          const lightColors = generateWarmColors(12);
+          const tubeColors = generateColors(10);
+          const lightColors = generateColors(12);
 
           if (appRef.current?.tubes) {
             appRef.current.tubes.setColors(tubeColors);
