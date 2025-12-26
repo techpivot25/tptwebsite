@@ -33,11 +33,8 @@ const About = () => {
 
       <div className="container px-6 lg:px-12 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-sm font-semibold text-primary uppercase tracking-widest">
-            ABOUT US
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mt-4 mb-6">
+        <div className="text-center max-w-3xl mx-auto mb-16 -mt-[50px]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-6">
             Your Trusted Partner in Delivering Ambitious AI Initiatives
           </h2>
           <p className="text-lg text-background/70">
