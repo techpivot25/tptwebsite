@@ -11,7 +11,7 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="py-16 md:py-20 bg-secondary/30 overflow-hidden">
+    <section className="py-16 md:py-20 bg-secondary/15 overflow-hidden">
       <div className="container px-6 lg:px-12 mb-10">
         <div className="text-center">
           <span className="text-sm font-medium tracking-wider text-muted-foreground uppercase mb-4 block">
