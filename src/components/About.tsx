@@ -24,9 +24,8 @@ const About = () => {
             <span className="text-sm font-semibold text-primary uppercase tracking-wider">
               About TechPivot
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-              <span className="text-foreground">Technology Partner for </span>
-              <span className="text-gradient">Digital Transformation</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-6">
+              Technology Partner for Digital Transformation
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
               TechPivot stands at the forefront of software and mobile app development. 
@@ -83,11 +82,11 @@ const About = () => {
               {/* Stats */}
               <div className="mt-8 pt-8 border-t border-border/50 grid grid-cols-2 gap-6">
                 <div>
-                  <div className="text-4xl font-bold text-gradient">500+</div>
+                  <div className="text-4xl font-bold text-foreground">500+</div>
                   <div className="text-sm text-muted-foreground mt-1">Projects Delivered</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-gradient">98%</div>
+                  <div className="text-4xl font-bold text-foreground">98%</div>
                   <div className="text-sm text-muted-foreground mt-1">Client Satisfaction</div>
                 </div>
               </div>
