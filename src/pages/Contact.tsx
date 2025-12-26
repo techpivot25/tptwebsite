@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -17,6 +17,12 @@ const Contact = () => {
     setFormData({ name: "", email: "", company: "", message: "" });
   };
 
+  const contactInfo = [
+    { icon: Mail, label: "Email", value: "hello@techpivot.com", href: "mailto:hello@techpivot.com" },
+    { icon: Phone, label: "Phone", value: "+1 (555) 123-4567", href: "tel:+15551234567" },
+    { icon: MapPin, label: "Offices", value: "India • USA • Canada • UAE", href: null },
+  ];
+
   return (
     <>
       <Helmet>
@@ -25,28 +31,118 @@ const Contact = () => {
       </Helmet>
       <div className="min-h-screen bg-background">
         <Header />
-        <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-          <div className="container px-6 lg:px-12">
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Get In Touch</h1>
-              <p className="text-lg text-muted-foreground">Ready to transform your business? Let's discuss your project.</p>
+        
+        {/* Hero Section */}
+        <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground relative overflow-hidden">
+          {/* Geometric decorations */}
+          <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
+          <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
+
+          <div className="container px-6 lg:px-12 relative z-10">
+            <div className="max-w-3xl">
+              <span className="text-sm font-semibold text-primary uppercase tracking-widest">
+                CONTACT US
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mt-4 mb-6">
+                Let's Build Something Great Together
+              </h1>
+              <p className="text-xl text-background/70">
+                Ready to transform your business? Let's discuss your project and explore how we can help.
+              </p>
             </div>
-            <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <Input placeholder="Your Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
-                <Input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
-                <Input placeholder="Company (Optional)" value={formData.company} onChange={(e) => setFormData({ ...formData, company: e.target.value })} />
-                <Textarea placeholder="Your Message" rows={5} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required />
-                <Button type="submit" size="lg" className="w-full">Send Message</Button>
-              </form>
-              <div className="space-y-8">
-                <div className="flex gap-4"><Mail className="w-6 h-6 text-primary" /><div><h3 className="font-semibold text-foreground">Email</h3><p className="text-muted-foreground">hello@techpivot.com</p></div></div>
-                <div className="flex gap-4"><Phone className="w-6 h-6 text-primary" /><div><h3 className="font-semibold text-foreground">Phone</h3><p className="text-muted-foreground">+1 (555) 123-4567</p></div></div>
-                <div className="flex gap-4"><MapPin className="w-6 h-6 text-primary" /><div><h3 className="font-semibold text-foreground">Offices</h3><p className="text-muted-foreground">India • USA • Canada • UAE</p></div></div>
+          </div>
+        </section>
+
+        {/* Contact Form Section */}
+        <section className="py-20 lg:py-28">
+          <div className="container px-6 lg:px-12">
+            <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
+              {/* Form */}
+              <div>
+                <h2 className="text-2xl font-bold text-foreground uppercase tracking-wide mb-8">
+                  Send Us a Message
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <Input 
+                      placeholder="Your Name" 
+                      value={formData.name} 
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
+                      required 
+                      className="h-12 border-border bg-card"
+                    />
+                    <Input 
+                      type="email" 
+                      placeholder="Email Address" 
+                      value={formData.email} 
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })} 
+                      required 
+                      className="h-12 border-border bg-card"
+                    />
+                  </div>
+                  <Input 
+                    placeholder="Company (Optional)" 
+                    value={formData.company} 
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })} 
+                    className="h-12 border-border bg-card"
+                  />
+                  <Textarea 
+                    placeholder="Tell us about your project..." 
+                    rows={6} 
+                    value={formData.message} 
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })} 
+                    required 
+                    className="border-border bg-card resize-none"
+                  />
+                  <Button type="submit" size="lg" className="w-full group">
+                    Send Message
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </form>
+              </div>
+
+              {/* Contact Info */}
+              <div className="lg:pl-12">
+                <h2 className="text-2xl font-bold text-foreground uppercase tracking-wide mb-8">
+                  Get in Touch
+                </h2>
+                <div className="space-y-8">
+                  {contactInfo.map((item) => (
+                    <div key={item.label} className="flex gap-4 p-4 border border-border rounded-xl hover:border-primary/50 transition-colors">
+                      <div className="w-12 h-12 rounded-lg border border-border bg-muted/50 flex items-center justify-center flex-shrink-0">
+                        <item.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground uppercase tracking-wide text-sm">{item.label}</h3>
+                        {item.href ? (
+                          <a href={item.href} className="text-muted-foreground hover:text-primary transition-colors">
+                            {item.value}
+                          </a>
+                        ) : (
+                          <p className="text-muted-foreground">{item.value}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Box */}
+                <div className="mt-12 p-8 bg-foreground text-background rounded-2xl">
+                  <h3 className="text-xl font-bold uppercase tracking-wide mb-4">
+                    Ready to Start?
+                  </h3>
+                  <p className="text-background/70 mb-6">
+                    Schedule a free consultation with our team to discuss your project requirements.
+                  </p>
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Schedule a Call
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </section>
+
         <Footer />
       </div>
     </>
