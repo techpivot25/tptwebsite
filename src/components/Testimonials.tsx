@@ -114,6 +114,7 @@ const Testimonials = () => {
             <button 
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
+              aria-label="Previous testimonial"
               className="w-10 h-10 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -121,6 +122,7 @@ const Testimonials = () => {
             <button 
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
+              aria-label="Next testimonial"
               className="w-10 h-10 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ChevronRight className="w-5 h-5" />
@@ -160,6 +162,8 @@ const Testimonials = () => {
                 <img 
                   src={testimonial.avatar} 
                   alt={testimonial.name}
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div>

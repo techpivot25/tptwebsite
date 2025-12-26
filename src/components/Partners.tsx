@@ -39,6 +39,8 @@ const Partners = () => {
               <img
                 src={partner.logo}
                 alt={partner.name}
+                width={160}
+                height={48}
                 className="max-h-10 md:max-h-12 w-auto object-contain"
                 loading="lazy"
               />
