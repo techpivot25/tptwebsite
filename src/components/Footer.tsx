@@ -36,8 +36,21 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-foreground text-background">
-      <div className="container px-6 lg:px-12 py-16 lg:py-20">
+    <footer className="bg-foreground text-background relative overflow-hidden">
+      {/* Large background text */}
+      <div 
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+        aria-hidden="true"
+      >
+        <span 
+          className="text-[120px] md:text-[200px] lg:text-[280px] font-bold uppercase tracking-tighter whitespace-nowrap"
+          style={{ color: 'rgba(29, 40, 57, 0.3)' }}
+        >
+          TECHPIVOT
+        </span>
+      </div>
+      
+      <div className="container px-6 lg:px-12 py-16 lg:py-20 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-1">
