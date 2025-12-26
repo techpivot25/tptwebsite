@@ -52,7 +52,7 @@ const Services = () => {
 
                 {/* Title with arrow */}
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors uppercase tracking-wide">
+                  <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors tracking-wide">
                     {service.title}
                   </h3>
                   <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0" />
