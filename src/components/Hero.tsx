@@ -68,28 +68,24 @@ const Hero = () => {
       {/* Hero Content */}
       <div className="relative z-10 container px-6 lg:px-12 py-20">
         <div className="max-w-5xl mx-auto text-center space-y-8">
-          {/* Eyebrow text */}
-          <div className="animate-fade-up">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card text-sm font-medium text-muted-foreground uppercase tracking-widest">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              Global Technology Partner
-            </span>
-          </div>
-
           {/* Main Heading - Linnify style bold uppercase */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[0.95] animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            <span className="block text-foreground">We Help Brands</span>
-            <span className="block text-foreground">Accelerate Their</span>
-            <span className="block text-gradient">Digital Initiatives</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[0.95] animate-fade-up">
+            <span className="block text-foreground">Built By AI,</span>
+            <span className="block text-gradient">Driven By Intelligence</span>
           </h1>
 
-          {/* Subheading */}
-          <p 
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up leading-relaxed" 
-            style={{ animationDelay: "0.2s" }}
+          {/* Core Values */}
+          <div 
+            className="animate-fade-up space-y-3" 
+            style={{ animationDelay: "0.1s" }}
           >
-            Your trusted partner in delivering on your most ambitious AI and digital transformation initiatives. From strategy to execution.
-          </p>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Built to Perform. Supported for Growth.
+            </p>
+            <p className="text-base md:text-lg text-primary font-medium tracking-wide">
+              Innovation | Excellence | Collaboration | Growth
+            </p>
+          </div>
 
           {/* CTA Buttons */}
           <div 
