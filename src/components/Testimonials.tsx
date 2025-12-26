@@ -93,7 +93,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden" style={{ backgroundColor: '#EAEAEA' }}>
+    <section className="py-24 lg:py-32 relative overflow-hidden">
       {/* Geometric decoration */}
       <div className="absolute top-0 right-1/4 w-px h-32 bg-gradient-to-b from-transparent via-border to-transparent" />
       
@@ -139,8 +139,8 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={testimonial.id}
-              className="scroll-item w-[350px] md:w-[400px] bg-background border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 animate-fade-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="scroll-item w-[350px] md:w-[400px] border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 animate-fade-up"
+              style={{ backgroundColor: '#EAEAEA', animationDelay: `${index * 0.1}s` }}
             >
               {/* Quote icon */}
               <Quote className="w-8 h-8 text-primary/20 mb-4" />
