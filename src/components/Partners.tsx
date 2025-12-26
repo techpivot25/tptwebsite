@@ -11,14 +11,11 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="py-16 md:py-20 bg-secondary/15 overflow-hidden">
+    <section className="py-16 md:py-20 overflow-hidden" style={{ backgroundColor: '#EAEAEA' }}>
       <div className="container px-6 lg:px-12 mb-10">
         <div className="text-center">
-          <span className="text-sm font-medium tracking-wider text-muted-foreground uppercase mb-4 block">
-            Trusted By
-          </span>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground uppercase">
-            OUR <span className="text-primary">PARTNERS</span>
+            Trusted By The <span className="text-primary">Best!</span>
           </h2>
         </div>
       </div>
