@@ -39,12 +39,12 @@ const Footer = () => {
     <footer className="bg-foreground text-background relative overflow-hidden">
       {/* Large background text */}
       <div 
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
       >
         <span 
-          className="text-[180px] md:text-[280px] lg:text-[380px] font-bold uppercase tracking-tighter whitespace-nowrap"
-          style={{ color: 'rgba(29, 40, 57, 0.3)' }}
+          className="text-[120px] md:text-[200px] lg:text-[300px] xl:text-[400px] font-bold uppercase tracking-tighter whitespace-nowrap opacity-[0.08]"
+          style={{ color: 'hsl(var(--background))' }}
         >
           TECHPIVOT
         </span>
