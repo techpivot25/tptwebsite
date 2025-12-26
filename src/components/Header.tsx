@@ -55,7 +55,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="TechPivot Logo" width={40} height={40} className="h-10 w-auto" />
-            <span className="font-bold text-lg text-foreground uppercase tracking-wide">TechPivot</span>
+            <span className="font-bold text-lg text-foreground tracking-wide">TechPivot</span>
           </Link>
 
           {/* Desktop Nav */}
