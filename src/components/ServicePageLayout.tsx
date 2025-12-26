@@ -120,7 +120,7 @@ const ServicePageLayout = ({
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-background/30 text-background hover:bg-background/10" asChild>
+                <Button size="lg" variant="outline" className="border-background/30 hover:bg-background/10" style={{ color: '#1D2839' }} asChild>
                   <Link to="/technologies">
                     View Technologies
                   </Link>
