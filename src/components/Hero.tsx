@@ -1,4 +1,4 @@
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -69,37 +69,6 @@ const GeometricShapes = () => {
   );
 };
 
-// Trust badges
-const TrustBadges = () => {
-  const badges = [
-    { rating: "5.0", label: "Clutch Reviews", icon: Star },
-    { rating: "98%", label: "Client Satisfaction" },
-    { rating: "500+", label: "Projects Delivered" },
-  ];
-
-  return (
-    <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-      {badges.map((badge, index) => (
-        <div 
-          key={badge.label}
-          className="flex items-center gap-3 animate-fade-up"
-          style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-        >
-          {badge.icon && (
-            <div className="flex items-center gap-0.5">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-primary text-primary" />
-              ))}
-            </div>
-          )}
-          <span className="font-bold text-foreground text-lg">{badge.rating}</span>
-          <span className="text-sm text-muted-foreground">{badge.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-};
-
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
@@ -155,10 +124,6 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Trust Badges */}
-          <div className="pt-16 animate-fade-up" style={{ animationDelay: "0.4s" }}>
-            <TrustBadges />
-          </div>
         </div>
       </div>
 
