@@ -68,45 +68,52 @@ const ServicePageLayout = ({
       <div className="min-h-screen bg-background">
         <Header />
         
-        {/* Hero Section */}
+        {/* Hero Section - Linnify style */}
         <section
           ref={heroRef}
-          className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-br from-foreground to-foreground/90 overflow-hidden"
+          className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-foreground overflow-hidden"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.15),transparent_50%)]" />
+          {/* Geometric decorations */}
+          <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
+          <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
+          <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-primary/40 rounded-full" />
+
           <div className="container px-6 lg:px-12 relative z-10">
             <div className="hero-content max-w-4xl">
               <Link
                 to="/#services"
-                className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors mb-6 group"
+                className="inline-flex items-center gap-2 text-background/60 hover:text-background transition-colors mb-8 group text-sm uppercase tracking-wide"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 Back to Services
               </Link>
               
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-xl border border-background/20 bg-background/5 flex items-center justify-center">
                   {icon}
                 </div>
-                <span className="text-sm font-semibold text-primary uppercase tracking-wider">
+                <span className="text-sm font-semibold text-primary uppercase tracking-widest">
                   {subtitle}
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mb-6">
                 {title}
               </h1>
-              <p className="text-xl text-primary-foreground/80 max-w-2xl">
+              <p className="text-xl text-background/70 max-w-2xl">
                 {description}
               </p>
 
-              <div className="flex flex-wrap gap-4 mt-8">
-                <Button variant="hero" size="lg" asChild>
-                  <Link to="/contact">Start Your Project</Link>
+              <div className="flex flex-wrap gap-4 mt-10">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground group" asChild>
+                  <Link to="/contact">
+                    Start Your Project
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
-                <Button variant="heroOutline" size="lg" asChild>
+                <Button size="lg" variant="outline" className="border-background/30 text-background hover:bg-background/10" asChild>
                   <Link to="/technologies">
-                    View Technologies <ArrowRight className="ml-2 w-4 h-4" />
+                    View Technologies
                   </Link>
                 </Button>
               </div>

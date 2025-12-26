@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* Orange, Teal, Black, White, Green palette */
+    /* Linnify-inspired: Black, White, Teal/Cyan palette */
     --background: 0 0% 100%;
     --foreground: 0 0% 5%;
 
@@ -16,52 +16,51 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
 
-    /* Vibrant Orange primary */
-    --primary: 25 95% 53%;
+    /* Teal/Cyan primary (Linnify style) */
+    --primary: 174 72% 40%;
     --primary-foreground: 0 0% 100%;
 
-    /* Teal secondary */
-    --secondary: 174 70% 41%;
+    /* Dark secondary */
+    --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 160 10% 94%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Green accent */
-    --accent: 145 65% 42%;
+    /* Teal accent */
+    --accent: 174 60% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 160 15% 85%;
-    --input: 160 10% 90%;
-    --ring: 25 95% 53%;
+    --border: 0 0% 90%;
+    --input: 0 0% 92%;
+    --ring: 174 72% 40%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Orange, Teal, Green gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5%) 0%, hsl(25 30% 10%) 50%, hsl(0 0% 8%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(160 15% 98%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(160 10% 97%) 100%);
-    --gradient-rainbow: linear-gradient(90deg, hsl(25 95% 53%), hsl(45 100% 50%), hsl(145 65% 42%), hsl(174 70% 41%));
-    --gradient-text: linear-gradient(135deg, hsl(25 95% 55%) 0%, hsl(145 65% 45%) 50%, hsl(174 70% 45%) 100%);
+    /* Clean gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5%) 0%, hsl(0 0% 8%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(174 72% 45%) 0%, hsl(174 60% 35%) 100%);
     
-    --shadow-soft: 0 4px 20px -4px hsl(25 95% 53% / 0.15);
-    --shadow-elevated: 0 12px 40px -8px hsl(25 95% 53% / 0.2);
-    --shadow-glow: 0 0 60px hsl(25 95% 53% / 0.25);
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.08);
+    --shadow-elevated: 0 12px 40px -8px hsl(0 0% 0% / 0.12);
+    --shadow-glow: 0 0 60px hsl(174 72% 40% / 0.2);
 
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 0 0% 20%;
-    --sidebar-primary: 25 95% 53%;
+    --sidebar-primary: 174 72% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 160 15% 95%;
+    --sidebar-accent: 0 0% 95%;
     --sidebar-accent-foreground: 0 0% 5%;
-    --sidebar-border: 160 15% 91%;
-    --sidebar-ring: 25 95% 53%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 174 72% 40%;
   }
 
   .dark {
@@ -74,36 +73,36 @@
     --popover: 0 0% 8%;
     --popover-foreground: 0 0% 95%;
 
-    /* Orange primary for dark mode */
-    --primary: 25 90% 55%;
+    /* Teal primary for dark mode */
+    --primary: 174 65% 50%;
     --primary-foreground: 0 0% 5%;
 
-    /* Teal secondary */
-    --secondary: 174 65% 45%;
+    /* Light secondary */
+    --secondary: 0 0% 95%;
     --secondary-foreground: 0 0% 5%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
 
-    /* Green accent */
-    --accent: 145 60% 45%;
+    /* Teal accent */
+    --accent: 174 55% 45%;
     --accent-foreground: 0 0% 5%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 160 15% 20%;
-    --input: 160 10% 18%;
-    --ring: 25 90% 55%;
+    --border: 0 0% 18%;
+    --input: 0 0% 15%;
+    --ring: 174 65% 50%;
 
     --sidebar-background: 0 0% 8%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 25 90% 55%;
+    --sidebar-primary: 174 65% 50%;
     --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 160 20% 15%;
+    --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 160 10% 15%;
-    --sidebar-ring: 25 90% 55%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 174 65% 50%;
   }
 }
 
@@ -125,19 +124,7 @@
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 50%, hsl(var(--secondary)) 100%);
-  }
-
-  .text-gradient-rainbow {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(90deg, hsl(25 95% 55%), hsl(45 100% 50%), hsl(145 65% 45%), hsl(174 70% 45%));
-    background-size: 200% auto;
-    animation: gradientShift 3s ease infinite;
-  }
-
-  .text-gradient-warm {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(25 95% 55%) 0%, hsl(145 65% 45%) 100%);
+    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(174 50% 55%) 100%);
   }
 
   .animate-fade-up {
@@ -162,7 +149,25 @@
   }
 
   .glow-text {
-    text-shadow: 0 0 40px hsl(25 95% 53% / 0.5), 0 0 80px hsl(174 70% 41% / 0.3);
+    text-shadow: 0 0 40px hsl(174 72% 40% / 0.4);
+  }
+
+  /* Horizontal scroll container */
+  .scroll-container {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-item {
+    scroll-snap-align: start;
+    flex-shrink: 0;
   }
 }
 
@@ -194,14 +199,5 @@
   to {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
   }
 }
