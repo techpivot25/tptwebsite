@@ -41,18 +41,6 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-foreground/40 via-foreground/50 to-background" />
       </div>
 
-      {/* Content */}
-      <div className="container relative z-10 px-6 lg:px-12 pt-24 pb-16">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 animate-fade-up backdrop-blur-sm">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">
-              Innovation • Excellence • Collaboration • Growth
-            </span>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
