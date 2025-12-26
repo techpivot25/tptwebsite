@@ -59,12 +59,9 @@ const CaseStudies = () => {
 
       <div className="container px-6 lg:px-12 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 -mt-[75px]">
           <div>
-            <span className="text-sm font-semibold text-primary uppercase tracking-widest">
-              CASE STUDIES
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mt-4 text-foreground">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-foreground">
               Featured Work
             </h2>
           </div>
