@@ -22,6 +22,7 @@ import Consultancy from "./pages/services/Consultancy";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTop from "./components/ScrollToTop";
+import ChatBot from "./components/ChatBot";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
           </Routes>
           <WhatsAppButton />
           <ScrollToTop />
+          <ChatBot />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
