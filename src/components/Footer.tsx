@@ -43,10 +43,10 @@ const Footer = () => {
         aria-hidden="true"
       >
         <span 
-          className="text-[120px] md:text-[200px] lg:text-[300px] xl:text-[400px] font-bold uppercase tracking-tighter whitespace-nowrap opacity-[0.08]"
+          className="text-[84px] md:text-[140px] lg:text-[210px] xl:text-[280px] font-bold tracking-tighter whitespace-nowrap opacity-[0.08]"
           style={{ color: 'hsl(var(--background))' }}
         >
-          TECHPIVOT
+          TechPivot
         </span>
       </div>
       
