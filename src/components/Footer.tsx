@@ -104,15 +104,15 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
                   <Mail size={14} className="text-primary" />
                 </div>
-                <a href="mailto:contact@techpivot.com" className="hover:text-primary transition-colors">
-                  contact@techpivot.com
+              <a href="mailto:info@techpivot.in" className="hover:text-primary transition-colors">
+                  info@techpivot.in
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
                   <Phone size={14} className="text-primary" />
                 </div>
-                <span>+1 (123) 456-7890</span>
+                <span>+91 7838379095</span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
