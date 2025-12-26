@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Contact from "./pages/Contact";
 import Technologies from "./pages/Technologies";
 import Careers from "./pages/Careers";
+import About from "./pages/About";
 import AgenticAI from "./pages/services/AgenticAI";
 import GenerativeAI from "./pages/services/GenerativeAI";
 import SaaSPlatform from "./pages/services/SaaSPlatform";
@@ -32,6 +33,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/technologies" element={<Technologies />} />

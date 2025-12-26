@@ -86,7 +86,7 @@ const Header = () => {
             <Link to="/technologies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
               Technologies
             </Link>
-            <Link to="/#about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
               About
             </Link>
             <Link to="/careers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
@@ -131,7 +131,7 @@ const Header = () => {
                 )}
               </div>
               <Link to="/technologies" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Technologies</Link>
-              <Link to="/#about" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">About</Link>
+              <Link to="/about" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">About</Link>
               <Link to="/careers" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Careers</Link>
               <Link to="/contact" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Contact</Link>
               <Button className="mt-4 w-full" size="lg" asChild>
