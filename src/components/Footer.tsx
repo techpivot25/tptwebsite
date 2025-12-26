@@ -23,6 +23,7 @@ const Footer = () => {
     { label: "About Us", href: "/#about" },
     { label: "Case Studies", href: "/#case-studies" },
     { label: "Technologies", href: "/technologies" },
+    { label: "Careers", href: "/careers" },
     { label: "Testimonials", href: "/#testimonials" },
     { label: "Contact", href: "/contact" },
   ];
