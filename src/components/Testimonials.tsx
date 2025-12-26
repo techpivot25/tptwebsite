@@ -99,12 +99,9 @@ const Testimonials = () => {
       
       <div className="container px-6 lg:px-12 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 -mt-[100px]">
           <div>
-            <span className="text-sm font-semibold text-primary uppercase tracking-widest">
-              TESTIMONIALS
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mt-4 text-foreground">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-foreground">
               What Clients Say
             </h2>
           </div>
@@ -178,26 +175,8 @@ const Testimonials = () => {
           ))}
         </div>
 
-        {/* Trust indicator */}
-        <div className="mt-12 pt-8 border-t border-border flex flex-wrap items-center justify-center gap-8">
-          <div className="flex items-center gap-2">
-            <div className="flex">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-              ))}
-            </div>
-            <span className="font-bold text-foreground">5.0</span>
-            <span className="text-muted-foreground">on Clutch</span>
-          </div>
-          <div className="h-6 w-px bg-border" />
-          <div className="text-muted-foreground">
-            <span className="font-bold text-foreground">98%</span> Client Satisfaction
-          </div>
-          <div className="h-6 w-px bg-border" />
-          <div className="text-muted-foreground">
-            <span className="font-bold text-foreground">500+</span> Projects Delivered
-          </div>
-        </div>
+        {/* Spacer */}
+        <div className="-mb-[50px]" />
       </div>
     </section>
   );
