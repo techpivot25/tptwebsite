@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import logo from "@/assets/techpivot-logo.jpg";
 
 const services = [
@@ -35,25 +35,33 @@ const Header = () => {
   }, [location]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-background/80 backdrop-blur-xl shadow-soft border-b border-border/50" : "bg-transparent"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border" : "bg-transparent"}`}>
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="TechPivot Logo" className="h-10 w-auto" />
-            <span className="font-semibold text-lg text-foreground">TechPivot</span>
+            <span className="font-bold text-lg text-foreground uppercase tracking-wide">TechPivot</span>
           </Link>
 
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Home</Link>
+            <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+              Home
+            </Link>
             <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
                 Services <ChevronDown className="w-4 h-4" />
               </button>
               {isServicesOpen && (
                 <div className="absolute top-full left-0 pt-2 w-64 animate-fade-in">
-                  <div className="bg-card border border-border rounded-xl shadow-elevated p-2">
+                  <div className="bg-card border border-border rounded-xl shadow-lg p-2">
                     {services.map((s) => (
-                      <Link key={s.href} to={s.href} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors">
+                      <Link 
+                        key={s.href} 
+                        to={s.href} 
+                        className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/10 rounded-lg transition-colors"
+                      >
                         {s.label}
                       </Link>
                     ))}
@@ -61,40 +69,56 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <Link to="/technologies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Technologies</Link>
-            <Link to="/#about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</Link>
-            <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
+            <Link to="/technologies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+              Technologies
+            </Link>
+            <Link to="/#about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+              About
+            </Link>
+            <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+              Contact
+            </Link>
           </nav>
 
+          {/* CTA Button */}
           <div className="hidden md:block">
-            <Button size="lg" asChild><Link to="/contact">Get Started</Link></Button>
+            <Button size="lg" className="group" asChild>
+              <Link to="/contact">
+                Get Started
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <button className="md:hidden p-2 text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-6 border-t border-border/50 animate-fade-in">
+          <div className="md:hidden py-6 border-t border-border animate-fade-in">
             <nav className="flex flex-col gap-2">
-              <Link to="/" className="py-2 text-base font-medium text-muted-foreground hover:text-foreground">Home</Link>
+              <Link to="/" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Home</Link>
               <div className="py-2">
-                <button onClick={() => setIsServicesOpen(!isServicesOpen)} className="flex items-center justify-between w-full text-base font-medium text-muted-foreground">
+                <button onClick={() => setIsServicesOpen(!isServicesOpen)} className="flex items-center justify-between w-full text-base font-medium text-foreground uppercase tracking-wide">
                   Services <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isServicesOpen && (
-                  <div className="mt-2 pl-4 space-y-2">
+                  <div className="mt-2 pl-4 space-y-2 border-l border-border">
                     {services.map((s) => (
-                      <Link key={s.href} to={s.href} className="block py-1 text-sm text-muted-foreground hover:text-foreground">{s.label}</Link>
+                      <Link key={s.href} to={s.href} className="block py-2 text-sm text-muted-foreground hover:text-foreground">{s.label}</Link>
                     ))}
                   </div>
                 )}
               </div>
-              <Link to="/technologies" className="py-2 text-base font-medium text-muted-foreground hover:text-foreground">Technologies</Link>
-              <Link to="/#about" className="py-2 text-base font-medium text-muted-foreground hover:text-foreground">About</Link>
-              <Link to="/contact" className="py-2 text-base font-medium text-muted-foreground hover:text-foreground">Contact</Link>
-              <Button className="mt-4 w-full" size="lg" asChild><Link to="/contact">Get Started</Link></Button>
+              <Link to="/technologies" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Technologies</Link>
+              <Link to="/#about" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">About</Link>
+              <Link to="/contact" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Contact</Link>
+              <Button className="mt-4 w-full" size="lg" asChild>
+                <Link to="/contact">Get Started</Link>
+              </Button>
             </nav>
           </div>
         )}

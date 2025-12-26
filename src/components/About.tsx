@@ -1,11 +1,13 @@
-import { CheckCircle2, MapPin } from "lucide-react";
+import { CheckCircle2, MapPin, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const highlights = [
-    "Preferred technology partner for enterprises across North and South America",
-    "98% client satisfaction rate with measurable results",
-    "Round-the-clock support ensuring your projects never sleep",
-    "Deep cultural understanding and optimal time zone coverage",
+    "Fast execution with agile development practices",
+    "Strategic growth partnership for scaling businesses",
+    "Agentic AI expertise for intelligent automation",
+    "Reliable scaling with enterprise-grade infrastructure",
   ];
 
   const locations = [
@@ -15,81 +17,96 @@ const About = () => {
     { name: "Dubai, UAE", type: "Middle East Operations" },
   ];
 
-  return (
-    <section id="about" className="py-24 lg:py-32 bg-gradient-to-b from-background to-secondary/5">
-      <div className="container px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <div>
-            <span className="text-sm font-semibold text-primary uppercase tracking-wider">
-              About TechPivot
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-6">
-              Technology Partner for Digital Transformation
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              TechPivot stands at the forefront of software and mobile app development. 
-              With proven expertise in digital transformation, we've successfully delivered 
-              projects that have revolutionized how businesses operate, compete, and grow 
-              in today's digital economy.
-            </p>
-            <p className="text-muted-foreground mb-8">
-              We don't just build technology; we craft solutions that transform businesses 
-              and create lasting competitive advantages.
-            </p>
+  const stats = [
+    { value: "500+", label: "Projects Delivered" },
+    { value: "98%", label: "Client Satisfaction" },
+    { value: "50+", label: "Expert Engineers" },
+    { value: "24/7", label: "Global Support" },
+  ];
 
-            {/* Highlights */}
+  return (
+    <section id="about" className="py-24 lg:py-32 bg-foreground text-background relative overflow-hidden">
+      {/* Geometric decorations */}
+      <div className="absolute top-0 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-background/20 to-transparent" />
+      <div className="absolute -top-32 -right-32 w-64 h-64 border border-background/10 rounded-full" />
+      <div className="absolute bottom-20 left-20 w-24 h-24 border border-primary/30 rounded-full" />
+
+      <div className="container px-6 lg:px-12 relative z-10">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-sm font-semibold text-primary uppercase tracking-widest">
+            ABOUT US
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mt-4 mb-6">
+            Your Trusted Partner in Delivering Ambitious AI Initiatives
+          </h2>
+          <p className="text-lg text-background/70">
+            TechPivot stands at the forefront of software and AI development, helping leading brands accelerate their digital initiatives.
+          </p>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          {stats.map((stat, index) => (
+            <div 
+              key={stat.label}
+              className="text-center p-6 border border-background/10 rounded-xl hover:border-primary/50 transition-colors animate-fade-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</div>
+              <div className="text-sm text-background/60 uppercase tracking-wide">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left - Key Benefits */}
+          <div className="space-y-6">
+            <h3 className="text-xl font-semibold uppercase tracking-wide mb-6">Key Benefits</h3>
             <ul className="space-y-4">
               {highlights.map((item, index) => (
-                <li key={item} className="flex items-start gap-3 animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mt-0.5 flex-shrink-0">
+                <li 
+                  key={item} 
+                  className="flex items-start gap-3 p-4 border border-background/10 rounded-xl hover:border-primary/30 transition-colors animate-fade-up" 
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <CheckCircle2 className="w-4 h-4 text-primary" />
                   </div>
-                  <span className="text-foreground">{item}</span>
+                  <span className="text-background/90">{item}</span>
                 </li>
               ))}
             </ul>
+
+            <Button 
+              size="lg" 
+              className="mt-6 bg-primary hover:bg-primary/90 text-foreground group"
+              asChild
+            >
+              <Link to="/contact">
+                Work With Us
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
           </div>
 
-          {/* Right Content - Locations */}
-          <div className="bg-card rounded-2xl border border-border/50 p-8 shadow-soft relative overflow-hidden">
-            {/* Gradient decoration */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-accent/10 to-transparent rounded-tr-full" />
-            
-            <div className="relative z-10">
-              <h3 className="text-xl font-semibold text-foreground mb-6">
-                Global Presence
-              </h3>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {locations.map((location, index) => (
-                  <div
-                    key={location.name}
-                    className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-br from-secondary/30 to-accent/10 hover:from-secondary/50 hover:to-accent/20 transition-all duration-300"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <MapPin className="w-4 h-4 text-primary" />
-                    </div>
-                    <div>
-                      <div className="font-medium text-foreground">{location.name}</div>
-                      <div className="text-sm text-muted-foreground">{location.type}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Stats */}
-              <div className="mt-8 pt-8 border-t border-border/50 grid grid-cols-2 gap-6">
-                <div>
-                  <div className="text-4xl font-bold text-foreground">500+</div>
-                  <div className="text-sm text-muted-foreground mt-1">Projects Delivered</div>
+          {/* Right - Global Presence */}
+          <div className="bg-background/5 border border-background/10 rounded-2xl p-8">
+            <h3 className="text-xl font-semibold uppercase tracking-wide mb-6 flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-primary" />
+              Global Presence
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {locations.map((location, index) => (
+                <div
+                  key={location.name}
+                  className="p-4 bg-background/5 border border-background/10 rounded-xl hover:border-primary/30 transition-colors animate-fade-up"
+                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+                >
+                  <div className="font-medium text-background">{location.name}</div>
+                  <div className="text-sm text-background/60">{location.type}</div>
                 </div>
-                <div>
-                  <div className="text-4xl font-bold text-foreground">98%</div>
-                  <div className="text-sm text-muted-foreground mt-1">Client Satisfaction</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
