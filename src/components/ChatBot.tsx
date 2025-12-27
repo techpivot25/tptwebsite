@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
 type Message = {
   role: "user" | "assistant";
@@ -33,7 +34,24 @@ const SERVICES = [
   "End-to-End Delivery",
   "IoT Solutions",
   "Consultancy",
-];
+] as const;
+
+// Validation schemas
+const userDetailsSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  company: z.string().trim().min(1, "Company is required").max(200, "Company name must be less than 200 characters"),
+  mobile: z.string().trim().min(1, "Mobile number is required").max(20, "Mobile number is too long").regex(
+    /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}$/,
+    "Please enter a valid phone number"
+  ),
+  email: z.string().trim().email("Please enter a valid email address").max(254, "Email is too long"),
+  service: z.enum(SERVICES, { errorMap: () => ({ message: "Please select a service" }) }),
+});
+
+const messageSchema = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string().min(1).max(4000, "Message is too long (max 4000 characters)"),
+});
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,15 +124,21 @@ const ChatBot = () => {
     setIsSubmitting(true);
 
     try {
+      // Validate user details with Zod
+      const validatedDetails = userDetailsSchema.parse(userDetails);
+      
+      // Validate messages
+      const validatedMessages = messages.map(msg => messageSchema.parse(msg));
+
       const { data, error } = await supabase
         .from("chat_sessions")
         .insert({
-          name: userDetails.name.trim(),
-          company: userDetails.company.trim(),
-          mobile: userDetails.mobile.trim(),
-          email: userDetails.email.trim(),
-          service: userDetails.service,
-          messages: messages,
+          name: validatedDetails.name,
+          company: validatedDetails.company,
+          mobile: validatedDetails.mobile,
+          email: validatedDetails.email,
+          service: validatedDetails.service,
+          messages: validatedMessages,
         })
         .select("id")
         .single();
@@ -128,7 +152,7 @@ const ChatBot = () => {
       setMessages([
         {
           role: "assistant",
-          content: `Hi ${userDetails.name}! I'm TechBot, TechPivot's AI Assistant. I see you're interested in ${userDetails.service}. How can I help you today?`,
+          content: `Hi ${validatedDetails.name}! I'm TechBot, TechPivot's AI Assistant. I see you're interested in ${validatedDetails.service}. How can I help you today?`,
         },
       ]);
 
@@ -138,6 +162,18 @@ const ChatBot = () => {
       });
     } catch (error) {
       console.error("Error starting chat:", error);
+      
+      // Handle Zod validation errors
+      if (error instanceof z.ZodError) {
+        toast({
+          variant: "destructive",
+          title: "Validation Error",
+          description: error.errors[0].message,
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      
       toast({
         variant: "destructive",
         title: "Error",
@@ -151,14 +187,20 @@ const ChatBot = () => {
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = { role: "user", content: input.trim() };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-    setIsLoading(true);
-
-    let assistantContent = "";
-
+    // Validate message length
+    const trimmedInput = input.trim().slice(0, 4000);
+    
     try {
+      // Validate the message
+      messageSchema.parse({ role: "user", content: trimmedInput });
+      
+      const userMessage: Message = { role: "user", content: trimmedInput };
+      setMessages((prev) => [...prev, userMessage]);
+      setInput("");
+      setIsLoading(true);
+
+      let assistantContent = "";
+
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
