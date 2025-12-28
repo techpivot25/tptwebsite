@@ -11,7 +11,7 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="py-16 md:py-20 overflow-hidden" style={{ backgroundColor: '#EAEAEA' }}>
+    <section className="py-16 md:py-20 overflow-hidden relative">
       <div className="container px-6 lg:px-12 mb-10">
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground uppercase">

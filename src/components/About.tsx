@@ -1,6 +1,7 @@
 import { CheckCircle2, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const About = () => {
   const highlights = [
@@ -18,10 +19,10 @@ const About = () => {
   ];
 
   const stats = [
-    { value: "500+", label: "Projects Delivered" },
-    { value: "98%", label: "Client Satisfaction" },
-    { value: "50+", label: "Expert Engineers" },
-    { value: "24/7", label: "Global Support" },
+    { end: 500, suffix: "+", label: "Projects Delivered" },
+    { end: 98, suffix: "%", label: "Client Satisfaction" },
+    { end: 50, suffix: "+", label: "Expert Engineers" },
+    { end: 24, suffix: "/7", label: "Global Support" },
   ];
 
   return (
@@ -45,12 +46,12 @@ const About = () => {
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {stats.map((stat, index) => (
-            <div 
+            <div
               key={stat.label}
               className="text-center p-6 border border-background/10 rounded-xl hover:border-primary/50 transition-colors animate-fade-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</div>
+              <AnimatedCounter end={stat.end} suffix={stat.suffix} duration={2.4} className="text-4xl md:text-5xl font-bold text-primary mb-2" />
               <div className="text-sm text-background/60 uppercase tracking-wide">{stat.label}</div>
             </div>
           ))}
@@ -62,9 +63,9 @@ const About = () => {
             <h3 className="text-xl font-semibold uppercase tracking-wide mb-6">Key Benefits</h3>
             <ul className="space-y-4">
               {highlights.map((item, index) => (
-                <li 
-                  key={item} 
-                  className="flex items-start gap-3 p-4 border border-background/10 rounded-xl hover:border-primary/30 transition-colors animate-fade-up" 
+                <li
+                  key={item}
+                  className="flex items-start gap-3 p-4 border border-background/10 rounded-xl hover:border-primary/30 transition-colors animate-fade-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
@@ -75,8 +76,8 @@ const About = () => {
               ))}
             </ul>
 
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="mt-6 bg-primary hover:bg-primary/90 text-foreground group"
               asChild
             >

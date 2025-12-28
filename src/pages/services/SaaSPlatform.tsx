@@ -1,5 +1,7 @@
+import { Helmet } from "react-helmet-async";
 import { Cloud, Layers, Key, Users, Zap, Shield, Database, Globe, CreditCard, BarChart } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { GLOBAL_AREA_SERVED, OG_LOCALE_ALTERNATES } from "@/lib/seo";
 
 const features = [
   { icon: Layers, title: "Multi-Tenancy Architecture", description: "Isolated data and customizable experiences for each customer" },
@@ -30,52 +32,98 @@ const solutions = [
 
 const SaaSPlatform = () => {
   return (
-    <ServicePageLayout
-      title="SaaS Platform Development"
-      subtitle="Cloud-Native Solutions"
-      description="Build secure, scalable cloud-native applications with APIs, microservices, multi-tenancy, and AI integration for rapid MVPs and subscription businesses."
-      icon={<Cloud className="w-8 h-8 text-primary" />}
-    >
-      {/* Features */}
-      <section className="py-20 lg:py-28 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Enterprise-Grade Features
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature) => (
-              <div key={feature.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <>
+      <Helmet>
+        <title>SaaS Platform Development | TechPivot</title>
+        <meta name="description" content="Secure, scalable cloud-native SaaS with multi-tenancy, APIs, and AI integration." />
+        <link rel="canonical" href="https://techpivot.in/services/saas-platform" />
+        <meta property="og:title" content="SaaS Platform Development | TechPivot" />
+        <meta property="og:description" content="Secure, scalable cloud-native SaaS solutions with enterprise features." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://techpivot.in/services/saas-platform" />
+        <meta property="og:image" content="https://techpivot.in/og/services/saas-platform.jpg" />
+        <meta property="og:site_name" content="TechPivot" />
+        <meta property="og:locale" content="en_US" />
+        {OG_LOCALE_ALTERNATES.map(locale => (
+          <meta key={`og-locale-${locale}`} property="og:locale:alternate" content={locale} />
+        ))}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="SaaS Platform Development | TechPivot" />
+        <meta name="twitter:description" content="Secure, scalable cloud-native SaaS solutions with enterprise features." />
+        <meta name="twitter:image" content="https://techpivot.in/og/services/saas-platform.jpg" />
 
-      {/* Solutions */}
-      <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            SaaS Solutions We Deliver
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {solutions.map((solution) => (
-              <div key={solution.title} className="p-8 bg-card rounded-2xl border border-border/50 hover-lift">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <solution.icon className="w-6 h-6 text-primary" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://techpivot.in/services/saas-platform#service",
+              "name": "SaaS Platform Development",
+              "serviceType": "Cloud-Native SaaS",
+              "description": "Build secure, scalable cloud-native applications with APIs, microservices, multi-tenancy, and AI integration.",
+              "provider": {
+                "@type": "Organization",
+                "@id": "https://techpivot.in/#organization",
+                "name": "TechPivot Technologies & Consulting",
+                "url": "https://techpivot.in/",
+                "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)}
+              },
+              "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)},
+              "availableChannel": {
+                "@type": "ServiceChannel",
+                "serviceUrl": "https://techpivot.in/services/saas-platform"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+      <ServicePageLayout
+        title="SaaS Platform Development"
+        subtitle="Cloud-Native Solutions"
+        description="Build secure, scalable cloud-native applications with APIs, microservices, multi-tenancy, and AI integration for rapid MVPs and subscription businesses."
+        icon={<Cloud className="w-8 h-8 text-primary" />}
+      >
+        {/* Features */}
+        <section className="py-20 lg:py-28 animate-section">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              Enterprise-Grade Features
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {features.map((feature) => (
+                <div key={feature.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                    <feature.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{solution.title}</h3>
-                <p className="text-muted-foreground">{solution.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </ServicePageLayout>
+        </section>
+
+        {/* Solutions */}
+        <section className="py-20 lg:py-28 animate-section relative">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              SaaS Solutions We Deliver
+            </h2>
+            <div className="grid lg:grid-cols-3 gap-8">
+              {solutions.map((solution) => (
+                <div key={solution.title} className="p-8 bg-card rounded-2xl border border-border/50 hover-lift">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <solution.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">{solution.title}</h3>
+                  <p className="text-muted-foreground">{solution.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ServicePageLayout>
+    </>
   );
 };
 

@@ -24,6 +24,19 @@ const Header = () => {
   const location = useLocation();
   const rafRef = useRef<number | null>(null);
 
+  // Determine if white text should be used (only on Technologies and Contact pages)
+  const isWhiteTextPage = location.pathname === '/technologies'
+    || location.pathname === '/contact' ||
+    location.pathname === '/services/agentic-ai' || location.pathname === '/services/generative-ai'
+    || location.pathname === '/services/saas-platform' || location.pathname === '/services/web-development'
+    || location.pathname === '/services/mobile-app' || location.pathname === '/services/cloud-security'
+    || location.pathname === '/services/custom-software' || location.pathname === '/services/staff-augmentation'
+    || location.pathname === '/services/iot' || location.pathname === '/services/consultancy'
+    ;
+  const textColor =  'text-muted-foreground';
+  const textHoverColor = 'hover:text-foreground';
+
+
   const handleScroll = useCallback(() => {
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
@@ -55,25 +68,28 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="TechPivot Logo" width={40} height={40} className="h-10 w-auto" />
-            <span className="font-bold text-lg text-foreground tracking-wide">TechPivot</span>
+            <div className="leading-tight">
+              <div className="font-extrabold text-lg text-foreground tracking-wide uppercase">TechPivot</div>
+              <div className="text-[11px] md:text-xs text-muted-foreground tracking-[0.16em] uppercase ml-1">Technologies & Consulting</div>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/" className={`text-sm font-medium ${textColor} ${textHoverColor} transition-colors uppercase tracking-wide`}>
               Home
             </Link>
             <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+              <button className={`flex items-center gap-1 text-sm font-medium ${textColor} ${textHoverColor} transition-colors uppercase tracking-wide`}>
                 Services <ChevronDown className="w-4 h-4" />
               </button>
               {isServicesOpen && (
                 <div className="absolute top-full left-0 pt-2 w-64 animate-fade-in">
                   <div className="bg-card border border-border rounded-xl shadow-lg p-2">
                     {services.map((s) => (
-                      <Link 
-                        key={s.href} 
-                        to={s.href} 
+                      <Link
+                        key={s.href}
+                        to={s.href}
                         className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/10 rounded-lg transition-colors"
                       >
                         {s.label}
@@ -83,16 +99,16 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <Link to="/technologies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/technologies" className={`text-sm font-medium ${textColor} ${textHoverColor} transition-colors uppercase tracking-wide`}>
               Technologies
             </Link>
-            <Link to="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/about" className={`text-sm font-medium ${textColor} ${textHoverColor} transition-colors uppercase tracking-wide`}>
               About
             </Link>
-            <Link to="/careers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/careers" className={`text-sm font-medium ${textColor} ${textHoverColor} transition-colors uppercase tracking-wide`}>
               Careers
             </Link>
-            <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/contact" className={`text-sm font-medium ${textColor} ${textHoverColor} transition-colors uppercase tracking-wide`}>
               Contact
             </Link>
           </nav>
@@ -115,7 +131,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-6 border-t border-border animate-fade-in">
+          <div className="md:hidden py-6 border-t border-border animate-fade-in bg-background/60 backdrop-blur-sm">
             <nav className="flex flex-col gap-2">
               <Link to="/" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Home</Link>
               <div className="py-2">

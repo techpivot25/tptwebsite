@@ -1,6 +1,8 @@
+import { Helmet } from "react-helmet-async";
 import { Code, Database, Cloud, Link, RefreshCw, Shield, Building, Heart, FileText, Factory } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import ServiceFAQ from "@/components/ServiceFAQ";
+import { GLOBAL_AREA_SERVED, OG_LOCALE_ALTERNATES } from "@/lib/seo";
 
 const services = [
   { icon: Code, title: "Custom Application Development", description: "Tailored software solutions designed to address your specific business challenges" },
@@ -52,76 +54,122 @@ const faqs = [
 
 const CustomSoftware = () => {
   return (
-    <ServicePageLayout
-      title="Custom Software Development"
-      subtitle="Tailored Solutions"
-      description="Delivering tailored software solutions built around your unique business processes and objectives for efficiency and growth."
-      icon={<Code className="w-8 h-8 text-primary" />}
-    >
-      {/* Services */}
-      <section className="py-20 lg:py-28 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-6">
-            Our Custom Development Services
-          </h2>
-          <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-16">
-            End-to-end software development tailored to your specific needs
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <div key={service.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <service.icon className="w-6 h-6 text-primary" />
+    <>
+      <Helmet>
+        <title>Custom Software Development | TechPivot</title>
+        <meta name="description" content="Tailored software solutions built around your unique processes and objectives." />
+        <link rel="canonical" href="https://techpivot.in/services/custom-software" />
+        <meta property="og:title" content="Custom Software Development | TechPivot" />
+        <meta property="og:description" content="Tailored software solutions built around your unique processes and objectives." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://techpivot.in/services/custom-software" />
+        <meta property="og:image" content="https://techpivot.in/og/services/custom-software.jpg" />
+        <meta property="og:site_name" content="TechPivot" />
+        <meta property="og:locale" content="en_US" />
+        {OG_LOCALE_ALTERNATES.map(locale => (
+          <meta key={`og-locale-${locale}`} property="og:locale:alternate" content={locale} />
+        ))}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Custom Software Development | TechPivot" />
+        <meta name="twitter:description" content="Tailored software solutions built around your unique processes and objectives." />
+        <meta name="twitter:image" content="https://techpivot.in/og/services/custom-software.jpg" />
+
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://techpivot.in/services/custom-software#service",
+              "name": "Custom Software Development",
+              "serviceType": "Software Development",
+              "description": "Tailored software solutions built around your unique business processes and objectives.",
+              "provider": {
+                "@type": "Organization",
+                "@id": "https://techpivot.in/#organization",
+                "name": "TechPivot Technologies & Consulting",
+                "url": "https://techpivot.in/",
+                "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)}
+              },
+              "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)},
+              "availableChannel": {
+                "@type": "ServiceChannel",
+                "serviceUrl": "https://techpivot.in/services/custom-software"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+      <ServicePageLayout
+        title="Custom Software Development"
+        subtitle="Tailored Solutions"
+        description="Delivering tailored software solutions built around your unique business processes and objectives for efficiency and growth."
+        icon={<Code className="w-8 h-8 text-primary" />}
+      >
+        {/* Services */}
+        <section className="py-20 lg:py-28 animate-section">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-6">
+              Our Custom Development Services
+            </h2>
+            <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-16">
+              End-to-end software development tailored to your specific needs
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((service) => (
+                <div key={service.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                    <service.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{service.title}</h3>
+                  <p className="text-muted-foreground">{service.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-muted-foreground">{service.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Process */}
-      <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Our Development Process
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {process.map((step) => (
-              <div key={step.step} className="p-6 bg-card rounded-xl border border-border/50">
-                <div className="text-3xl font-bold text-primary/30 mb-3">{step.step}</div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Industries */}
-      <section className="py-20 lg:py-28 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Industries We Serve
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {industries.map((industry) => (
-              <div key={industry.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                  <industry.icon className="w-6 h-6 text-primary" />
+        {/* Process */}
+        <section className="py-20 lg:py-28 animate-section relative">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              Our Development Process
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {process.map((step) => (
+                <div key={step.step} className="p-6 bg-card rounded-xl border border-border/50">
+                  <div className="text-3xl font-bold text-primary/30 mb-3">{step.step}</div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground">{step.description}</p>
                 </div>
-                <h3 className="font-semibold text-foreground mb-2">{industry.title}</h3>
-                <p className="text-sm text-muted-foreground">{industry.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ */}
-      <ServiceFAQ faqs={faqs} serviceName="Custom Software Development" />
-    </ServicePageLayout>
+        {/* Industries */}
+        <section className="py-20 lg:py-28 animate-section">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              Industries We Serve
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {industries.map((industry) => (
+                <div key={industry.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift text-center">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                    <industry.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-2">{industry.title}</h3>
+                  <p className="text-sm text-muted-foreground">{industry.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <ServiceFAQ faqs={faqs} serviceName="Custom Software Development" />
+      </ServicePageLayout>
+    </>
   );
 };
 

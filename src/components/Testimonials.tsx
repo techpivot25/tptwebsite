@@ -60,7 +60,7 @@ const Testimonials = () => {
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
     }
-    
+
     // Use RAF to batch the DOM reads and state updates
     rafRef.current = requestAnimationFrame(() => {
       if (scrollRef.current) {
@@ -96,7 +96,7 @@ const Testimonials = () => {
     <section className="py-24 lg:py-32 relative overflow-hidden">
       {/* Geometric decoration */}
       <div className="absolute top-0 right-1/4 w-px h-32 bg-gradient-to-b from-transparent via-border to-transparent" />
-      
+
       <div className="container px-6 lg:px-12 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 -mt-[100px]">
@@ -105,10 +105,10 @@ const Testimonials = () => {
               What Clients Say
             </h2>
           </div>
-          
+
           {/* Navigation arrows */}
           <div className="flex items-center gap-2">
-            <button 
+            <button
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
               aria-label="Previous testimonial"
@@ -116,7 +116,7 @@ const Testimonials = () => {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <button 
+            <button
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
               aria-label="Next testimonial"
@@ -128,20 +128,20 @@ const Testimonials = () => {
         </div>
 
         {/* Testimonials Scroll Container */}
-        <div 
+        <div
           ref={scrollRef}
           onScroll={checkScroll}
           className="scroll-container flex gap-6 pb-4"
         >
           {testimonials.map((testimonial, index) => (
-            <div 
+            <div
               key={testimonial.id}
               className="scroll-item w-[350px] md:w-[400px] border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 animate-fade-up"
               style={{ backgroundColor: '#EAEAEA', animationDelay: `${index * 0.1}s` }}
             >
               {/* Quote icon */}
               <Quote className="w-8 h-8 text-primary/20 mb-4" />
-              
+
               {/* Rating */}
               <div className="flex items-center gap-1 mb-4">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
@@ -156,8 +156,8 @@ const Testimonials = () => {
 
               {/* Author */}
               <div className="flex items-center gap-3 pt-4 border-t-2 border-foreground/30">
-                <img 
-                  src={testimonial.avatar} 
+                <img
+                  src={testimonial.avatar}
                   alt={testimonial.name}
                   width={48}
                   height={48}

@@ -45,7 +45,7 @@
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
     --gradient-text: linear-gradient(135deg, hsl(174 72% 45%) 0%, hsl(174 60% 35%) 100%);
-    
+
     --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.08);
     --shadow-elevated: 0 12px 40px -8px hsl(0 0% 0% / 0.12);
     --shadow-glow: 0 0 60px hsl(174 72% 40% / 0.2);
@@ -116,7 +116,12 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply tracking-tight font-semibold;
   }
 }
@@ -176,6 +181,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -186,6 +192,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -196,6 +203,7 @@
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -206,6 +214,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-33.33%);
   }
@@ -217,4 +226,72 @@
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Glass + Liquid styles for translucent buttons and form fields */
+.glass {
+  background-color: hsl(var(--background) / 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.liquid-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 140%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0) 70%);
+  transform: translateX(-60%);
+  animation: liquidFlow 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes liquidFlow {
+  0% {
+    transform: translateX(-60%) rotate(0.001deg);
+  }
+
+  50% {
+    transform: translateX(40%) rotate(0.001deg);
+  }
+
+  100% {
+    transform: translateX(120%) rotate(0.001deg);
+  }
+}
+
+.field-glass {
+  background-color: hsl(var(--background) / 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-color: hsl(var(--border) / 0.6);
+}
+
+.field-glass:hover {
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+.field-glass:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--ring));
+}
+
+/* Low-performance fallback: reduce blur and increase background opacity */
+.lowperf .glass {
+  background-color: hsl(var(--background) / 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.lowperf .field-glass {
+  background-color: hsl(var(--background) / 0.75);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }

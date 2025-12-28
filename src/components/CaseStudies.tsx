@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const caseStudies = [
   {
     id: 1,
-    title: "Kober",
+    title: "KryptWallet Pro",
     category: "FinTech",
     description: "A comprehensive financial management platform enabling seamless transactions and real-time analytics for enterprise clients.",
     platforms: ["desktop", "mobile"],
@@ -13,16 +13,16 @@ const caseStudies = [
   },
   {
     id: 2,
-    title: "Readability",
+    title: "ReadMate AI",
     category: "EdTech",
     description: "AI-powered reading assistant that helps students improve comprehension and reading speed through personalized exercises.",
     platforms: ["mobile", "web"],
     tags: ["Flutter", "Python", "OpenAI"],
-    image: 	"https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&h=400&fit=crop",
   },
   {
     id: 3,
-    title: "HealthSync",
+    title: "Hugo Health Connect",
     category: "Healthcare",
     description: "Integrated healthcare platform connecting patients with providers, featuring telehealth and appointment management.",
     platforms: ["desktop", "mobile", "web"],
@@ -31,7 +31,7 @@ const caseStudies = [
   },
   {
     id: 4,
-    title: "LogiFlow",
+    title: "SupplyChain360 Go",
     category: "Logistics",
     description: "End-to-end supply chain management system with real-time tracking, inventory optimization, and predictive analytics.",
     platforms: ["desktop", "web"],
@@ -57,7 +57,7 @@ const CaseStudies = () => {
       <div className="absolute top-20 left-0 w-48 h-48 border border-border rounded-full opacity-30" />
       <div className="absolute bottom-20 right-0 w-64 h-64 border border-primary/20 rounded-full opacity-30" />
 
-      <div className="container px-6 lg:px-12 relative z-10">
+      <div className="container max-w-screen-2xl px-6 lg:px-12 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 -mt-[75px]">
           <div>
@@ -65,8 +65,8 @@ const CaseStudies = () => {
               Featured Work
             </h2>
           </div>
-          <Link 
-            to="/contact" 
+          <Link
+            to="/contact"
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
           >
             View All Projects
@@ -75,17 +75,17 @@ const CaseStudies = () => {
         </div>
 
         {/* Case Studies Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 xl:gap-8">
           {caseStudies.map((study, index) => (
-            <div 
+            <div
               key={study.id}
               className="group relative bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 animate-fade-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Image */}
               <div className="relative h-48 md:h-56 overflow-hidden">
-                <img 
-                  src={study.image} 
+                <img
+                  src={study.image}
                   alt={study.title}
                   width={600}
                   height={400}
@@ -93,11 +93,11 @@ const CaseStudies = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                
+
                 {/* Platform icons */}
                 <div className="absolute bottom-4 left-4 flex items-center gap-2">
                   {study.platforms.map((platform) => (
-                    <div 
+                    <div
                       key={platform}
                       className="w-8 h-8 rounded-lg bg-background/90 backdrop-blur-sm flex items-center justify-center text-foreground"
                     >
@@ -122,7 +122,7 @@ const CaseStudies = () => {
                   </h3>
                   <ArrowUpRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0" />
                 </div>
-                
+
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {study.description}
                 </p>
@@ -130,7 +130,7 @@ const CaseStudies = () => {
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
                   {study.tags.map((tag) => (
-                    <span 
+                    <span
                       key={tag}
                       className="px-2 py-1 rounded-md bg-muted text-muted-foreground text-xs font-medium"
                     >

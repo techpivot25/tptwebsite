@@ -35,15 +35,15 @@ const Services = () => {
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {services.map((service, index) => (
-            <Link 
-              key={service.title} 
-              to={service.href} 
+            <Link
+              key={service.title}
+              to={service.href}
               className="group relative p-6 bg-card border border-border rounded-xl hover:border-primary/50 transition-all duration-300 animate-fade-up"
               style={{ animationDelay: `${index * 0.05}s` }}
             >
               {/* Hover gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-              
+
               <div className="relative z-10">
                 {/* Icon with thin stroke style */}
                 <div className="w-12 h-12 rounded-lg border border-border bg-background flex items-center justify-center mb-4 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-300">

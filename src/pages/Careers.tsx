@@ -4,6 +4,7 @@ import { ArrowRight, TrendingUp, Heart, Users, Clock, MapPin, Briefcase } from "
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { GLOBAL_AREA_SERVED, HREFLANG_ENTRIES, OG_LOCALE_ALTERNATES } from "@/lib/seo";
 
 const benefits = [
   {
@@ -62,6 +63,38 @@ const openPositions = [
 ];
 
 const Careers = () => {
+  const canonical = "https://techpivot.in/careers";
+  const jobPostingSchema = {
+    "@context": "https://schema.org",
+    "@graph": openPositions.map((role) => ({
+      "@type": "JobPosting",
+      "title": role.title,
+      "description": `${role.title} role in ${role.department} offering ${role.type} engagement.`,
+      "employmentType": role.type,
+      "hiringOrganization": {
+        "@type": "Organization",
+        "@id": "https://techpivot.in/#organization",
+        "name": "TechPivot Technologies & Consulting",
+        "sameAs": "https://techpivot.in/"
+      },
+      "applicantLocationRequirements": {
+        "@type": "Country",
+        "name": "Worldwide"
+      },
+      "jobLocationType": "TELECOMMUTE",
+      "directApply": true,
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "TechPivot",
+        "value": role.title
+      },
+      "datePosted": new Date().toISOString().split("T")[0],
+      "validThrough": "2026-12-31",
+      "industry": role.department,
+      "url": `${canonical}?position=${encodeURIComponent(role.title)}`
+    }))
+  };
+
   return (
     <>
       <Helmet>
@@ -70,9 +103,61 @@ const Careers = () => {
           name="description"
           content="Join TechPivot and build your career with innovators shaping the future of technology. Explore open positions in engineering, AI, design, and more."
         />
+        <link rel="canonical" href={canonical} />
+        {HREFLANG_ENTRIES.map(link => {
+          const normalized = link.href.endsWith("/") ? link.href.slice(0, -1) : link.href;
+          return (
+            <link
+              key={`href-${link.hrefLang}`}
+              rel="alternate"
+              hrefLang={link.hrefLang}
+              href={`${normalized}/careers`}
+            />
+          );
+        })}
+        <meta property="og:title" content="Careers at TechPivot" />
+        <meta property="og:description" content="Explore open positions and join our team of innovators." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://techpivot.in/careers" />
+        <meta property="og:image" content="https://techpivot.in/og/careers.jpg" />
+        <meta property="og:site_name" content="TechPivot" />
+        <meta property="og:locale" content="en_US" />
+        {OG_LOCALE_ALTERNATES.map(locale => (
+          <meta key={`og-locale-${locale}`} property="og:locale:alternate" content={locale} />
+        ))}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Careers at TechPivot" />
+        <meta name="twitter:description" content="Explore open positions and join our team of innovators." />
+        <meta name="twitter:image" content="https://techpivot.in/og/careers.jpg" />
+
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "@id": "https://techpivot.in/careers#webpage",
+              "url": "https://techpivot.in/careers",
+              "name": "Careers at TechPivot",
+              "isPartOf": {
+                "@type": "WebSite",
+                "@id": "https://techpivot.in/#website"
+              },
+              "about": ["Engineering", "AI/ML", "Design", "DevOps", "Sales"],
+              "publisher": {
+                "@type": "Organization",
+                "@id": "https://techpivot.in/#organization",
+                "name": "TechPivot Technologies & Consulting",
+                "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)}
+              }
+            }
+          `}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(jobPostingSchema)}
+        </script>
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen">
         <Header />
 
         <main>
@@ -103,7 +188,7 @@ const Careers = () => {
           </section>
 
           {/* Why Work With Us */}
-          <section className="py-20 lg:py-28 bg-background">
+          <section className="py-20 lg:py-28">
             <div className="container px-6 lg:px-12">
               <div className="text-center mb-12">
                 <span className="text-sm font-semibold text-primary uppercase tracking-widest">

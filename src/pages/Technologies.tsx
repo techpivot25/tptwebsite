@@ -2,35 +2,36 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowUpRight } from "lucide-react";
+import { GLOBAL_AREA_SERVED, OG_LOCALE_ALTERNATES } from "@/lib/seo";
 
 const techCategories = [
-  { 
-    title: "Frontend", 
+  {
+    title: "Frontend",
     items: ["React", "Next.js", "Vue.js", "Angular", "TypeScript", "Tailwind CSS"],
     description: "Modern frameworks for building responsive, performant user interfaces."
   },
-  { 
-    title: "Backend", 
+  {
+    title: "Backend",
     items: ["Node.js", "Python", "Java", "Go", ".NET", "Ruby on Rails"],
     description: "Robust server-side technologies for scalable applications."
   },
-  { 
-    title: "Mobile", 
+  {
+    title: "Mobile",
     items: ["React Native", "Flutter", "Swift", "Kotlin", "Xamarin"],
     description: "Cross-platform and native mobile development solutions."
   },
-  { 
-    title: "Cloud & DevOps", 
+  {
+    title: "Cloud & DevOps",
     items: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform"],
     description: "Enterprise-grade infrastructure and deployment automation."
   },
-  { 
-    title: "AI & ML", 
+  {
+    title: "AI & ML",
     items: ["TensorFlow", "PyTorch", "OpenAI", "LangChain", "Hugging Face", "Pinecone"],
     description: "Cutting-edge artificial intelligence and machine learning tools."
   },
-  { 
-    title: "Databases", 
+  {
+    title: "Databases",
     items: ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "DynamoDB", "Supabase"],
     description: "Reliable data storage and management solutions."
   },
@@ -41,12 +42,49 @@ const Technologies = () => (
     <Helmet>
       <title>Technologies | TechPivot</title>
       <meta name="description" content="Explore the cutting-edge technologies we use at TechPivot." />
+      <link rel="canonical" href="https://techpivot.in/technologies" />
+      <meta property="og:title" content="Technologies at TechPivot" />
+      <meta property="og:description" content="Explore the cutting-edge technologies we use at TechPivot." />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://techpivot.in/technologies" />
+      <meta property="og:image" content="https://techpivot.in/og/technologies.jpg" />
+      <meta property="og:site_name" content="TechPivot" />
+      <meta property="og:locale" content="en_US" />
+      {OG_LOCALE_ALTERNATES.map(locale => (
+        <meta key={`og-locale-${locale}`} property="og:locale:alternate" content={locale} />
+      ))}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Technologies at TechPivot" />
+      <meta name="twitter:description" content="Explore the cutting-edge technologies we use at TechPivot." />
+      <meta name="twitter:image" content="https://techpivot.in/og/technologies.jpg" />
+
+      <script type="application/ld+json">
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://techpivot.in/technologies#webpage",
+            "url": "https://techpivot.in/technologies",
+            "name": "Technologies at TechPivot",
+            "isPartOf": {
+              "@type": "WebSite",
+              "@id": "https://techpivot.in/#website"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "@id": "https://techpivot.in/#organization",
+              "name": "TechPivot Technologies & Consulting",
+              "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)}
+            }
+          }
+        `}
+      </script>
     </Helmet>
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground relative overflow-hidden">
+      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">
         {/* Geometric decorations */}
         <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
         <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
@@ -54,10 +92,10 @@ const Technologies = () => (
 
         <div className="container px-6 lg:px-12 relative z-10">
           <div className="max-w-3xl -mt-[20px]">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground uppercase tracking-tight mb-6">
               Technology Excellence
             </h1>
-            <p className="text-xl text-background/70">
+            <p className="text-xl text-muted-foreground">
               We leverage cutting-edge technologies to build scalable, secure, and innovative solutions for our clients.
             </p>
           </div>
@@ -69,8 +107,8 @@ const Technologies = () => (
         <div className="container px-6 lg:px-12">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {techCategories.map((cat, index) => (
-              <div 
-                key={cat.title} 
+              <div
+                key={cat.title}
                 className="group p-6 bg-card border border-border rounded-2xl hover:border-primary/50 transition-all duration-300 animate-fade-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -85,8 +123,8 @@ const Technologies = () => (
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {cat.items.map((item) => (
-                    <span 
-                      key={item} 
+                    <span
+                      key={item}
                       className="px-3 py-1.5 bg-muted border border-border text-foreground text-sm rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-default"
                     >
                       {item}

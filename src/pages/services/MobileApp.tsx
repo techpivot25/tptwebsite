@@ -1,5 +1,7 @@
+import { Helmet } from "react-helmet-async";
 import { Smartphone, Apple, Play, Layers, Zap, Shield, Wifi, Server, ShoppingCart, Heart, MapPin, MessageCircle, Users, Briefcase } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { GLOBAL_AREA_SERVED, OG_LOCALE_ALTERNATES } from "@/lib/seo";
 
 const platforms = [
   { icon: Apple, title: "iOS Development", description: "Native iOS apps built with Swift and SwiftUI for optimal performance" },
@@ -26,72 +28,118 @@ const solutions = [
 
 const MobileApp = () => {
   return (
-    <ServicePageLayout
-      title="Mobile App Development"
-      subtitle="Native & Cross-Platform"
-      description="Develop secure, scalable, and high-performance mobile applications tailored for enterprise needs with native and cross-platform expertise."
-      icon={<Smartphone className="w-8 h-8 text-primary" />}
-    >
-      {/* Platforms */}
-      <section className="py-20 lg:py-28 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Platforms We Build For
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {platforms.map((platform) => (
-              <div key={platform.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                  <platform.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{platform.title}</h3>
-                <p className="text-sm text-muted-foreground">{platform.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <>
+      <Helmet>
+        <title>Mobile App Development | TechPivot</title>
+        <meta name="description" content="Native iOS/Android and cross-platform apps with enterprise security and performance." />
+        <link rel="canonical" href="https://techpivot.in/services/mobile-app" />
+        <meta property="og:title" content="Mobile App Development | TechPivot" />
+        <meta property="og:description" content="Native iOS/Android and cross-platform apps with enterprise security and performance." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://techpivot.in/services/mobile-app" />
+        <meta property="og:image" content="https://techpivot.in/og/services/mobile-app.jpg" />
+        <meta property="og:site_name" content="TechPivot" />
+        <meta property="og:locale" content="en_US" />
+        {OG_LOCALE_ALTERNATES.map(locale => (
+          <meta key={`og-locale-${locale}`} property="og:locale:alternate" content={locale} />
+        ))}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mobile App Development | TechPivot" />
+        <meta name="twitter:description" content="Native iOS/Android and cross-platform apps with enterprise security and performance." />
+        <meta name="twitter:image" content="https://techpivot.in/og/services/mobile-app.jpg" />
 
-      {/* Features */}
-      <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Enterprise-Grade Features
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature) => (
-              <div key={feature.title} className="p-6 bg-card rounded-xl border border-border/50 text-center">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 mx-auto">
-                  <feature.icon className="w-5 h-5 text-primary" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://techpivot.in/services/mobile-app#service",
+              "name": "Mobile App Development",
+              "serviceType": "Mobile Applications",
+              "description": "Native and cross-platform mobile applications with enterprise security.",
+              "provider": {
+                "@type": "Organization",
+                "@id": "https://techpivot.in/#organization",
+                "name": "TechPivot Technologies & Consulting",
+                "url": "https://techpivot.in/",
+                "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)}
+              },
+              "areaServed": ${JSON.stringify(GLOBAL_AREA_SERVED)},
+              "availableChannel": {
+                "@type": "ServiceChannel",
+                "serviceUrl": "https://techpivot.in/services/mobile-app"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+      <ServicePageLayout
+        title="Mobile App Development"
+        subtitle="Native & Cross-Platform"
+        description="Develop secure, scalable, and high-performance mobile applications tailored for enterprise needs with native and cross-platform expertise."
+        icon={<Smartphone className="w-8 h-8 text-primary" />}
+      >
+        {/* Platforms */}
+        <section className="py-20 lg:py-28 animate-section">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              Platforms We Build For
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {platforms.map((platform) => (
+                <div key={platform.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer text-center">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
+                    <platform.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{platform.title}</h3>
+                  <p className="text-sm text-muted-foreground">{platform.description}</p>
                 </div>
-                <h3 className="font-semibold text-foreground mb-1">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Industry Solutions */}
-      <section className="py-20 lg:py-28 animate-section">
-        <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Industry Solutions
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {solutions.map((solution) => (
-              <div key={solution.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <solution.icon className="w-6 h-6 text-primary" />
+        {/* Features */}
+        <section className="py-20 lg:py-28 animate-section relative">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              Enterprise-Grade Features
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {features.map((feature) => (
+                <div key={feature.title} className="p-6 bg-card rounded-xl border border-border/50 text-center">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 mx-auto">
+                    <feature.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-1">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground">{feature.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{solution.title}</h3>
-                <p className="text-muted-foreground">{solution.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </ServicePageLayout>
+        </section>
+
+        {/* Industry Solutions */}
+        <section className="py-20 lg:py-28 animate-section">
+          <div className="container px-6 lg:px-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              Industry Solutions
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {solutions.map((solution) => (
+                <div key={solution.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <solution.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{solution.title}</h3>
+                  <p className="text-muted-foreground">{solution.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ServicePageLayout>
+    </>
   );
 };
 

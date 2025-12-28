@@ -1,0 +1,27 @@
+{
+    "name": "TechPivot Technologies & Consulting",
+    "short_name": "TechPivot",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0b1220",
+    "theme_color": "#0ea5e9",
+    "description": "Digital transformation partner for AI, SaaS, mobile apps, and cloud.",
+    "icons": [
+        {
+            "src": "/icons/favicon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/favicon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
