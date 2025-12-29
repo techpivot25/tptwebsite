@@ -20,6 +20,7 @@ import StaffAugmentation from "./pages/services/StaffAugmentation";
 import IoT from "./pages/services/IoT";
 import Consultancy from "./pages/services/Consultancy";
 import NotFound from "./pages/NotFound";
+import AnimationsDemo from "./pages/AnimationsDemo";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopOnNavigate from "./components/ScrollToTopOnNavigate";
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/services/staff-augmentation" element={<StaffAugmentation />} />
             <Route path="/services/iot" element={<IoT />} />
             <Route path="/services/consultancy" element={<Consultancy />} />
+            <Route path="/animations" element={<AnimationsDemo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <WhatsAppButton />
