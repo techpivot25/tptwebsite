@@ -1,6 +1,75 @@
 import { CheckCircle2, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+
+interface CountUpStatProps {
+  endValue: number;
+  suffix: string;
+  label: string;
+  delay: number;
+}
+
+const CountUpStat = ({ endValue, suffix, label, delay }: CountUpStatProps) => {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    const duration = 2000;
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Easing function for smooth deceleration
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOutQuart * endValue));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [hasStarted, endValue]);
+
+  return (
+    <div 
+      ref={ref}
+      className="text-center p-6 border border-background/10 rounded-xl hover:border-primary/50 transition-colors animate-fade-up"
+      style={{ animationDelay: `${delay}s` }}
+    >
+      <div className="text-4xl md:text-5xl font-bold text-primary mb-2 tabular-nums">
+        {count}{suffix}
+      </div>
+      <div className="text-sm text-background/60 uppercase tracking-wide">{label}</div>
+    </div>
+  );
+};
 
 const About = () => {
   const highlights = [
@@ -18,10 +87,10 @@ const About = () => {
   ];
 
   const stats = [
-    { value: "500+", label: "Projects Delivered" },
-    { value: "98%", label: "Client Satisfaction" },
-    { value: "50+", label: "Expert Engineers" },
-    { value: "24/7", label: "Global Support" },
+    { endValue: 500, suffix: "+", label: "Projects Delivered" },
+    { endValue: 98, suffix: "%", label: "Client Satisfaction" },
+    { endValue: 50, suffix: "+", label: "Expert Engineers" },
+    { endValue: 24, suffix: "/7", label: "Global Support" },
   ];
 
   return (
@@ -45,14 +114,13 @@ const About = () => {
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {stats.map((stat, index) => (
-            <div 
+            <CountUpStat
               key={stat.label}
-              className="text-center p-6 border border-background/10 rounded-xl hover:border-primary/50 transition-colors animate-fade-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-sm text-background/60 uppercase tracking-wide">{stat.label}</div>
-            </div>
+              endValue={stat.endValue}
+              suffix={stat.suffix}
+              label={stat.label}
+              delay={index * 0.1}
+            />
           ))}
         </div>
 
