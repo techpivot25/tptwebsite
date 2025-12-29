@@ -29,40 +29,53 @@ const ServicePageLayout = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Use RAF to ensure DOM is fully ready before measuring
-    const rafId = requestAnimationFrame(() => {
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          ".hero-content",
-          { opacity: 0, y: 60 },
-          { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
-        );
-
-        gsap.utils.toArray(".animate-section").forEach((section: any) => {
-          gsap.fromTo(
-            section,
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
+    let ctx: gsap.Context | null = null;
+    
+    // Defer animation setup to avoid forced reflows during initial render
+    const timeoutId = setTimeout(() => {
+      ctx = gsap.context(() => {
+        // Set initial state without triggering reflow
+        gsap.set(".hero-content", { opacity: 0, y: 60 });
+        
+        // Animate after a frame to avoid forced reflow
+        gsap.to(".hero-content", { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1, 
+          ease: "power3.out",
+          delay: 0.1
         });
-      });
 
-      // Store cleanup in ref for proper cleanup
-      return () => ctx.revert();
-    });
+        const sections = gsap.utils.toArray<HTMLElement>(".animate-section");
+        if (sections.length > 0) {
+          // Set initial state for sections
+          gsap.set(sections, { opacity: 0, y: 50 });
+          
+          // Create individual ScrollTriggers with optimized settings
+          sections.forEach((section) => {
+            ScrollTrigger.create({
+              trigger: section,
+              start: "top 80%",
+              onEnter: () => {
+                gsap.to(section, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.8,
+                  ease: "power2.out",
+                });
+              },
+              onLeaveBack: () => {
+                gsap.set(section, { opacity: 0, y: 50 });
+              },
+            });
+          });
+        }
+      });
+    }, 100);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      clearTimeout(timeoutId);
+      if (ctx) ctx.revert();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
