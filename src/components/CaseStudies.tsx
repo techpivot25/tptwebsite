@@ -75,15 +75,15 @@ const CaseStudies = () => {
         </div>
 
         {/* Case Studies Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {caseStudies.map((study, index) => (
             <div 
               key={study.id}
-              className="group relative bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 animate-fade-up"
+              className="group relative bg-card border border-border rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 animate-fade-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Image */}
-              <div className="relative h-48 md:h-56 overflow-hidden">
+              <div className="relative h-32 lg:h-40 overflow-hidden">
                 <img 
                   src={study.image} 
                   alt={study.title}
@@ -95,11 +95,11 @@ const CaseStudies = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
                 
                 {/* Platform icons */}
-                <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                <div className="absolute bottom-2 left-2 flex items-center gap-1">
                   {study.platforms.map((platform) => (
                     <div 
                       key={platform}
-                      className="w-8 h-8 rounded-lg bg-background/90 backdrop-blur-sm flex items-center justify-center text-foreground"
+                      className="w-6 h-6 rounded-md bg-background/90 backdrop-blur-sm flex items-center justify-center text-foreground"
                     >
                       <PlatformIcon platform={platform} />
                     </div>
@@ -107,32 +107,32 @@ const CaseStudies = () => {
                 </div>
 
                 {/* Category badge */}
-                <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium uppercase tracking-wide">
+                <div className="absolute top-2 right-2">
+                  <span className="px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-medium uppercase tracking-wide">
                     {study.category}
                   </span>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <h3 className="text-xl font-bold text-foreground uppercase tracking-wide group-hover:text-primary transition-colors">
+              <div className="p-3">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <h3 className="text-sm font-bold text-foreground uppercase tracking-wide group-hover:text-primary transition-colors line-clamp-1">
                     {study.title}
                   </h3>
-                  <ArrowUpRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0" />
+                  <ArrowUpRight className="w-4 h-4 flex-shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
                 
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                <p className="text-muted-foreground text-xs leading-relaxed mb-3 line-clamp-2">
                   {study.description}
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {study.tags.map((tag) => (
+                <div className="flex flex-wrap gap-1">
+                  {study.tags.slice(0, 2).map((tag) => (
                     <span 
                       key={tag}
-                      className="px-2 py-1 rounded-md bg-muted text-muted-foreground text-xs font-medium"
+                      className="px-1.5 py-0.5 rounded bg-muted text-muted-foreground text-[10px] font-medium"
                     >
                       {tag}
                     </span>
