@@ -5,9 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, MapPin, ArrowRight, Upload } from "lucide-react";
+import { Mail, MapPin, ArrowRight, Upload, Loader2 } from "lucide-react";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
 
 const Contact = () => {
   const [formData, setFormData] = useState({ 
@@ -20,13 +27,85 @@ const Contact = () => {
     source: ""
   });
   const [file, setFile] = useState<File | null>(null);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    } else if (formData.name.trim().length > 100) {
+      newErrors.name = "Name must be less than 100 characters";
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address";
+    } else if (formData.email.trim().length > 255) {
+      newErrors.email = "Email must be less than 255 characters";
+    }
+    
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    } else if (formData.message.trim().length > 5000) {
+      newErrors.message = "Message must be less than 5000 characters";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Thank you! We'll get back to you soon.");
-    setFormData({ name: "", email: "", company: "", message: "", timeline: "", budget: "", source: "" });
-    setFile(null);
+    
+    if (!validateForm()) {
+      toast.error("Please fix the errors in the form");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim(),
+          message: formData.message.trim(),
+          timeline: formData.timeline,
+          budget: formData.budget,
+          source: formData.source,
+          fileName: file?.name || null
+        }
+      });
+      
+      if (error) {
+        console.error("Error sending contact form:", error);
+        toast.error("Failed to send message. Please try again later.");
+        return;
+      }
+      
+      toast.success("Thank you! We'll get back to you soon.");
+      setFormData({ name: "", email: "", company: "", message: "", timeline: "", budget: "", source: "" });
+      setFile(null);
+      setErrors({});
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,27 +160,40 @@ const Contact = () => {
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <Input 
-                      placeholder="Your Name" 
-                      value={formData.name} 
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
-                      required 
-                      className="h-12 border-border bg-card"
-                    />
-                    <Input 
-                      type="email" 
-                      placeholder="Email Address" 
-                      value={formData.email} 
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })} 
-                      required 
-                      className="h-12 border-border bg-card"
-                    />
+                    <div>
+                      <Input 
+                        placeholder="Your Name *" 
+                        value={formData.name} 
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: undefined });
+                        }}
+                        className={`h-12 border-border bg-card ${errors.name ? 'border-destructive' : ''}`}
+                        disabled={isSubmitting}
+                      />
+                      {errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
+                    </div>
+                    <div>
+                      <Input 
+                        type="email" 
+                        placeholder="Email Address *" 
+                        value={formData.email} 
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: undefined });
+                        }}
+                        className={`h-12 border-border bg-card ${errors.email ? 'border-destructive' : ''}`}
+                        disabled={isSubmitting}
+                      />
+                      {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
+                    </div>
                   </div>
                   <Input 
                     placeholder="Company (Optional)" 
                     value={formData.company} 
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })} 
                     className="h-12 border-border bg-card"
+                    disabled={isSubmitting}
                   />
                   
                   {/* Timeline Select */}
@@ -152,14 +244,20 @@ const Contact = () => {
                     </Select>
                   </div>
 
-                  <Textarea 
-                    placeholder="Tell us about your project..." 
-                    rows={6} 
-                    value={formData.message} 
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })} 
-                    required 
-                    className="border-border bg-card resize-none"
-                  />
+                  <div>
+                    <Textarea 
+                      placeholder="Tell us about your project... *" 
+                      rows={6} 
+                      value={formData.message} 
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors({ ...errors, message: undefined });
+                      }}
+                      className={`border-border bg-card resize-none ${errors.message ? 'border-destructive' : ''}`}
+                      disabled={isSubmitting}
+                    />
+                    {errors.message && <p className="text-sm text-destructive mt-1">{errors.message}</p>}
+                  </div>
 
                   {/* File Upload */}
                   <div>
@@ -181,9 +279,18 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full group">
-                    Send Message
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <Button type="submit" size="lg" className="w-full group" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </Button>
                 </form>
               </div>
