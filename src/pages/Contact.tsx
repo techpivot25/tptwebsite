@@ -37,7 +37,6 @@ const Contact = () => {
 
   const contactInfo = [
     { icon: Mail, label: "Email", value: "info@techpivot.in", href: "mailto:info@techpivot.in" },
-    { icon: Phone, label: "Phone", value: "+91 7838379095", href: "tel:+917838379095" },
     { icon: MapPin, label: "Offices", value: "India • USA • Canada • UAE", href: null },
   ];
 
