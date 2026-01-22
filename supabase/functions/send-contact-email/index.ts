@@ -17,6 +17,11 @@ interface ContactFormRequest {
   budget: string;
   source: string;
   fileName?: string;
+  // Chat lead specific fields
+  isChatLead?: boolean;
+  mobile?: string;
+  country?: string;
+  service?: string;
 }
 
 Deno.serve(async (req: Request): Promise<Response> => {
@@ -26,15 +31,28 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, company, message, timeline, budget, source, fileName }: ContactFormRequest = await req.json();
+    const { 
+      name, 
+      email, 
+      company, 
+      message, 
+      timeline, 
+      budget, 
+      source, 
+      fileName,
+      isChatLead,
+      mobile,
+      country,
+      service
+    }: ContactFormRequest = await req.json();
 
-    console.log("Received contact form submission:", { name, email, company, timeline, budget, source });
+    console.log("Received contact form submission:", { name, email, company, timeline, budget, source, isChatLead, mobile, country, service });
 
-    // Validate required fields
-    if (!name || !email || !message) {
-      console.error("Missing required fields");
+    // Validate required fields - for chat leads, email can be placeholder
+    if (!name) {
+      console.error("Missing required field: name");
       return new Response(
-        JSON.stringify({ error: "Name, email, and message are required" }),
+        JSON.stringify({ error: "Name is required" }),
         {
           status: 400,
           headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -42,17 +60,43 @@ Deno.serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      console.error("Invalid email format");
-      return new Response(
-        JSON.stringify({ error: "Invalid email format" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
-      );
+    // For chat leads, validate mobile instead of email
+    if (isChatLead) {
+      if (!mobile) {
+        console.error("Missing required field for chat lead: mobile");
+        return new Response(
+          JSON.stringify({ error: "Mobile number is required" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
+      }
+    } else {
+      // Regular contact form validation
+      if (!email || !message) {
+        console.error("Missing required fields");
+        return new Response(
+          JSON.stringify({ error: "Name, email, and message are required" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
+      }
+
+      // Email validation for regular form
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        console.error("Invalid email format");
+        return new Response(
+          JSON.stringify({ error: "Invalid email format" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
+      }
     }
 
     // Format the timeline and budget for display
@@ -77,16 +121,87 @@ Deno.serve(async (req: Request): Promise<Response> => {
       "linkedin": "LinkedIn",
       "referral": "Referral",
       "clutch": "Clutch",
-      "google": "Google Search"
+      "google": "Google Search",
+      "Chat Widget": "Chat Widget"
     };
 
-    // Send email to info@techpivot.in
-    const emailResponse = await resend.emails.send({
-      from: "TechPivot Contact Form <techpivot25@gmail.com>",
-      to: ["info@techpivot.in"],
-      reply_to: email,
-      subject: `New Contact Form Submission from ${name}`,
-      html: `
+    const countryLabels: Record<string, string> = {
+      "india": "India",
+      "usa": "United States",
+      "canada": "Canada",
+      "uae": "United Arab Emirates",
+      "uk": "United Kingdom",
+      "australia": "Australia",
+      "germany": "Germany",
+      "singapore": "Singapore",
+      "other": "Other"
+    };
+
+    const serviceLabels: Record<string, string> = {
+      "agentic-ai": "Agentic AI",
+      "generative-ai": "Generative AI",
+      "saas-platform": "SaaS Platform",
+      "web-development": "Web Development",
+      "mobile-apps": "Mobile Apps",
+      "cloud-security": "Cloud & Security",
+      "staff-augmentation": "Staff Augmentation",
+      "custom-software": "End-to-End Delivery",
+      "iot": "IoT Solutions",
+      "consultancy": "Consultancy"
+    };
+
+    // Different email format for chat leads vs regular contact form
+    let emailSubject: string;
+    let emailHtml: string;
+
+    if (isChatLead) {
+      emailSubject = `🤖 New Chat Lead from ${name}`;
+      emailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #333; border-bottom: 2px solid #10b981; padding-bottom: 10px;">🤖 New Chat Widget Lead</h2>
+          
+          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Name:</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Mobile:</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="tel:${mobile}">${mobile}</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Company:</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">${company || "Not provided"}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Country:</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">${country ? countryLabels[country] || country : "Not specified"}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Interested Service:</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee; color: #10b981; font-weight: bold;">${service ? serviceLabels[service] || service : "Not specified"}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">${budget ? budgetLabels[budget] || budget : "Not specified"}</td>
+            </tr>
+          </table>
+          
+          <div style="margin-top: 20px; padding: 15px; background-color: #ecfdf5; border-radius: 5px; border-left: 4px solid #10b981;">
+            <p style="margin: 0; color: #065f46;">
+              <strong>Lead Source:</strong> Chat Widget on Website<br>
+              <strong>Action Required:</strong> Follow up with this potential customer promptly.
+            </p>
+          </div>
+          
+          <p style="margin-top: 30px; color: #666; font-size: 12px;">
+            This lead was captured via the TechPivot website chat widget.
+          </p>
+        </div>
+      `;
+    } else {
+      emailSubject = `New Contact Form Submission from ${name}`;
+      emailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">New Contact Form Submission</h2>
           
@@ -132,7 +247,16 @@ Deno.serve(async (req: Request): Promise<Response> => {
             This email was sent from the TechPivot website contact form.
           </p>
         </div>
-      `,
+      `;
+    }
+
+    // Send email to info@techpivot.in
+    const emailResponse = await resend.emails.send({
+      from: "TechPivot Contact Form <techpivot25@gmail.com>",
+      to: ["info@techpivot.in"],
+      reply_to: isChatLead ? undefined : email,
+      subject: emailSubject,
+      html: emailHtml,
     });
 
     console.log("Email sent successfully:", emailResponse);
