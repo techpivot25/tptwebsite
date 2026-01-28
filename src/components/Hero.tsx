@@ -148,12 +148,22 @@ const AnimatedHeadingLine = ({
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
-      {/* Vector Background Image with parallax */}
+      {/* Vector Background Image with parallax and slow movement */}
       <motion.div 
         initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.2 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat parallax-bg"
+        animate={{ 
+          scale: [1, 1.05, 1],
+          opacity: 0.4,
+          x: [0, 10, -10, 0],
+          y: [0, -8, 8, 0]
+        }}
+        transition={{ 
+          scale: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+          opacity: { duration: 1.5, ease: "easeOut" },
+          x: { duration: 25, repeat: Infinity, ease: "easeInOut" },
+          y: { duration: 30, repeat: Infinity, ease: "easeInOut" }
+        }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${vectorBg})` }}
       />
       
