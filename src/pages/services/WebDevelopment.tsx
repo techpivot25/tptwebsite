@@ -70,8 +70,8 @@ const WebDevelopment = () => {
           </AnimatedSection>
           
           {/* Desktop Timeline */}
-          <div className="hidden lg:block relative max-w-6xl mx-auto">
-            {/* Horizontal Line */}
+          <div className="hidden lg:block relative max-w-6xl mx-auto pt-48 pb-48">
+            {/* Horizontal Line - centered in the timeline area */}
             <div className="absolute top-1/2 left-0 right-0 h-1 bg-primary -translate-y-1/2 z-0" />
             
             {/* Process Steps */}
@@ -90,24 +90,24 @@ const WebDevelopment = () => {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     {/* Card - Top or Bottom */}
-                    <div className={`absolute ${isTop ? 'bottom-16' : 'top-16'} w-40`}>
+                    <div className={`absolute ${isTop ? 'bottom-20' : 'top-20'} w-44`}>
                       <motion.div
                         className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-xl p-4 transition-all duration-300 hover:bg-background/15 hover:border-primary/50 hover:-translate-y-1 group cursor-default"
                         whileHover={{ scale: 1.02 }}
                       >
                         <div className="flex items-center gap-2 mb-2">
-                          <Icon className="w-5 h-5 text-primary transition-transform duration-300 group-hover:scale-110" />
+                          <Icon className="w-5 h-5 text-primary flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
                           <h3 className="font-semibold text-sm text-background">{step.title}</h3>
                         </div>
                         <p className="text-xs text-background/60 leading-relaxed">{step.description}</p>
                       </motion.div>
                       {/* Connector Line */}
-                      <div className={`absolute left-1/2 -translate-x-1/2 w-px h-8 bg-primary ${isTop ? 'top-full' : 'bottom-full'}`} />
+                      <div className={`absolute left-1/2 -translate-x-1/2 w-px h-12 bg-primary ${isTop ? 'top-full' : 'bottom-full'}`} />
                     </div>
                     
                     {/* Number Circle */}
                     <motion.div
-                      className="relative z-10 w-10 h-10 rounded-full bg-foreground border-2 border-primary flex items-center justify-center transition-all duration-300 hover:bg-primary group cursor-default"
+                      className="relative z-10 w-12 h-12 rounded-full bg-foreground border-2 border-primary flex items-center justify-center transition-all duration-300 hover:bg-primary group cursor-default"
                       whileHover={{ scale: 1.15 }}
                     >
                       <span className="text-sm font-bold text-primary group-hover:text-foreground transition-colors">{step.step}</span>
