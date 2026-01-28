@@ -1,7 +1,7 @@
 import { ArrowUpRight, Monitor, Smartphone, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnimatedSection from "./AnimatedSection";
-
+import { LazyImage } from "./ui/lazy-image";
 const caseStudies = [
   {
     id: 1,
@@ -86,15 +86,16 @@ const CaseStudies = () => {
               <div className="group relative bg-card border border-border rounded-xl overflow-hidden card-hover h-full">
                 {/* Image */}
                 <div className="relative h-32 lg:h-40 overflow-hidden img-zoom">
-                  <img 
+                  <LazyImage 
                     src={study.image} 
                     alt={study.title}
                     width={600}
                     height={400}
-                    loading="lazy"
                     className="w-full h-full object-cover"
+                    wrapperClassName="w-full h-full"
+                    placeholderClassName="rounded-none"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent pointer-events-none" />
                   
                   {/* Platform icons */}
                   <div className="absolute bottom-2 left-2 flex items-center gap-1">

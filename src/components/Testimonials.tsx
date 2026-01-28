@@ -1,6 +1,7 @@
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useRef, useState, useCallback, useEffect } from "react";
 import AnimatedSection from "./AnimatedSection";
+import { LazyImage } from "./ui/lazy-image";
 
 const testimonials = [
   {
@@ -157,13 +158,14 @@ const Testimonials = () => {
 
               {/* Author */}
               <div className="flex items-center gap-3 pt-4 border-t-2 border-foreground/30">
-                <img 
+                <LazyImage 
                   src={testimonial.avatar} 
                   alt={testimonial.name}
                   width={48}
                   height={48}
-                  loading="lazy"
                   className="w-12 h-12 rounded-full object-cover transition-transform duration-300 hover:scale-110"
+                  wrapperClassName="w-12 h-12 rounded-full flex-shrink-0"
+                  placeholderClassName="rounded-full"
                 />
                 <div>
                   <div className="font-semibold text-foreground">{testimonial.name}</div>
