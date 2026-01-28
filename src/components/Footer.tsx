@@ -1,6 +1,6 @@
 import { Mail, Phone, MapPin, ArrowUpRight, Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/techpivot-logo.png";
+import logoLight from "@/assets/logo-light.png";
 
 const Footer = () => {
   const servicesColumn1 = [
@@ -54,9 +54,8 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src={logo} alt="TechPivot Logo" width={40} height={40} className="h-10 w-auto" loading="lazy" />
-              <span className="font-bold text-xl text-background">TechPivot</span>
+            <Link to="/" className="flex items-center mb-6">
+              <img src={logoLight} alt="TechPivot Logo" className="h-12 w-auto" loading="lazy" />
             </Link>
             <p className="text-background/60 text-sm leading-relaxed mb-6">
               Your trusted partner for cutting-edge AI and digital transformation solutions. Building the future, one project at a time.

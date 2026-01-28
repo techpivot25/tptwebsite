@@ -2,7 +2,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
-import logo from "@/assets/techpivot-logo.png";
+import logoDark from "@/assets/logo-dark.jpg";
+import logoLight from "@/assets/logo-light.png";
 
 const services = [
   { label: "Agentic AI", href: "/services/agentic-ai" },
@@ -57,9 +58,13 @@ const Header = () => {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="TechPivot Logo" width={40} height={40} className="h-10 w-auto" loading="eager" />
-            <span className={`font-bold text-lg tracking-wide ${useWhiteText ? "text-background" : "text-foreground"}`}>TechPivot</span>
+          <Link to="/" className="flex items-center">
+            <img 
+              src={useWhiteText ? logoLight : logoDark} 
+              alt="TechPivot Logo" 
+              className="h-12 w-auto" 
+              loading="eager" 
+            />
           </Link>
 
           {/* Desktop Nav */}
