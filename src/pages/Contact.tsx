@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, MapPin, ArrowRight, Upload, Loader2 } from "lucide-react";
-import { useState, useRef } from "react";
+import { Mail, MapPin, ArrowRight, Upload, Loader2, Calendar } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-
+import { getCalApi } from "@calcom/embed-react";
 interface FormErrors {
   name?: string;
   email?: string;
@@ -30,6 +30,19 @@ const Contact = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Initialize Cal.com embed
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "consultation" });
+      cal("ui", {
+        theme: "light",
+        styles: { branding: { brandColor: "#007bff" } },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+    })();
+  }, []);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -356,7 +369,14 @@ const Contact = () => {
                   <p className="text-background/70 mb-6">
                     Schedule a free consultation with our team to discuss your project requirements.
                   </p>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button 
+                    size="lg" 
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    data-cal-namespace="consultation"
+                    data-cal-link="techpivot-technologies-spt9na"
+                    data-cal-config='{"layout":"month_view"}'
+                  >
+                    <Calendar className="mr-2 w-4 h-4" />
                     Schedule a Call
                   </Button>
                 </div>
