@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, Bot, User, Loader2, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import { getCalApi } from "@calcom/embed-react";
 
 type Message = {
   role: "user" | "assistant";
@@ -100,6 +101,19 @@ const ChatBot = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Initialize Cal.com embed for chatbot
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "chatbot-consultation" });
+      cal("ui", {
+        theme: "light",
+        styles: { branding: { brandColor: "#007bff" } },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+    })();
+  }, []);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -524,7 +538,20 @@ const ChatBot = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-border bg-background">
+            <div className="p-4 border-t border-border bg-background space-y-2">
+              {/* Schedule Call Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full text-xs"
+                data-cal-namespace="chatbot-consultation"
+                data-cal-link="techpivot-technologies-spt9na"
+                data-cal-config='{"layout":"month_view"}'
+              >
+                <Calendar className="w-3 h-3 mr-1" />
+                Schedule a Call
+              </Button>
+              
               <div className="flex gap-2">
                 <Input
                   value={input}
