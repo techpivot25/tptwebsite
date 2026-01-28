@@ -55,7 +55,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center mb-6">
-              <img src={logoLight} alt="TechPivot Logo" className="h-14 w-auto" loading="lazy" />
+              <img src={logoLight} alt="TechPivot Logo" className="w-[200px] h-[70px]" loading="lazy" />
             </Link>
             <p className="text-background/60 text-sm leading-relaxed mb-6">
               Your trusted partner for cutting-edge AI and digital transformation solutions. Building the future, one project at a time.
