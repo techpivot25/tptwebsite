@@ -1,5 +1,7 @@
 import { Bot, Brain, MessageSquare, Workflow, RefreshCw, ShieldCheck, Headphones, Briefcase, Search, TrendingUp } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const capabilities = [
   {
@@ -91,21 +93,20 @@ const AgenticAI = () => {
       {/* Key Capabilities */}
       <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Key Capabilities
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {capabilities.map((cap) => (
-              <div
-                key={cap.title}
-                className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer"
-              >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <cap.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{cap.title}</h3>
-                <p className="text-muted-foreground">{cap.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Key Capabilities
+            </h2>
+          </AnimatedSection>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {capabilities.map((cap, index) => (
+              <AnimatedSection key={cap.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={cap.icon}
+                  title={cap.title}
+                  description={cap.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -114,31 +115,21 @@ const AgenticAI = () => {
       {/* Real-World Applications */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Real-World Applications
-          </h2>
-          <div className="grid lg:grid-cols-2 gap-8">
-            {applications.map((app) => (
-              <div
-                key={app.title}
-                className="p-8 bg-card rounded-2xl border border-border/50 hover-lift"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <app.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">{app.title}</h3>
-                </div>
-                <p className="text-muted-foreground mb-4">{app.description}</p>
-                <ul className="space-y-2">
-                  {app.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Real-World Applications
+            </h2>
+          </AnimatedSection>
+          <div className="grid lg:grid-cols-2 gap-6">
+            {applications.map((app, index) => (
+              <AnimatedSection key={app.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardFeature
+                  icon={app.icon}
+                  title={app.title}
+                  description={app.description}
+                  features={app.features}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -147,18 +138,22 @@ const AgenticAI = () => {
       {/* Technology Stack */}
       <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-6">
-            Our Technology Stack
-          </h2>
-          <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-16">
-            We leverage the latest advancements in AI and LLM technology to build powerful agentic systems
-          </p>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Technology Stack
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              We leverage the latest advancements in AI and LLM technology to build powerful agentic systems
+            </p>
+          </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techStack.map((tech) => (
-              <div key={tech.category} className="p-6 bg-card rounded-xl border border-border/50 text-center">
-                <h3 className="font-semibold text-foreground mb-2">{tech.category}</h3>
-                <p className="text-sm text-muted-foreground">{tech.items}</p>
-              </div>
+            {techStack.map((tech, index) => (
+              <AnimatedSection key={tech.category} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  title={tech.category}
+                  description={tech.items}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

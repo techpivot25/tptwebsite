@@ -1,5 +1,8 @@
 import { Cloud, Layers, Key, Users, Zap, Shield, Database, Globe, CreditCard, BarChart } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { AppleCardCompact } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
+import { motion } from "framer-motion";
 
 const features = [
   { icon: Layers, title: "Multi-Tenancy Architecture", description: "Isolated data and customizable experiences for each customer" },
@@ -39,18 +42,20 @@ const SaaSPlatform = () => {
       {/* Features */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Enterprise-Grade Features
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature) => (
-              <div key={feature.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Enterprise-Grade Features
+            </h2>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <AnimatedSection key={feature.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -59,18 +64,37 @@ const SaaSPlatform = () => {
       {/* Solutions */}
       <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            SaaS Solutions We Deliver
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {solutions.map((solution) => (
-              <div key={solution.title} className="p-8 bg-card rounded-2xl border border-border/50 hover-lift">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <solution.icon className="w-6 h-6 text-primary" />
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              SaaS Solutions We Deliver
+            </h2>
+          </AnimatedSection>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {solutions.map((solution, index) => (
+              <AnimatedSection key={solution.title} animation="fadeUp" delay={index * 100}>
+                <div className="group h-full">
+                  <motion.div
+                    className="relative h-full bg-[#f5f5f7] dark:bg-card rounded-2xl p-8 overflow-hidden transition-all duration-500"
+                    whileHover={{
+                      y: -8,
+                      boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative z-10">
+                      <motion.div
+                        className="w-14 h-14 rounded-xl bg-background/80 dark:bg-background/50 flex items-center justify-center mb-4 shadow-sm group-hover:shadow-md transition-shadow duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        <solution.icon className="w-7 h-7 text-foreground group-hover:text-primary transition-colors duration-300" strokeWidth={1.5} />
+                      </motion.div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">{solution.title}</h3>
+                      <p className="text-muted-foreground">{solution.description}</p>
+                    </div>
+                  </motion.div>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{solution.title}</h3>
-                <p className="text-muted-foreground">{solution.description}</p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>

@@ -1,6 +1,8 @@
 import { Sparkles, FileText, Image, Code, Video, Music, Palette, ShoppingCart, Megaphone, Film } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import ServiceFAQ from "@/components/ServiceFAQ";
+import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const capabilities = [
   { icon: FileText, title: "Text Generation", description: "Create articles, product descriptions, marketing copy, and documentation at scale" },
@@ -82,18 +84,20 @@ const GenerativeAI = () => {
       {/* Capabilities */}
       <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Generative Capabilities
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {capabilities.map((cap) => (
-              <div key={cap.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <cap.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{cap.title}</h3>
-                <p className="text-muted-foreground">{cap.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Generative Capabilities
+            </h2>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {capabilities.map((cap, index) => (
+              <AnimatedSection key={cap.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={cap.icon}
+                  title={cap.title}
+                  description={cap.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -102,26 +106,21 @@ const GenerativeAI = () => {
       {/* Industry Solutions */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Industry Solutions
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {industries.map((ind) => (
-              <div key={ind.title} className="p-8 bg-card rounded-2xl border border-border/50 hover-lift">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <ind.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{ind.title}</h3>
-                <p className="text-muted-foreground mb-4">{ind.description}</p>
-                <ul className="space-y-2">
-                  {ind.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Industry Solutions
+            </h2>
+          </AnimatedSection>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {industries.map((ind, index) => (
+              <AnimatedSection key={ind.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardFeature
+                  icon={ind.icon}
+                  title={ind.title}
+                  description={ind.description}
+                  features={ind.features}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

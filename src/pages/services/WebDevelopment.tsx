@@ -1,5 +1,8 @@
 import { Globe, Monitor, Smartphone, Search, Zap, FileText, ShoppingCart, Building, Layout, BookOpen } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { AppleCardCompact } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
+import { motion } from "framer-motion";
 
 const features = [
   { icon: Monitor, title: "Responsive Design", description: "Seamless experiences across all devices with mobile-first approach" },
@@ -34,40 +37,55 @@ const WebDevelopment = () => {
       {/* Features */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            What We Deliver
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature) => (
-              <div key={feature.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              What We Deliver
+            </h2>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, index) => (
+              <AnimatedSection key={feature.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Process */}
-      <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
+      <section className="py-20 lg:py-28 bg-[#f5f5f7] dark:bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Our Development Process
-          </h2>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Development Process
+            </h2>
+          </AnimatedSection>
           <div className="max-w-4xl mx-auto">
             {process.map((step, index) => (
-              <div key={step.step} className="flex gap-6 mb-8 last:mb-0">
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-lg font-bold text-primary">{step.step}</span>
-                </div>
-                <div className="pt-3">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
-                </div>
-              </div>
+              <AnimatedSection key={step.step} animation="fadeUp" delay={index * 100}>
+                <motion.div 
+                  className="flex gap-6 mb-6 last:mb-0 p-4 rounded-2xl transition-all duration-300"
+                  whileHover={{ 
+                    x: 8,
+                    backgroundColor: "rgba(0,0,0,0.02)"
+                  }}
+                >
+                  <motion.div 
+                    className="flex-shrink-0 w-16 h-16 rounded-2xl bg-background dark:bg-card flex items-center justify-center shadow-sm"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <span className="text-lg font-bold text-primary">{step.step}</span>
+                  </motion.div>
+                  <div className="pt-3">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </div>
+                </motion.div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -76,18 +94,20 @@ const WebDevelopment = () => {
       {/* Solutions */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Website Solutions
-          </h2>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Website Solutions
+            </h2>
+          </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {solutions.map((solution) => (
-              <div key={solution.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                  <solution.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">{solution.title}</h3>
-                <p className="text-sm text-muted-foreground">{solution.description}</p>
-              </div>
+            {solutions.map((solution, index) => (
+              <AnimatedSection key={solution.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={solution.icon}
+                  title={solution.title}
+                  description={solution.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

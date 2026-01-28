@@ -1,7 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ArrowUpRight } from "lucide-react";
+import { AppleCardCompact } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const techCategories = [
   { 
@@ -69,31 +70,33 @@ const Technologies = () => (
         <div className="container px-6 lg:px-12">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {techCategories.map((cat, index) => (
-              <div 
-                key={cat.title} 
-                className="group p-6 bg-card border border-border rounded-2xl hover:border-primary/50 transition-all duration-300 animate-fade-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl font-bold text-foreground uppercase tracking-wide group-hover:text-primary transition-colors">
-                    {cat.title}
-                  </h3>
-                  <ArrowUpRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+              <AnimatedSection key={cat.title} animation="fadeUp" delay={index * 100}>
+                <div className="group h-full">
+                  <div className="relative h-full bg-[#f5f5f7] dark:bg-card rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]">
+                    {/* Gradient overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <div className="relative z-10">
+                      <h3 className="text-xl font-semibold text-foreground mb-2 tracking-tight group-hover:text-primary transition-colors">
+                        {cat.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-6">
+                        {cat.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {cat.items.map((item) => (
+                          <span 
+                            key={item} 
+                            className="px-3 py-1.5 bg-background/80 dark:bg-background/50 border border-border/50 text-foreground text-sm rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-default"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-muted-foreground mb-6">
-                  {cat.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {cat.items.map((item) => (
-                    <span 
-                      key={item} 
-                      className="px-3 py-1.5 bg-muted border border-border text-foreground text-sm rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-default"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
