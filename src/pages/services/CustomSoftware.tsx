@@ -1,6 +1,9 @@
 import { Code, Database, Cloud, Link, RefreshCw, Shield, Building, Heart, FileText, Factory } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import ServiceFAQ from "@/components/ServiceFAQ";
+import { AppleCardCompact } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
+import { motion } from "framer-motion";
 
 const services = [
   { icon: Code, title: "Custom Application Development", description: "Tailored software solutions designed to address your specific business challenges" },
@@ -61,39 +64,51 @@ const CustomSoftware = () => {
       {/* Services */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-6">
-            Our Custom Development Services
-          </h2>
-          <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-16">
-            End-to-end software development tailored to your specific needs
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <div key={service.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <service.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-muted-foreground">{service.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Custom Development Services
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              End-to-end software development tailored to your specific needs
+            </p>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+              <AnimatedSection key={service.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Process */}
-      <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
+      <section className="py-20 lg:py-28 bg-[#f5f5f7] dark:bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Our Development Process
-          </h2>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Development Process
+            </h2>
+          </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {process.map((step) => (
-              <div key={step.step} className="p-6 bg-card rounded-xl border border-border/50">
-                <div className="text-3xl font-bold text-primary/30 mb-3">{step.step}</div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
-              </div>
+            {process.map((step, index) => (
+              <AnimatedSection key={step.step} animation="fadeUp" delay={index * 100}>
+                <motion.div 
+                  className="p-6 bg-background dark:bg-card rounded-2xl shadow-sm h-full"
+                  whileHover={{ 
+                    y: -6,
+                    boxShadow: "0 16px 32px -12px rgba(0,0,0,0.1)"
+                  }}
+                >
+                  <div className="text-3xl font-bold text-primary/30 mb-3">{step.step}</div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground">{step.description}</p>
+                </motion.div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -102,18 +117,20 @@ const CustomSoftware = () => {
       {/* Industries */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Industries We Serve
-          </h2>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Industries We Serve
+            </h2>
+          </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {industries.map((industry) => (
-              <div key={industry.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                  <industry.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">{industry.title}</h3>
-                <p className="text-sm text-muted-foreground">{industry.description}</p>
-              </div>
+            {industries.map((industry, index) => (
+              <AnimatedSection key={industry.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={industry.icon}
+                  title={industry.title}
+                  description={industry.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

@@ -1,5 +1,7 @@
 import { Smartphone, Apple, Play, Layers, Zap, Shield, Wifi, Server, ShoppingCart, Heart, MapPin, MessageCircle, Users, Briefcase } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const platforms = [
   { icon: Apple, title: "iOS Development", description: "Native iOS apps built with Swift and SwiftUI for optimal performance" },
@@ -35,18 +37,20 @@ const MobileApp = () => {
       {/* Platforms */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Platforms We Build For
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {platforms.map((platform) => (
-              <div key={platform.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors">
-                  <platform.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{platform.title}</h3>
-                <p className="text-sm text-muted-foreground">{platform.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Platforms We Build For
+            </h2>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {platforms.map((platform, index) => (
+              <AnimatedSection key={platform.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={platform.icon}
+                  title={platform.title}
+                  description={platform.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -55,18 +59,20 @@ const MobileApp = () => {
       {/* Features */}
       <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Enterprise-Grade Features
-          </h2>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Enterprise-Grade Features
+            </h2>
+          </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature) => (
-              <div key={feature.title} className="p-6 bg-card rounded-xl border border-border/50 text-center">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 mx-auto">
-                  <feature.icon className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-1">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
+            {features.map((feature, index) => (
+              <AnimatedSection key={feature.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -75,18 +81,20 @@ const MobileApp = () => {
       {/* Industry Solutions */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Industry Solutions
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {solutions.map((solution) => (
-              <div key={solution.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <solution.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{solution.title}</h3>
-                <p className="text-muted-foreground">{solution.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Industry Solutions
+            </h2>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {solutions.map((solution, index) => (
+              <AnimatedSection key={solution.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={solution.icon}
+                  title={solution.title}
+                  description={solution.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

@@ -1,5 +1,7 @@
 import { Shield, Cloud, Server, Lock, Eye, AlertTriangle, Database, FileCheck, RefreshCw } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { AppleCardCompact } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const cloudServices = [
   { icon: Cloud, title: "Cloud Migration", description: "Seamless transition to AWS, Azure, or Google Cloud with minimal disruption" },
@@ -30,24 +32,24 @@ const CloudSecurity = () => {
       {/* Cloud Solutions */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+          <AnimatedSection animation="fadeUp" className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Cloud Solutions
             </h2>
             <p className="text-lg text-muted-foreground">
               Leverage the power of cloud computing with scalable infrastructure, seamless migration, 
               and cloud-native development expertise.
             </p>
-          </div>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {cloudServices.map((service) => (
-              <div key={service.title} className="p-8 bg-card rounded-2xl border border-border/50 hover-lift">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <service.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{service.title}</h3>
-                <p className="text-muted-foreground">{service.description}</p>
-              </div>
+          </AnimatedSection>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {cloudServices.map((service, index) => (
+              <AnimatedSection key={service.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -56,23 +58,23 @@ const CloudSecurity = () => {
       {/* Security Features */}
       <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+          <AnimatedSection animation="fadeUp" className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Security Features
             </h2>
             <p className="text-lg text-muted-foreground">
               Enterprise-grade security solutions to protect your data and ensure compliance.
             </p>
-          </div>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {securityFeatures.map((feature) => (
-              <div key={feature.title} className="p-8 bg-card rounded-2xl border border-border/50 hover-lift">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </div>
+          </AnimatedSection>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {securityFeatures.map((feature, index) => (
+              <AnimatedSection key={feature.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -81,18 +83,20 @@ const CloudSecurity = () => {
       {/* Additional Services */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Additional Services
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {additionalServices.map((service) => (
-              <div key={service.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                  <service.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-sm text-muted-foreground">{service.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Additional Services
+            </h2>
+          </AnimatedSection>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {additionalServices.map((service, index) => (
+              <AnimatedSection key={service.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

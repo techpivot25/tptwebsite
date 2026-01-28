@@ -1,5 +1,7 @@
 import { Users, Code, Brain, Briefcase, Clock, Shield, Target, Zap, Globe, Award } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { AppleCardCompact } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const expertise = [
   { icon: Code, title: "Developers", description: "Full-stack, frontend, backend, and mobile developers" },
@@ -28,21 +30,23 @@ const StaffAugmentation = () => {
       {/* Expertise */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-6">
-            Our Expertise
-          </h2>
-          <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-16">
-            Access top-tier talent across all technology domains
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {expertise.map((item) => (
-              <div key={item.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <item.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Expertise
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Access top-tier talent across all technology domains
+            </p>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {expertise.map((item, index) => (
+              <AnimatedSection key={item.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={item.icon}
+                  title={item.title}
+                  description={item.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -51,18 +55,20 @@ const StaffAugmentation = () => {
       {/* Benefits */}
       <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Why Choose Staff Augmentation
-          </h2>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Why Choose Staff Augmentation
+            </h2>
+          </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit) => (
-              <div key={benefit.title} className="p-6 bg-card rounded-xl border border-border/50 text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 mx-auto">
-                  <benefit.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
-              </div>
+            {benefits.map((benefit, index) => (
+              <AnimatedSection key={benefit.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={benefit.icon}
+                  title={benefit.title}
+                  description={benefit.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

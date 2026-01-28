@@ -1,5 +1,8 @@
 import { Lightbulb, Target, TrendingUp, Users, FileText, Zap, CheckCircle, ArrowRight } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
+import { AppleCardCompact } from "@/components/ui/apple-card";
+import AnimatedSection from "@/components/AnimatedSection";
+import { motion } from "framer-motion";
 
 const services = [
   { icon: Target, title: "Technology Strategy", description: "Align your technology investments with business objectives" },
@@ -28,42 +31,54 @@ const Consultancy = () => {
       {/* Services */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Our Consulting Services
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
-              <div key={service.title} className="p-6 bg-card rounded-xl border border-border/50 hover-lift group cursor-pointer">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <service.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-muted-foreground">{service.description}</p>
-              </div>
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Consulting Services
+            </h2>
+          </AnimatedSection>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+              <AnimatedSection key={service.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Our Approach */}
-      <section className="py-20 lg:py-28 bg-secondary/30 animate-section">
+      <section className="py-20 lg:py-28 bg-[#f5f5f7] dark:bg-secondary/30 animate-section">
         <div className="container px-6 lg:px-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-            Our Approach
-          </h2>
-          <div className="max-w-4xl mx-auto">
+          <AnimatedSection animation="fadeUp" className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Approach
+            </h2>
+          </AnimatedSection>
+          <div className="max-w-5xl mx-auto">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {approach.map((step, index) => (
-                <div key={step.step} className="relative">
-                  <div className="p-6 bg-card rounded-xl border border-border/50 text-center h-full">
-                    <div className="text-3xl font-bold text-primary/30 mb-3">{step.step}</div>
-                    <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
-                    <p className="text-sm text-muted-foreground">{step.description}</p>
+                <AnimatedSection key={step.step} animation="fadeUp" delay={index * 100}>
+                  <div className="relative h-full">
+                    <motion.div 
+                      className="p-6 bg-background dark:bg-card rounded-2xl shadow-sm text-center h-full"
+                      whileHover={{ 
+                        y: -6,
+                        boxShadow: "0 16px 32px -12px rgba(0,0,0,0.1)"
+                      }}
+                    >
+                      <div className="text-3xl font-bold text-primary/30 mb-3">{step.step}</div>
+                      <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
+                      <p className="text-sm text-muted-foreground">{step.description}</p>
+                    </motion.div>
+                    {index < approach.length - 1 && (
+                      <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 w-6 h-6 text-muted-foreground/30 -translate-y-1/2 z-10" />
+                    )}
                   </div>
-                  {index < approach.length - 1 && (
-                    <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 w-6 h-6 text-muted-foreground/30 -translate-y-1/2" />
-                  )}
-                </div>
+                </AnimatedSection>
               ))}
             </div>
           </div>
