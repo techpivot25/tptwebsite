@@ -2,7 +2,6 @@ import { Users, Code, Brain, Briefcase, Clock, Shield, Target, Zap, Globe, Award
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
-import heroBg from "@/assets/hero-bg-staff-augmentation.jpg";
 
 const expertise = [
   { icon: Code, title: "Developers", description: "Full-stack, frontend, backend, and mobile developers" },
@@ -27,7 +26,6 @@ const StaffAugmentation = () => {
       subtitle="On-Demand Talent"
       description="On-demand expert teams of developers, PMs, and AI specialists to scale your projects quickly and efficiently."
       icon={<Users className="w-8 h-8 text-primary" />}
-      backgroundImage={heroBg}
     >
       {/* Expertise */}
       <section className="py-20 lg:py-28 animate-section">
