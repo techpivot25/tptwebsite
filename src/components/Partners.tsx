@@ -1,3 +1,5 @@
+import { LazyImage } from "./ui/lazy-image";
+
 const partners = [
   { name: "Google Cloud", logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" },
   { name: "AWS", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" },
@@ -33,13 +35,15 @@ const Partners = () => {
               key={`${partner.name}-${index}`}
               className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center h-16 w-32 md:w-40 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"
             >
-              <img
+              <LazyImage
                 src={partner.logo}
                 alt={partner.name}
                 width={160}
                 height={48}
                 className="max-h-10 md:max-h-12 w-auto object-contain"
-                loading="lazy"
+                wrapperClassName="flex items-center justify-center w-full h-full"
+                placeholderClassName="w-24 h-8"
+                rootMargin="200px"
               />
             </div>
           ))}
