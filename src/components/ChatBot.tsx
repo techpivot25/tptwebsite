@@ -514,7 +514,7 @@ const ChatBot = () => {
                   <SelectTrigger className={`h-10 text-sm ${errors.country ? 'border-destructive' : ''}`}>
                     <SelectValue placeholder="Select Country *" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="z-[10000] bg-background border border-border" position="popper" side="top" sideOffset={5}>
                     {countries.map((country) => (
                       <SelectItem key={country.value} value={country.value}>
                         {country.label}
@@ -537,7 +537,7 @@ const ChatBot = () => {
                   <SelectTrigger className={`h-10 text-sm ${errors.service ? 'border-destructive' : ''}`}>
                     <SelectValue placeholder="Select Service/Product *" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="z-[10000] bg-background border border-border" position="popper" side="top" sideOffset={5}>
                     {services.map((service) => (
                       <SelectItem key={service.value} value={service.value}>
                         {service.label}
@@ -557,7 +557,7 @@ const ChatBot = () => {
                   <SelectTrigger className="h-10 text-sm">
                     <SelectValue placeholder="Budget Range (Optional)" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="z-[10000] bg-background border border-border" position="popper" side="top" sideOffset={5}>
                     {budgets.map((budget) => (
                       <SelectItem key={budget.value} value={budget.value}>
                         {budget.label}
