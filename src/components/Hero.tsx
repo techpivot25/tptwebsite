@@ -73,9 +73,9 @@ const GeometricShapes = () => {
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
-      {/* Vector Background Image */}
+      {/* Vector Background Image with parallax */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 parallax-bg"
         style={{ backgroundImage: `url(${vectorBg})` }}
       />
       
@@ -86,15 +86,15 @@ const Hero = () => {
       <div className="relative z-10 container px-6 lg:px-12 py-20">
         <div className="max-w-5xl mx-auto text-center space-y-8">
           {/* Main Heading - Linnify style bold uppercase */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[0.95] animate-fade-up">
-            <span className="block text-foreground">Built By AI,</span>
-            <span className="block text-gradient">Driven By Intelligence</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[0.95]">
+            <span className="block text-foreground animate-fade-up" style={{ animationDelay: '0s' }}>Built By AI,</span>
+            <span className="block text-gradient animate-fade-up" style={{ animationDelay: '0.15s' }}>Driven By Intelligence</span>
           </h1>
 
           {/* Core Values */}
           <div 
             className="animate-fade-up space-y-3" 
-            style={{ animationDelay: "0.1s" }}
+            style={{ animationDelay: "0.3s" }}
           >
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Built to Perform. Supported for Growth.
@@ -107,22 +107,22 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div 
             className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-up" 
-            style={{ animationDelay: "0.3s" }}
+            style={{ animationDelay: "0.45s" }}
           >
             <Button 
               size="lg" 
-              className="px-8 py-6 text-base font-semibold group"
+              className="px-8 py-6 text-base font-semibold group magnetic-hover"
               asChild
             >
               <Link to="/contact">
                 Start Your Project
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform icon-hover" />
               </Link>
             </Button>
             <Button 
               size="lg" 
               variant="outline"
-              className="px-8 py-6 text-base font-semibold"
+              className="px-8 py-6 text-base font-semibold magnetic-hover"
               asChild
             >
               <Link to="/#services">

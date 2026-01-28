@@ -2,9 +2,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Index from "./pages/Index";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTop from "./components/ScrollToTop";
@@ -31,12 +32,65 @@ const AnimationsDemo = lazy(() => import("./pages/AnimationsDemo"));
 
 const queryClient = new QueryClient();
 
-// Simple loading fallback
+// Simple loading fallback with animation
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
   </div>
 );
+
+// Page transition variants
+const pageVariants = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -12 },
+};
+
+const pageTransition = {
+  type: "tween" as const,
+  ease: "easeInOut" as const,
+  duration: 0.35,
+};
+
+// Animated routes wrapper
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageVariants}
+        transition={pageTransition}
+      >
+        <Suspense fallback={<PageLoader />}>
+          <Routes location={location}>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/technologies" element={<Technologies />} />
+            <Route path="/services/agentic-ai" element={<AgenticAI />} />
+            <Route path="/services/generative-ai" element={<GenerativeAI />} />
+            <Route path="/services/saas-platform" element={<SaaSPlatform />} />
+            <Route path="/services/web-development" element={<WebDevelopment />} />
+            <Route path="/services/mobile-app" element={<MobileApp />} />
+            <Route path="/services/cloud-security" element={<CloudSecurity />} />
+            <Route path="/services/custom-software" element={<CustomSoftware />} />
+            <Route path="/services/staff-augmentation" element={<StaffAugmentation />} />
+            <Route path="/services/iot" element={<IoT />} />
+            <Route path="/services/consultancy" element={<Consultancy />} />
+            <Route path="/animations" element={<AnimationsDemo />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
 
 const App = () => (
   <HelmetProvider>
@@ -46,27 +100,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTopOnNavigate />
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/technologies" element={<Technologies />} />
-              <Route path="/services/agentic-ai" element={<AgenticAI />} />
-              <Route path="/services/generative-ai" element={<GenerativeAI />} />
-              <Route path="/services/saas-platform" element={<SaaSPlatform />} />
-              <Route path="/services/web-development" element={<WebDevelopment />} />
-              <Route path="/services/mobile-app" element={<MobileApp />} />
-              <Route path="/services/cloud-security" element={<CloudSecurity />} />
-              <Route path="/services/custom-software" element={<CustomSoftware />} />
-              <Route path="/services/staff-augmentation" element={<StaffAugmentation />} />
-              <Route path="/services/iot" element={<IoT />} />
-              <Route path="/services/consultancy" element={<Consultancy />} />
-              <Route path="/animations" element={<AnimationsDemo />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+          <AnimatedRoutes />
           <WhatsAppButton />
           <ScrollToTop />
           <ChatBot />

@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import AnimatedSection from "./AnimatedSection";
 
 const faqs = [
   {
@@ -42,10 +43,10 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <section className="py-24 md:py-32">
+    <section id="faq" className="py-24 md:py-32">
       <div className="container mx-auto px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 -mt-[50px]">
+        <AnimatedSection animation="fadeUp" className="max-w-3xl mb-16 -mt-[50px]">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground uppercase mb-6">
             FREQUENTLY ASKED
             <br />
@@ -54,10 +55,10 @@ const FAQ = () => {
           <p className="text-lg text-muted-foreground">
             Everything you need to know about working with us. Can't find the answer you're looking for? Reach out to our team.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Accordion */}
-        <div className="max-w-4xl">
+        <AnimatedSection animation="fadeUp" delay={100} className="max-w-4xl">
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem 
@@ -74,10 +75,10 @@ const FAQ = () => {
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </AnimatedSection>
 
         {/* CTA */}
-        <div className="mt-16 pt-16 border-t border-border/50 max-w-4xl">
+        <AnimatedSection animation="fadeUp" delay={200} className="mt-16 pt-16 border-t border-border/50 max-w-4xl">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
               <h3 className="text-2xl font-bold text-foreground mb-2">Still have questions?</h3>
@@ -85,15 +86,15 @@ const FAQ = () => {
             </div>
             <a 
               href="/contact" 
-              className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-semibold uppercase tracking-wider hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-semibold uppercase tracking-wider hover:bg-primary/90 transition-colors btn-press magnetic-hover"
             >
               Contact Us
-              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="ml-2 w-4 h-4 icon-hover" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );
