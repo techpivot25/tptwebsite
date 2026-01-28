@@ -1,5 +1,6 @@
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useRef, useState, useCallback, useEffect } from "react";
+import AnimatedSection from "./AnimatedSection";
 
 const testimonials = [
   {
@@ -99,7 +100,7 @@ const Testimonials = () => {
       
       <div className="container px-6 lg:px-12 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 -mt-[100px]">
+        <AnimatedSection animation="fadeUp" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 -mt-[100px]">
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-foreground">
               What Clients Say
@@ -112,7 +113,7 @@ const Testimonials = () => {
               onClick={() => scroll('left')}
               disabled={!canScrollLeft}
               aria-label="Previous testimonial"
-              className="w-10 h-10 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-10 h-10 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed btn-press"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -120,12 +121,12 @@ const Testimonials = () => {
               onClick={() => scroll('right')}
               disabled={!canScrollRight}
               aria-label="Next testimonial"
-              className="w-10 h-10 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-10 h-10 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-30 disabled:cursor-not-allowed btn-press"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Testimonials Scroll Container */}
         <div 
@@ -133,11 +134,11 @@ const Testimonials = () => {
           onScroll={checkScroll}
           className="scroll-container flex gap-6 pb-4"
         >
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <div 
               key={testimonial.id}
-              className="scroll-item w-[350px] md:w-[400px] border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 animate-fade-up"
-              style={{ backgroundColor: '#EAEAEA', animationDelay: `${index * 0.1}s` }}
+              className="scroll-item w-[350px] md:w-[400px] border border-border rounded-2xl p-6 card-hover"
+              style={{ backgroundColor: '#EAEAEA' }}
             >
               {/* Quote icon */}
               <Quote className="w-8 h-8 text-primary/20 mb-4" />
@@ -162,7 +163,7 @@ const Testimonials = () => {
                   width={48}
                   height={48}
                   loading="lazy"
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="w-12 h-12 rounded-full object-cover transition-transform duration-300 hover:scale-110"
                 />
                 <div>
                   <div className="font-semibold text-foreground">{testimonial.name}</div>
