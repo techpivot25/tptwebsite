@@ -32,22 +32,76 @@ const GeometricShapes = () => {
       
       {/* Small accent circles with floating animation */}
       <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, -10, 0] }}
-        transition={{ opacity: { duration: 0.5, delay: 0.8 }, y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
-        className="absolute top-1/4 left-1/4 w-3 h-3 bg-primary rounded-full" 
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: [1, 1.2, 1], y: [0, -12, 0] }}
+        transition={{ opacity: { duration: 0.5, delay: 0.8 }, scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }, y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
+        className="absolute top-[20%] left-[15%] w-2 h-2 bg-primary rounded-full" 
       />
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 8, 0] }}
-        transition={{ opacity: { duration: 0.5, delay: 1 }, y: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
-        className="absolute top-1/3 right-1/3 w-2 h-2 bg-primary/60 rounded-full" 
+        animate={{ opacity: [0.4, 0.8, 0.4], y: [0, 8, 0], x: [0, 5, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="absolute top-[30%] right-[20%] w-1.5 h-1.5 bg-primary/70 rounded-full" 
       />
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, -6, 0] }}
-        transition={{ opacity: { duration: 0.5, delay: 1.2 }, y: { duration: 3.5, repeat: Infinity, ease: "easeInOut" } }}
-        className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-primary/40 rounded-full" 
+        animate={{ opacity: 1, y: [0, -8, 0], scale: [1, 0.8, 1] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute bottom-[35%] left-[45%] w-1.5 h-1.5 bg-primary/50 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.5, 1] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+        className="absolute top-[45%] left-[10%] w-1 h-1 bg-primary/60 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, x: [0, -6, 0], y: [0, 6, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        className="absolute top-[15%] right-[35%] w-1 h-1 bg-primary/40 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.5, 1, 0.5], y: [0, -10, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+        className="absolute bottom-[25%] right-[15%] w-2 h-2 bg-primary/50 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 0.8, scale: [1, 1.3, 1], x: [0, 4, 0] }}
+        transition={{ scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }, x: { duration: 4, repeat: Infinity, ease: "easeInOut" }, delay: 1.2 }}
+        className="absolute top-[55%] right-[25%] w-1 h-1 bg-primary/70 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.4, 0.9, 0.4], y: [0, 5, 0], x: [0, -3, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-[40%] left-[25%] w-1 h-1 bg-primary/50 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: [1, 0.7, 1], y: [0, -5, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+        className="absolute top-[65%] left-[35%] w-1.5 h-1.5 bg-primary/30 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.6, 1, 0.6], x: [0, 8, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
+        className="absolute top-[25%] left-[55%] w-1 h-1 bg-primary/60 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.7, y: [0, 7, 0], scale: [1, 1.2, 1] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+        className="absolute bottom-[20%] left-[60%] w-1 h-1 bg-primary/40 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.4, 1] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
+        className="absolute top-[40%] right-[40%] w-1 h-1 bg-primary/50 rounded-full" 
       />
       
       {/* Vector lines - circuit style behind heading */}
