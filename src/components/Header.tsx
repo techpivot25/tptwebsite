@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
-import logo from "@/assets/techpivot-logo.jpg";
+import logo from "@/assets/techpivot-logo.png";
 
 const services = [
   { label: "Agentic AI", href: "/services/agentic-ai" },

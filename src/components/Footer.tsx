@@ -1,6 +1,6 @@
 import { Mail, Phone, MapPin, ArrowUpRight, Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/techpivot-logo.jpg";
+import logo from "@/assets/techpivot-logo.png";
 
 const Footer = () => {
   const servicesColumn1 = [
@@ -55,7 +55,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src={logo} alt="TechPivot Logo" width={40} height={40} className="h-10 w-auto rounded" loading="lazy" />
+              <img src={logo} alt="TechPivot Logo" width={40} height={40} className="h-10 w-auto" loading="lazy" />
               <span className="font-bold text-xl text-background">TechPivot</span>
             </Link>
             <p className="text-background/60 text-sm leading-relaxed mb-6">
