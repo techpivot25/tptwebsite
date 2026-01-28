@@ -23,6 +23,10 @@ const Header = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const location = useLocation();
   const rafRef = useRef<number | null>(null);
+  
+  const isHomePage = location.pathname === "/";
+  // Use white text on non-home pages when not scrolled
+  const useWhiteText = !isHomePage && !isScrolled;
 
   const handleScroll = useCallback(() => {
     if (rafRef.current) {
@@ -55,16 +59,16 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="TechPivot Logo" width={40} height={40} className="h-10 w-auto" loading="eager" />
-            <span className="font-bold text-lg text-foreground tracking-wide">TechPivot</span>
+            <span className={`font-bold text-lg tracking-wide ${useWhiteText ? "text-background" : "text-foreground"}`}>TechPivot</span>
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Home
             </Link>
             <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+              <button className={`flex items-center gap-1 text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
                 Services <ChevronDown className="w-4 h-4" />
               </button>
               {isServicesOpen && (
@@ -83,16 +87,16 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <Link to="/technologies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/technologies" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Technologies
             </Link>
-            <Link to="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/about" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               About
             </Link>
-            <Link to="/careers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/careers" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Careers
             </Link>
-            <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide">
+            <Link to="/contact" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Contact
             </Link>
           </nav>
@@ -108,7 +112,7 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button className="md:hidden p-2 text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <button className={`md:hidden p-2 ${useWhiteText ? "text-background" : "text-foreground"}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
