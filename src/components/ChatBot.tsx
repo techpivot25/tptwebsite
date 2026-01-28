@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Bot, User, Loader2, Calendar } from "lucide-react";
+import { MessageCircle, X, Send, Bot, User, Loader2, Calendar, Paperclip } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -91,7 +91,10 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   const scrollToBottom = () => {
@@ -114,6 +117,100 @@ const ChatBot = () => {
       });
     })();
   }, []);
+
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64 = result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = reject;
+    });
+  };
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const maxSize = 10 * 1024 * 1024; // 10MB limit
+      
+      if (file.size > maxSize) {
+        toast({
+          variant: "destructive",
+          title: "File too large",
+          description: "Please upload a file smaller than 10MB",
+        });
+        return;
+      }
+      
+      setUploadedFile(file);
+      toast({
+        title: "File attached",
+        description: `${file.name} ready to send`,
+      });
+    }
+  };
+
+  const handleFileUpload = async () => {
+    if (!uploadedFile) return;
+    
+    setIsUploading(true);
+    
+    try {
+      const fileContent = await fileToBase64(uploadedFile);
+      
+      // Send file via email
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name.trim(),
+          email: `chat-lead@techpivot.in`,
+          company: formData.company.trim(),
+          message: `Document shared via chat:\n\nFile: ${uploadedFile.name}\nMobile: ${formData.mobile}\nCountry: ${countries.find(c => c.value === formData.country)?.label || formData.country}\nInterested Service: ${services.find(s => s.value === formData.service)?.label || formData.service}`,
+          timeline: "",
+          budget: formData.budget,
+          source: "Chat Widget - File Upload",
+          isChatLead: true,
+          mobile: formData.mobile.trim(),
+          country: formData.country,
+          service: formData.service,
+          fileName: uploadedFile.name,
+          fileContent: fileContent,
+          fileType: uploadedFile.type
+        }
+      });
+      
+      if (error) {
+        throw error;
+      }
+      
+      // Add message to chat
+      setMessages(prev => [...prev, 
+        { role: "user", content: `📎 Shared document: ${uploadedFile.name}` },
+        { role: "assistant", content: `Thank you for sharing "${uploadedFile.name}"! Our team will review it and get back to you soon. Is there anything specific you'd like to discuss about this document?` }
+      ]);
+      
+      setUploadedFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      
+      toast({
+        title: "Document sent!",
+        description: "Our team will review it shortly.",
+      });
+    } catch (err) {
+      console.error("File upload error:", err);
+      toast({
+        variant: "destructive",
+        title: "Upload failed",
+        description: "Failed to send document. Please try again.",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -539,18 +636,66 @@ const ChatBot = () => {
 
             {/* Input */}
             <div className="p-4 border-t border-border bg-background space-y-2">
-              {/* Schedule Call Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full text-xs"
-                data-cal-namespace="chatbot-consultation"
-                data-cal-link="techpivot-technologies-spt9na"
-                data-cal-config='{"layout":"month_view"}'
-              >
-                <Calendar className="w-3 h-3 mr-1" />
-                Schedule a Call
-              </Button>
+              {/* Quick Actions */}
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex-1 text-xs"
+                  data-cal-namespace="chatbot-consultation"
+                  data-cal-link="techpivot-technologies-spt9na"
+                  data-cal-config='{"layout":"month_view"}'
+                >
+                  <Calendar className="w-3 h-3 mr-1" />
+                  Schedule Call
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex-1 text-xs"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                >
+                  <Paperclip className="w-3 h-3 mr-1" />
+                  Share Document
+                </Button>
+              </div>
+              
+              {/* Hidden file input */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileSelect}
+                className="hidden"
+                accept=".pdf,.doc,.docx,.txt,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg"
+              />
+              
+              {/* File preview */}
+              {uploadedFile && (
+                <div className="flex items-center gap-2 p-2 bg-muted rounded-lg text-xs">
+                  <Paperclip className="w-3 h-3 text-primary" />
+                  <span className="flex-1 truncate">{uploadedFile.name}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 px-2 text-xs"
+                    onClick={() => {
+                      setUploadedFile(null);
+                      if (fileInputRef.current) fileInputRef.current.value = '';
+                    }}
+                  >
+                    <X className="w-3 h-3" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="h-6 px-2 text-xs"
+                    onClick={handleFileUpload}
+                    disabled={isUploading}
+                  >
+                    {isUploading ? <Loader2 className="w-3 h-3 animate-spin" /> : "Send"}
+                  </Button>
+                </div>
+              )}
               
               <div className="flex gap-2">
                 <Input
