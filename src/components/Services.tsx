@@ -1,19 +1,150 @@
 import { Link } from "react-router-dom";
-import { Bot, Sparkles, Cloud, Globe, Smartphone, Shield, Users, Boxes, Cpu, Lightbulb, ArrowUpRight } from "lucide-react";
+import { Bot, Sparkles, Cloud, Globe, Smartphone, Shield, Users, Boxes, Cpu, Lightbulb, ArrowRight } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { motion } from "framer-motion";
 
 const services = [
-  { icon: Bot, title: "Agentic AI", description: "Autonomous systems that perceive, reason, plan, and execute complex tasks.", href: "/services/agentic-ai" },
-  { icon: Sparkles, title: "Generative AI", description: "Advanced tools for content generation and design automation.", href: "/services/generative-ai" },
-  { icon: Cloud, title: "SaaS Platform", description: "Secure, cloud-native applications with robust APIs.", href: "/services/saas-platform" },
-  { icon: Globe, title: "Web Development", description: "High-performing, SEO-optimized sites with modern frameworks.", href: "/services/web-development" },
-  { icon: Smartphone, title: "Mobile Apps", description: "Native and cross-platform iOS/Android applications.", href: "/services/mobile-app" },
-  { icon: Shield, title: "Cloud & Security", description: "Scalable cloud architectures with enterprise security.", href: "/services/cloud-security" },
-  { icon: Users, title: "Staff Augmentation", description: "On-demand expert teams to scale your projects.", href: "/services/staff-augmentation" },
-  { icon: Boxes, title: "End-to-End Delivery", description: "Complete project lifecycle management and delivery.", href: "/services/custom-software" },
-  { icon: Cpu, title: "IoT Solutions", description: "Connected device ecosystems with intelligent automation.", href: "/services/iot" },
-  { icon: Lightbulb, title: "Consultancy", description: "Strategic technology consulting for digital transformation.", href: "/services/consultancy" },
+  { 
+    icon: Bot, 
+    title: "Agentic AI", 
+    subtitle: "Autonomous Intelligence",
+    description: "Autonomous systems that perceive, reason, plan, and execute complex tasks.", 
+    href: "/services/agentic-ai",
+    gradient: "from-violet-500/10 to-purple-500/10"
+  },
+  { 
+    icon: Sparkles, 
+    title: "Generative AI", 
+    subtitle: "Creative Solutions",
+    description: "Advanced tools for content generation and design automation.", 
+    href: "/services/generative-ai",
+    gradient: "from-pink-500/10 to-rose-500/10"
+  },
+  { 
+    icon: Cloud, 
+    title: "SaaS Platform", 
+    subtitle: "Cloud Native",
+    description: "Secure, cloud-native applications with robust APIs.", 
+    href: "/services/saas-platform",
+    gradient: "from-blue-500/10 to-cyan-500/10"
+  },
+  { 
+    icon: Globe, 
+    title: "Web Development", 
+    subtitle: "Modern Frameworks",
+    description: "High-performing, SEO-optimized sites with modern frameworks.", 
+    href: "/services/web-development",
+    gradient: "from-emerald-500/10 to-teal-500/10"
+  },
+  { 
+    icon: Smartphone, 
+    title: "Mobile Apps", 
+    subtitle: "iOS & Android",
+    description: "Native and cross-platform iOS/Android applications.", 
+    href: "/services/mobile-app",
+    gradient: "from-orange-500/10 to-amber-500/10"
+  },
+  { 
+    icon: Shield, 
+    title: "Cloud & Security", 
+    subtitle: "Enterprise Grade",
+    description: "Scalable cloud architectures with enterprise security.", 
+    href: "/services/cloud-security",
+    gradient: "from-red-500/10 to-orange-500/10"
+  },
+  { 
+    icon: Users, 
+    title: "Staff Augmentation", 
+    subtitle: "Expert Teams",
+    description: "On-demand expert teams to scale your projects.", 
+    href: "/services/staff-augmentation",
+    gradient: "from-indigo-500/10 to-blue-500/10"
+  },
+  { 
+    icon: Boxes, 
+    title: "End-to-End Delivery", 
+    subtitle: "Full Lifecycle",
+    description: "Complete project lifecycle management and delivery.", 
+    href: "/services/custom-software",
+    gradient: "from-fuchsia-500/10 to-pink-500/10"
+  },
+  { 
+    icon: Cpu, 
+    title: "IoT Solutions", 
+    subtitle: "Connected Devices",
+    description: "Connected device ecosystems with intelligent automation.", 
+    href: "/services/iot",
+    gradient: "from-cyan-500/10 to-blue-500/10"
+  },
+  { 
+    icon: Lightbulb, 
+    title: "Consultancy", 
+    subtitle: "Strategic Guidance",
+    description: "Strategic technology consulting for digital transformation.", 
+    href: "/services/consultancy",
+    gradient: "from-yellow-500/10 to-orange-500/10"
+  },
 ];
+
+const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+  return (
+    <AnimatedSection
+      animation="fadeUp"
+      delay={index * 50}
+    >
+      <Link 
+        to={service.href} 
+        className="group block h-full"
+      >
+        <motion.div 
+          className="relative h-full bg-[#f5f5f7] dark:bg-card rounded-2xl p-6 overflow-hidden transition-all duration-500"
+          whileHover={{ 
+            y: -8,
+            boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)"
+          }}
+        >
+          {/* Gradient overlay on hover */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+          
+          {/* Content */}
+          <div className="relative z-10 flex flex-col h-full">
+            {/* Title at top - Apple style */}
+            <div className="mb-auto">
+              <h3 className="text-xl font-semibold text-foreground mb-1 tracking-tight">
+                {service.title}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {service.subtitle}
+              </p>
+            </div>
+
+            {/* Icon in center - larger, more prominent */}
+            <div className="flex justify-center py-8">
+              <motion.div 
+                className="w-20 h-20 rounded-2xl bg-background/80 dark:bg-background/50 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300"
+                whileHover={{ scale: 1.05, rotate: 3 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <service.icon className="w-10 h-10 text-foreground group-hover:text-primary transition-colors duration-300" strokeWidth={1.5} />
+              </motion.div>
+            </div>
+
+            {/* Description at bottom */}
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              {service.description}
+            </p>
+
+            {/* Learn more link - Apple style */}
+            <div className="flex items-center gap-1 text-primary font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span>Learn more</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </motion.div>
+      </Link>
+    </AnimatedSection>
+  );
+};
 
 const Services = () => {
   return (
@@ -23,52 +154,20 @@ const Services = () => {
       <div className="absolute bottom-20 left-0 w-48 h-48 border border-primary/20 rounded-full opacity-50" />
 
       <div className="container px-6 lg:px-12 relative z-10">
-        {/* Section Header */}
+        {/* Section Header - Apple style */}
         <AnimatedSection animation="fadeUp" className="text-center max-w-3xl mx-auto mb-16 -mt-[100px]">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-6 text-foreground">
-            What We Deliver
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-foreground">
+            What We Deliver.
           </h2>
-          <p className="text-lg text-muted-foreground">
-            From AI-powered automation to enterprise-grade cloud solutions, we deliver end-to-end services that drive digital transformation.
+          <p className="text-xl text-muted-foreground">
+            Take your pick.
           </p>
         </AnimatedSection>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {/* Services Grid - Apple-inspired layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {services.map((service, index) => (
-            <AnimatedSection
-              key={service.title}
-              animation="fadeUp"
-              delay={index * 50}
-            >
-              <Link 
-                to={service.href} 
-                className="group relative p-6 bg-card border border-border rounded-xl card-hover block h-full"
-              >
-                {/* Hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                
-                <div className="relative z-10">
-                  {/* Icon with thin stroke style */}
-                  <div className="w-12 h-12 rounded-lg border border-border bg-background flex items-center justify-center mb-4 group-hover:border-primary/50 group-hover:bg-primary/5 transition-all duration-300">
-                    <service.icon className="w-5 h-5 text-foreground group-hover:text-primary transition-colors icon-hover" strokeWidth={1.5} />
-                  </div>
-
-                  {/* Title with arrow */}
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors tracking-wide">
-                      {service.title}
-                    </h3>
-                    <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0" />
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-              </Link>
-            </AnimatedSection>
+            <ServiceCard key={service.title} service={service} index={index} />
           ))}
         </div>
       </div>
