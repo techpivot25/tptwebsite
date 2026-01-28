@@ -66,6 +66,20 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        // Remove the data:mime;base64, prefix
+        const base64 = result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = reject;
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -77,6 +91,15 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
+      // Prepare file data if file is uploaded
+      let fileContent: string | null = null;
+      let fileType: string | null = null;
+      
+      if (file) {
+        fileContent = await fileToBase64(file);
+        fileType = file.type;
+      }
+
       const { data, error } = await supabase.functions.invoke('send-contact-email', {
         body: {
           name: formData.name.trim(),
@@ -86,7 +109,9 @@ const Contact = () => {
           timeline: formData.timeline,
           budget: formData.budget,
           source: formData.source,
-          fileName: file?.name || null
+          fileName: file?.name || null,
+          fileContent: fileContent,
+          fileType: fileType
         }
       });
       
@@ -96,10 +121,13 @@ const Contact = () => {
         return;
       }
       
-      toast.success("Thank you! We'll get back to you soon.");
+      toast.success("Thank you! We'll get back to you soon. Check your email for confirmation.");
       setFormData({ name: "", email: "", company: "", message: "", timeline: "", budget: "", source: "" });
       setFile(null);
       setErrors({});
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     } catch (err) {
       console.error("Unexpected error:", err);
       toast.error("An unexpected error occurred. Please try again.");

@@ -1,11 +1,9 @@
-import { Resend } from "https://esm.sh/resend@2.0.0";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 interface ContactFormRequest {
@@ -17,6 +15,8 @@ interface ContactFormRequest {
   budget: string;
   source: string;
   fileName?: string;
+  fileContent?: string; // Base64 encoded file content
+  fileType?: string;
   // Chat lead specific fields
   isChatLead?: boolean;
   mobile?: string;
@@ -24,10 +24,37 @@ interface ContactFormRequest {
   service?: string;
 }
 
+async function sendEmail(
+  client: SMTPClient,
+  to: string,
+  subject: string,
+  html: string,
+  attachment?: { filename: string; content: Uint8Array; contentType: string }
+) {
+  const emailConfig: any = {
+    from: "TechPivot <techpivot25@gmail.com>",
+    to: to,
+    subject: subject,
+    html: html,
+  };
+
+  if (attachment) {
+    emailConfig.attachments = [
+      {
+        filename: attachment.filename,
+        content: attachment.content,
+        contentType: attachment.contentType,
+      },
+    ];
+  }
+
+  await client.send(emailConfig);
+}
+
 Deno.serve(async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
@@ -40,15 +67,17 @@ Deno.serve(async (req: Request): Promise<Response> => {
       budget, 
       source, 
       fileName,
+      fileContent,
+      fileType,
       isChatLead,
       mobile,
       country,
       service
     }: ContactFormRequest = await req.json();
 
-    console.log("Received contact form submission:", { name, email, company, timeline, budget, source, isChatLead, mobile, country, service });
+    console.log("Received contact form submission:", { name, email, company, timeline, budget, source, isChatLead, mobile, country, service, hasFile: !!fileContent });
 
-    // Validate required fields - for chat leads, email can be placeholder
+    // Validate required fields
     if (!name) {
       console.error("Missing required field: name");
       return new Response(
@@ -99,7 +128,20 @@ Deno.serve(async (req: Request): Promise<Response> => {
       }
     }
 
-    // Format the timeline and budget for display
+    // Initialize SMTP client
+    const client = new SMTPClient({
+      connection: {
+        hostname: "smtp.gmail.com",
+        port: 465,
+        tls: true,
+        auth: {
+          username: "techpivot25@gmail.com",
+          password: Deno.env.get("GMAIL_APP_PASSWORD") || "",
+        },
+      },
+    });
+
+    // Format labels
     const timelineLabels: Record<string, string> = {
       "immediate": "Immediately (0–1 month)",
       "1-3months": "Within 1–3 months",
@@ -150,13 +192,34 @@ Deno.serve(async (req: Request): Promise<Response> => {
       "consultancy": "Consultancy"
     };
 
-    // Different email format for chat leads vs regular contact form
-    let emailSubject: string;
-    let emailHtml: string;
+    // Prepare attachment if file was uploaded
+    let attachment: { filename: string; content: Uint8Array; contentType: string } | undefined;
+    if (fileContent && fileName) {
+      try {
+        // Decode base64 content
+        const binaryString = atob(fileContent);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        attachment = {
+          filename: fileName,
+          content: bytes,
+          contentType: fileType || "application/octet-stream",
+        };
+        console.log("File attachment prepared:", fileName);
+      } catch (e) {
+        console.error("Error processing file attachment:", e);
+      }
+    }
+
+    // Build email content
+    let adminEmailSubject: string;
+    let adminEmailHtml: string;
 
     if (isChatLead) {
-      emailSubject = `🤖 New Chat Lead from ${name}`;
-      emailHtml = `
+      adminEmailSubject = `🤖 New Chat Lead from ${name}`;
+      adminEmailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333; border-bottom: 2px solid #10b981; padding-bottom: 10px;">🤖 New Chat Widget Lead</h2>
           
@@ -200,10 +263,10 @@ Deno.serve(async (req: Request): Promise<Response> => {
         </div>
       `;
     } else {
-      emailSubject = `New Contact Form Submission from ${name}`;
-      emailHtml = `
+      adminEmailSubject = `📩 New Contact Form Submission from ${name}`;
+      adminEmailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">New Contact Form Submission</h2>
+          <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">📩 New Contact Form Submission</h2>
           
           <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <tr>
@@ -233,7 +296,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
             ${fileName ? `
             <tr>
               <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Attached File:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${fileName}</td>
+              <td style="padding: 10px; border-bottom: 1px solid #eee;">📎 ${fileName}</td>
             </tr>
             ` : ""}
           </table>
@@ -250,18 +313,61 @@ Deno.serve(async (req: Request): Promise<Response> => {
       `;
     }
 
-    // Send email to info@techpivot.in
-    const emailResponse = await resend.emails.send({
-      from: "TechPivot Contact Form <techpivot25@gmail.com>",
-      to: ["info@techpivot.in"],
-      reply_to: isChatLead ? undefined : email,
-      subject: emailSubject,
-      html: emailHtml,
-    });
+    // Send email to admin (info@techpivot.in)
+    await sendEmail(client, "info@techpivot.in", adminEmailSubject, adminEmailHtml, attachment);
+    console.log("Admin notification email sent successfully");
 
-    console.log("Email sent successfully:", emailResponse);
+    // Send welcome email to user (only for contact form, not chat leads)
+    if (!isChatLead && email) {
+      const welcomeEmailSubject = "Thank you for contacting TechPivot Technologies!";
+      const welcomeEmailHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #333; margin: 0;">TechPivot Technologies</h1>
+            <p style="color: #666; font-size: 14px;">Transforming Ideas into Digital Reality</p>
+          </div>
+          
+          <h2 style="color: #007bff;">Hello ${name}! 👋</h2>
+          
+          <p style="color: #333; line-height: 1.8;">
+            Thank you for reaching out to us! We've received your message and our team will review your inquiry shortly.
+          </p>
+          
+          <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #333; margin-top: 0;">What happens next?</h3>
+            <ul style="color: #555; line-height: 1.8;">
+              <li>Our team will review your requirements within 24 hours</li>
+              <li>A dedicated consultant will reach out to discuss your project</li>
+              <li>We'll provide a customized solution proposal</li>
+            </ul>
+          </div>
+          
+          <p style="color: #333; line-height: 1.8;">
+            In the meantime, feel free to explore our services and case studies at 
+            <a href="https://techpivot.in" style="color: #007bff;">techpivot.in</a>
+          </p>
+          
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="color: #666; font-size: 14px; margin: 0;">
+              Best regards,<br>
+              <strong style="color: #333;">The TechPivot Team</strong>
+            </p>
+            <p style="color: #999; font-size: 12px; margin-top: 10px;">
+              📧 info@techpivot.in<br>
+              🌐 India • USA • Canada • UAE
+            </p>
+          </div>
+        </div>
+      `;
+      
+      await sendEmail(client, email, welcomeEmailSubject, welcomeEmailHtml);
+      console.log("Welcome email sent to user:", email);
+    }
 
-    return new Response(JSON.stringify({ success: true, data: emailResponse }), {
+    // Close SMTP connection
+    await client.close();
+
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
