@@ -60,13 +60,13 @@ const CountUpStat = ({ endValue, suffix, label, delay }: CountUpStatProps) => {
   return (
     <div 
       ref={ref}
-      className="text-center p-6 border border-background/10 rounded-xl hover:border-primary/50 transition-colors animate-fade-up"
+      className="text-center p-6 border border-background/10 rounded-xl transition-all duration-300 ease-out animate-fade-up hover:border-primary/50 hover:bg-background/5 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 cursor-default group"
       style={{ animationDelay: `${delay}s` }}
     >
-      <div className="text-4xl md:text-5xl font-bold text-primary mb-2 tabular-nums">
+      <div className="text-4xl md:text-5xl font-bold text-primary mb-2 tabular-nums transition-transform duration-300 group-hover:scale-105">
         {count}{suffix}
       </div>
-      <div className="text-sm text-background/60 uppercase tracking-wide">{label}</div>
+      <div className="text-sm text-background/60 uppercase tracking-wide transition-colors duration-300 group-hover:text-background/80">{label}</div>
     </div>
   );
 };
@@ -132,13 +132,13 @@ const About = () => {
               {highlights.map((item, index) => (
                 <li 
                   key={item} 
-                  className="flex items-start gap-3 p-4 border border-background/10 rounded-xl hover:border-primary/30 transition-colors animate-fade-up" 
+                  className="flex items-start gap-3 p-4 border border-background/10 rounded-xl transition-all duration-300 ease-out animate-fade-up hover:border-primary/50 hover:bg-background/5 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 cursor-default group" 
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary/30 group-hover:scale-110">
                     <CheckCircle2 className="w-4 h-4 text-primary" />
                   </div>
-                  <span className="text-background/90">{item}</span>
+                  <span className="text-background/90 transition-colors duration-300 group-hover:text-background">{item}</span>
                 </li>
               ))}
             </ul>
@@ -156,7 +156,7 @@ const About = () => {
           </div>
 
           {/* Right - Global Presence */}
-          <div className="bg-background/5 border border-background/10 rounded-2xl p-8">
+          <div className="bg-background/5 border border-background/10 rounded-2xl p-8 transition-all duration-300 hover:border-background/20 hover:bg-background/[0.07]">
             <h3 className="text-xl font-semibold uppercase tracking-wide mb-6 flex items-center gap-2">
               <MapPin className="w-5 h-5 text-primary" />
               Global Presence
@@ -165,11 +165,11 @@ const About = () => {
               {locations.map((location, index) => (
                 <div
                   key={location.name}
-                  className="p-4 bg-background/5 border border-background/10 rounded-xl hover:border-primary/30 transition-colors animate-fade-up"
+                  className="p-4 bg-background/5 border border-background/10 rounded-xl transition-all duration-300 ease-out animate-fade-up hover:border-primary/50 hover:bg-background/10 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 cursor-default group"
                   style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                 >
-                  <div className="font-medium text-background">{location.name}</div>
-                  <div className="text-sm text-background/60">{location.type}</div>
+                  <div className="font-medium text-background transition-colors duration-300 group-hover:text-primary">{location.name}</div>
+                  <div className="text-sm text-background/60 transition-colors duration-300 group-hover:text-background/80">{location.type}</div>
                 </div>
               ))}
             </div>
