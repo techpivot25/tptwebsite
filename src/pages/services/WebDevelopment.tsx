@@ -1,4 +1,4 @@
-import { Globe, Monitor, Smartphone, Search, Zap, FileText, ShoppingCart, Building, Layout, BookOpen } from "lucide-react";
+import { Globe, Monitor, Smartphone, Search, Zap, FileText, ShoppingCart, Building, Layout, BookOpen, Target, ClipboardList, Palette, Code2, TestTube, Rocket } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -12,11 +12,12 @@ const features = [
 ];
 
 const process = [
-  { step: "01", title: "Discovery & Planning", description: "Understanding your goals and target audience" },
-  { step: "02", title: "Design & Prototyping", description: "Creating wireframes and visual designs" },
-  { step: "03", title: "Development", description: "Agile development with regular demos and feedback" },
-  { step: "04", title: "Testing & QA", description: "Ensuring quality across all devices and browsers" },
-  { step: "05", title: "Launch & Support", description: "Deployment and ongoing maintenance" },
+  { step: 1, icon: Target, title: "Strategy", description: "Define strategic goals for evolving your idea into a successful website" },
+  { step: 2, icon: ClipboardList, title: "Analysis & Planning", description: "Identify requirements, define team structure, and prepare product roadmap" },
+  { step: 3, icon: Palette, title: "UI/UX Design", description: "Create seamless and effortless user experiences with polished design" },
+  { step: 4, icon: Code2, title: "Development", description: "Build robust frontend and backend following agile development process" },
+  { step: 5, icon: TestTube, title: "Testing", description: "Validate quality thoroughly with comprehensive testing across all devices" },
+  { step: 6, icon: Rocket, title: "Deployment & Support", description: "Launch your website with ongoing support and future enhancements" },
 ];
 
 const solutions = [
@@ -56,37 +57,101 @@ const WebDevelopment = () => {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="py-20 lg:py-28 bg-[#f5f5f7] dark:bg-secondary/30 animate-section">
+      {/* Process Timeline */}
+      <section className="py-20 lg:py-28 bg-foreground text-background animate-section overflow-hidden">
         <div className="container px-6 lg:px-12">
           <AnimatedSection animation="fadeUp" className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Our Development Process
             </h2>
+            <p className="text-background/70 max-w-2xl mx-auto">
+              A proven methodology that ensures quality delivery at every stage
+            </p>
           </AnimatedSection>
-          <div className="max-w-4xl mx-auto">
-            {process.map((step, index) => (
-              <AnimatedSection key={step.step} animation="fadeUp" delay={index * 100}>
-                <motion.div 
-                  className="flex gap-6 mb-6 last:mb-0 p-4 rounded-2xl transition-all duration-300"
-                  whileHover={{ 
-                    x: 8,
-                    backgroundColor: "rgba(0,0,0,0.02)"
-                  }}
-                >
-                  <motion.div 
-                    className="flex-shrink-0 w-16 h-16 rounded-2xl bg-background dark:bg-card flex items-center justify-center shadow-sm"
-                    whileHover={{ scale: 1.05 }}
+          
+          {/* Desktop Timeline */}
+          <div className="hidden lg:block relative max-w-6xl mx-auto">
+            {/* Horizontal Line */}
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-primary -translate-y-1/2 z-0" />
+            
+            {/* Process Steps */}
+            <div className="relative flex justify-between items-center">
+              {process.map((step, index) => {
+                const Icon = step.icon;
+                const isTop = index % 2 === 0;
+                
+                return (
+                  <motion.div
+                    key={step.step}
+                    className="relative flex flex-col items-center"
+                    initial={{ opacity: 0, y: isTop ? -30 : 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <span className="text-lg font-bold text-primary">{step.step}</span>
+                    {/* Card - Top or Bottom */}
+                    <div className={`absolute ${isTop ? 'bottom-16' : 'top-16'} w-40`}>
+                      <motion.div
+                        className="bg-background/10 backdrop-blur-sm border border-background/20 rounded-xl p-4 transition-all duration-300 hover:bg-background/15 hover:border-primary/50 hover:-translate-y-1 group cursor-default"
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <Icon className="w-5 h-5 text-primary transition-transform duration-300 group-hover:scale-110" />
+                          <h3 className="font-semibold text-sm text-background">{step.title}</h3>
+                        </div>
+                        <p className="text-xs text-background/60 leading-relaxed">{step.description}</p>
+                      </motion.div>
+                      {/* Connector Line */}
+                      <div className={`absolute left-1/2 -translate-x-1/2 w-px h-8 bg-primary ${isTop ? 'top-full' : 'bottom-full'}`} />
+                    </div>
+                    
+                    {/* Number Circle */}
+                    <motion.div
+                      className="relative z-10 w-10 h-10 rounded-full bg-foreground border-2 border-primary flex items-center justify-center transition-all duration-300 hover:bg-primary group cursor-default"
+                      whileHover={{ scale: 1.15 }}
+                    >
+                      <span className="text-sm font-bold text-primary group-hover:text-foreground transition-colors">{step.step}</span>
+                    </motion.div>
                   </motion.div>
-                  <div className="pt-3">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
+                );
+              })}
+            </div>
+          </div>
+          
+          {/* Mobile Timeline */}
+          <div className="lg:hidden relative max-w-md mx-auto">
+            {/* Vertical Line */}
+            <div className="absolute left-5 top-0 bottom-0 w-1 bg-primary" />
+            
+            <div className="space-y-8">
+              {process.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <motion.div
+                    key={step.step}
+                    className="relative flex gap-6 items-start"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                  >
+                    {/* Number Circle */}
+                    <div className="relative z-10 flex-shrink-0 w-10 h-10 rounded-full bg-foreground border-2 border-primary flex items-center justify-center">
+                      <span className="text-sm font-bold text-primary">{step.step}</span>
+                    </div>
+                    
+                    {/* Card */}
+                    <div className="flex-1 bg-background/10 backdrop-blur-sm border border-background/20 rounded-xl p-4 transition-all duration-300 hover:bg-background/15 hover:border-primary/50 group">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Icon className="w-5 h-5 text-primary" />
+                        <h3 className="font-semibold text-background">{step.title}</h3>
+                      </div>
+                      <p className="text-sm text-background/60">{step.description}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
