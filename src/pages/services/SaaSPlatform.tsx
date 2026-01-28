@@ -3,6 +3,7 @@ import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
+import heroBg from "@/assets/hero-bg-saas.jpg";
 
 const features = [
   { icon: Layers, title: "Multi-Tenancy Architecture", description: "Isolated data and customizable experiences for each customer" },
@@ -38,6 +39,7 @@ const SaaSPlatform = () => {
       subtitle="Cloud-Native Solutions"
       description="Build secure, scalable cloud-native applications with APIs, microservices, multi-tenancy, and AI integration for rapid MVPs and subscription businesses."
       icon={<Cloud className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* Features */}
       <section className="py-20 lg:py-28 animate-section">

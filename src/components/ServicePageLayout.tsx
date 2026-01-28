@@ -16,6 +16,7 @@ interface ServicePageLayoutProps {
   description: string;
   children: React.ReactNode;
   icon: React.ReactNode;
+  backgroundImage?: string;
 }
 
 const ServicePageLayout = ({
@@ -24,6 +25,7 @@ const ServicePageLayout = ({
   description,
   children,
   icon,
+  backgroundImage,
 }: ServicePageLayoutProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -95,6 +97,14 @@ const ServicePageLayout = ({
           ref={heroRef}
           className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-foreground overflow-hidden"
         >
+          {/* Background Image */}
+          {backgroundImage && (
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+              style={{ backgroundImage: `url(${backgroundImage})` }}
+            />
+          )}
+          
           {/* Geometric decorations */}
           <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
           <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />

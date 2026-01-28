@@ -2,6 +2,7 @@ import { Shield, Cloud, Server, Lock, Eye, AlertTriangle, Database, FileCheck, R
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
+import heroBg from "@/assets/hero-bg-cloud-security.jpg";
 
 const cloudServices = [
   { icon: Cloud, title: "Cloud Migration", description: "Seamless transition to AWS, Azure, or Google Cloud with minimal disruption" },
@@ -28,6 +29,7 @@ const CloudSecurity = () => {
       subtitle="Enterprise Protection"
       description="Secure, scalable cloud infrastructure and enterprise-grade security solutions to protect your data and ensure compliance."
       icon={<Shield className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* Cloud Solutions */}
       <section className="py-20 lg:py-28 animate-section">

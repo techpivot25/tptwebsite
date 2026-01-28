@@ -2,6 +2,7 @@ import { Cpu, Wifi, Database, BarChart, Shield, Zap, Factory, Home, Heart, Truck
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
+import heroBg from "@/assets/hero-bg-iot.jpg";
 
 const capabilities = [
   { icon: Wifi, title: "Device Connectivity", description: "Connect and manage thousands of IoT devices seamlessly" },
@@ -26,6 +27,7 @@ const IoT = () => {
       subtitle="Connected Devices"
       description="Connected device ecosystems with real-time data processing and intelligent automation for smarter operations."
       icon={<Cpu className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* Capabilities */}
       <section className="py-20 lg:py-28 animate-section">

@@ -3,6 +3,7 @@ import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
+import heroBg from "@/assets/hero-bg-web-dev.jpg";
 
 const features = [
   { icon: Monitor, title: "Responsive Design", description: "Seamless experiences across all devices with mobile-first approach" },
@@ -34,6 +35,7 @@ const WebDevelopment = () => {
       subtitle="Digital Presence"
       description="Creating powerful, responsive websites that drive business growth and engage users with modern frameworks and best practices."
       icon={<Globe className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* Features */}
       <section className="py-20 lg:py-28 animate-section">

@@ -3,6 +3,7 @@ import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
+import heroBg from "@/assets/hero-bg-consultancy.jpg";
 
 const services = [
   { icon: Target, title: "Technology Strategy", description: "Align your technology investments with business objectives" },
@@ -27,6 +28,7 @@ const Consultancy = () => {
       subtitle="Strategic Guidance"
       description="Strategic technology consulting to guide your digital transformation journey and maximize your technology investments."
       icon={<Lightbulb className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* Services */}
       <section className="py-20 lg:py-28 animate-section">
