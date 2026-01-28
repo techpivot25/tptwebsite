@@ -2,6 +2,7 @@ import { Bot, Brain, MessageSquare, Workflow, RefreshCw, ShieldCheck, Headphones
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
+import heroBg from "@/assets/hero-bg-agentic-ai.jpg";
 
 const capabilities = [
   {
@@ -72,6 +73,7 @@ const AgenticAI = () => {
       subtitle="Autonomous Intelligence"
       description="Intelligent autonomous agents that understand, reason, and act to achieve your business goals with minimal human intervention."
       icon={<Bot className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* What is Agentic AI */}
       <section className="py-20 lg:py-28 animate-section">

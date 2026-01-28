@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
+import heroBg from "@/assets/hero-bg-careers.jpg";
 
 const benefits = [
   {
@@ -81,6 +82,12 @@ const Careers = () => {
         <main>
           {/* Hero Section */}
           <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-b from-secondary/10 to-background relative overflow-hidden">
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+              style={{ backgroundImage: `url(${heroBg})` }}
+            />
+            
             <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
             <div className="absolute bottom-10 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
 

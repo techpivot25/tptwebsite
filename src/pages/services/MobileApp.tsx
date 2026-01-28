@@ -2,6 +2,7 @@ import { Smartphone, Apple, Play, Layers, Zap, Shield, Wifi, Server, ShoppingCar
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
+import heroBg from "@/assets/hero-bg-mobile-app.jpg";
 
 const platforms = [
   { icon: Apple, title: "iOS Development", description: "Native iOS apps built with Swift and SwiftUI for optimal performance" },
@@ -33,6 +34,7 @@ const MobileApp = () => {
       subtitle="Native & Cross-Platform"
       description="Develop secure, scalable, and high-performance mobile applications tailored for enterprise needs with native and cross-platform expertise."
       icon={<Smartphone className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* Platforms */}
       <section className="py-20 lg:py-28 animate-section">

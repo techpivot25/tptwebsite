@@ -4,6 +4,7 @@ import ServiceFAQ from "@/components/ServiceFAQ";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
+import heroBg from "@/assets/hero-bg-custom-software.jpg";
 
 const services = [
   { icon: Code, title: "Custom Application Development", description: "Tailored software solutions designed to address your specific business challenges" },
@@ -60,6 +61,7 @@ const CustomSoftware = () => {
       subtitle="Tailored Solutions"
       description="Delivering tailored software solutions built around your unique business processes and objectives for efficiency and growth."
       icon={<Code className="w-8 h-8 text-primary" />}
+      backgroundImage={heroBg}
     >
       {/* Services */}
       <section className="py-20 lg:py-28 animate-section">
