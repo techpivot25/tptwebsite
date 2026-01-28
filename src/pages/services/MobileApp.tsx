@@ -86,17 +86,15 @@ const MobileApp = () => {
               Industry Solutions
             </h2>
           </AnimatedSection>
-          <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {solutions.map((solution, index) => (
-              <div key={solution.title} className="min-w-[300px] max-w-[300px] snap-start flex-shrink-0">
-                <AnimatedSection animation="fadeUp" delay={index * 100}>
-                  <AppleCardCompact
-                    icon={solution.icon}
-                    title={solution.title}
-                    description={solution.description}
-                  />
-                </AnimatedSection>
-              </div>
+              <AnimatedSection key={solution.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={solution.icon}
+                  title={solution.title}
+                  description={solution.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>

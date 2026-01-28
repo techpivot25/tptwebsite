@@ -98,17 +98,15 @@ const AgenticAI = () => {
               Key Capabilities
             </h2>
           </AnimatedSection>
-          <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {capabilities.map((cap, index) => (
-              <div key={cap.title} className="min-w-[300px] max-w-[300px] snap-start flex-shrink-0">
-                <AnimatedSection animation="fadeUp" delay={index * 100}>
-                  <AppleCardCompact
-                    icon={cap.icon}
-                    title={cap.title}
-                    description={cap.description}
-                  />
-                </AnimatedSection>
-              </div>
+              <AnimatedSection key={cap.title} animation="fadeUp" delay={index * 100}>
+                <AppleCardCompact
+                  icon={cap.icon}
+                  title={cap.title}
+                  description={cap.description}
+                />
+              </AnimatedSection>
             ))}
           </div>
         </div>
