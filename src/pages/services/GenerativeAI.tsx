@@ -3,7 +3,6 @@ import ServicePageLayout from "@/components/ServicePageLayout";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
-import heroBg from "@/assets/hero-bg-generative-ai.jpg";
 
 const capabilities = [
   { icon: FileText, title: "Text Generation", description: "Create articles, product descriptions, marketing copy, and documentation at scale" },
@@ -65,7 +64,6 @@ const GenerativeAI = () => {
       subtitle="Creative Intelligence"
       description="Scale creative output and innovation with AI-generated content, designs, and synthetic data that boost creativity and efficiency."
       icon={<Sparkles className="w-8 h-8 text-primary" />}
-      backgroundImage={heroBg}
     >
       {/* Overview */}
       <section className="py-20 lg:py-28 animate-section">

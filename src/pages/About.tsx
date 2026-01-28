@@ -8,7 +8,6 @@ import { ArrowRight, Lightbulb, Users, Award, Shield } from "lucide-react";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg-about.jpg";
 
 const coreValues = [
   {
@@ -46,12 +45,6 @@ const About = () => {
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-24 lg:py-32 bg-foreground text-background relative overflow-hidden">
-          {/* Background Image */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-            style={{ backgroundImage: `url(${heroBg})` }}
-          />
-          
           <div className="absolute -top-32 -right-32 w-64 h-64 border border-background/10 rounded-full" />
           <div className="absolute bottom-20 left-20 w-24 h-24 border border-primary/30 rounded-full" />
           

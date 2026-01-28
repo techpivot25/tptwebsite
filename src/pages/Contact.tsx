@@ -10,7 +10,7 @@ import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { getCalApi } from "@calcom/embed-react";
-import heroBg from "@/assets/hero-bg-contact.jpg";
+
 interface FormErrors {
   name?: string;
   email?: string;
@@ -172,12 +172,6 @@ const Contact = () => {
         
         {/* Hero Section */}
         <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground relative overflow-hidden">
-          {/* Background Image */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-            style={{ backgroundImage: `url(${heroBg})` }}
-          />
-          
           {/* Geometric decorations */}
           <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
           <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
