@@ -469,3 +469,12 @@
     8px 8px 16px hsl(174 65% 25% / 0.5),
     -8px -8px 16px hsl(174 65% 60% / 0.3);
 }
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
