@@ -219,98 +219,11 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     if (isChatLead) {
       adminEmailSubject = `🤖 New Chat Lead from ${name}`;
-      adminEmailHtml = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; border-bottom: 2px solid #10b981; padding-bottom: 10px;">🤖 New Chat Widget Lead</h2>
-          
-          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Name:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Mobile:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="tel:${mobile}">${mobile}</a></td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Company:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${company || "Not provided"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Country:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${country ? countryLabels[country] || country : "Not specified"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Interested Service:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; color: #10b981; font-weight: bold;">${service ? serviceLabels[service] || service : "Not specified"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${budget ? budgetLabels[budget] || budget : "Not specified"}</td>
-            </tr>
-          </table>
-          
-          <div style="margin-top: 20px; padding: 15px; background-color: #ecfdf5; border-radius: 5px; border-left: 4px solid #10b981;">
-            <p style="margin: 0; color: #065f46;">
-              <strong>Lead Source:</strong> Chat Widget on Website<br>
-              <strong>Action Required:</strong> Follow up with this potential customer promptly.
-            </p>
-          </div>
-          
-          <p style="margin-top: 30px; color: #666; font-size: 12px;">
-            This lead was captured via the TechPivot website chat widget.
-          </p>
-        </div>
-      `;
+      adminEmailHtml = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;"><h2 style="color: #333; border-bottom: 2px solid #10b981; padding-bottom: 10px;">🤖 New Chat Widget Lead</h2><table style="width: 100%; border-collapse: collapse; margin-top: 20px;"><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Name:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Mobile:</td><td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="tel:${mobile}">${mobile}</a></td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Company:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${company || "Not provided"}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Country:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${country ? countryLabels[country] || country : "Not specified"}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Interested Service:</td><td style="padding: 10px; border-bottom: 1px solid #eee; color: #10b981; font-weight: bold;">${service ? serviceLabels[service] || service : "Not specified"}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${budget ? budgetLabels[budget] || budget : "Not specified"}</td></tr></table><div style="margin-top: 20px; padding: 15px; background-color: #ecfdf5; border-radius: 5px; border-left: 4px solid #10b981;"><p style="margin: 0; color: #065f46;"><strong>Lead Source:</strong> Chat Widget on Website<br><strong>Action Required:</strong> Follow up with this potential customer promptly.</p></div><p style="margin-top: 30px; color: #666; font-size: 12px;">This lead was captured via the TechPivot website chat widget.</p></div>`;
     } else {
       adminEmailSubject = `📩 New Contact Form Submission from ${name}`;
-      adminEmailHtml = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">📩 New Contact Form Submission</h2>
-          
-          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Name:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="mailto:${email}">${email}</a></td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Company:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${company || "Not provided"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Timeline:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${timeline ? timelineLabels[timeline] || timeline : "Not specified"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${budget ? budgetLabels[budget] || budget : "Not specified"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">How they found us:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">${source ? sourceLabels[source] || source : "Not specified"}</td>
-            </tr>
-            ${fileName ? `
-            <tr>
-              <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Attached File:</td>
-              <td style="padding: 10px; border-bottom: 1px solid #eee;">📎 ${fileName}</td>
-            </tr>
-            ` : ""}
-          </table>
-          
-          <div style="margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 5px;">
-            <h3 style="margin-top: 0; color: #333;">Message:</h3>
-            <p style="white-space: pre-wrap; line-height: 1.6;">${message}</p>
-          </div>
-          
-          <p style="margin-top: 30px; color: #666; font-size: 12px;">
-            This email was sent from the TechPivot website contact form.
-          </p>
-        </div>
-      `;
+      const fileRow = fileName ? `<tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Attached File:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">📎 ${fileName}</td></tr>` : "";
+      adminEmailHtml = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;"><h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">📩 New Contact Form Submission</h2><table style="width: 100%; border-collapse: collapse; margin-top: 20px;"><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Name:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td><td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="mailto:${email}">${email}</a></td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Company:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${company || "Not provided"}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Timeline:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${timeline ? timelineLabels[timeline] || timeline : "Not specified"}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Budget:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${budget ? budgetLabels[budget] || budget : "Not specified"}</td></tr><tr><td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">How they found us:</td><td style="padding: 10px; border-bottom: 1px solid #eee;">${source ? sourceLabels[source] || source : "Not specified"}</td></tr>${fileRow}</table><div style="margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 5px;"><h3 style="margin-top: 0; color: #333;">Message:</h3><p style="white-space: pre-wrap; line-height: 1.6;">${message}</p></div><p style="margin-top: 30px; color: #666; font-size: 12px;">This email was sent from the TechPivot website contact form.</p></div>`;
     }
 
     // Send email to admin (info@techpivot.in)
@@ -320,45 +233,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     // Send welcome email to user (only for contact form, not chat leads)
     if (!isChatLead && email) {
       const welcomeEmailSubject = "Thank you for contacting TechPivot Technologies!";
-      const welcomeEmailHtml = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #333; margin: 0;">TechPivot Technologies</h1>
-            <p style="color: #666; font-size: 14px;">Transforming Ideas into Digital Reality</p>
-          </div>
-          
-          <h2 style="color: #007bff;">Hello ${name}! 👋</h2>
-          
-          <p style="color: #333; line-height: 1.8;">
-            Thank you for reaching out to us! We've received your message and our team will review your inquiry shortly.
-          </p>
-          
-          <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #333; margin-top: 0;">What happens next?</h3>
-            <ul style="color: #555; line-height: 1.8;">
-              <li>Our team will review your requirements within 24 hours</li>
-              <li>A dedicated consultant will reach out to discuss your project</li>
-              <li>We'll provide a customized solution proposal</li>
-            </ul>
-          </div>
-          
-          <p style="color: #333; line-height: 1.8;">
-            In the meantime, feel free to explore our services and case studies at 
-            <a href="https://techpivot.in" style="color: #007bff;">techpivot.in</a>
-          </p>
-          
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-            <p style="color: #666; font-size: 14px; margin: 0;">
-              Best regards,<br>
-              <strong style="color: #333;">The TechPivot Team</strong>
-            </p>
-            <p style="color: #999; font-size: 12px; margin-top: 10px;">
-              📧 info@techpivot.in<br>
-              🌐 India • USA • Canada • UAE
-            </p>
-          </div>
-        </div>
-      `;
+      const welcomeEmailHtml = `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="text-align: center; margin-bottom: 30px;"><h1 style="color: #333; margin: 0;">TechPivot Technologies</h1><p style="color: #666; font-size: 14px;">Transforming Ideas into Digital Reality</p></div><h2 style="color: #007bff;">Hello ${name}! 👋</h2><p style="color: #333; line-height: 1.8;">Thank you for reaching out to us! We've received your message and our team will review your inquiry shortly.</p><div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;"><h3 style="color: #333; margin-top: 0;">What happens next?</h3><ul style="color: #555; line-height: 1.8;"><li>Our team will review your requirements within 24 hours</li><li>A dedicated consultant will reach out to discuss your project</li><li>We'll provide a customized solution proposal</li></ul></div><p style="color: #333; line-height: 1.8;">In the meantime, feel free to explore our services and case studies at <a href="https://techpivot.in" style="color: #007bff;">techpivot.in</a></p><div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;"><p style="color: #666; font-size: 14px; margin: 0;">Best regards,<br><strong style="color: #333;">The TechPivot Team</strong></p><p style="color: #999; font-size: 12px; margin-top: 10px;">📧 info@techpivot.in<br>🌐 India • USA • Canada • UAE</p></div></div>`;
       
       await sendEmail(client, email, welcomeEmailSubject, welcomeEmailHtml);
       console.log("Welcome email sent to user:", email);
