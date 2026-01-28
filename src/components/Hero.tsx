@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import vectorBg from "@/assets/vector-bg.jpg";
 
 // Geometric shapes component
@@ -8,16 +9,46 @@ const GeometricShapes = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Large circle outline - top right */}
-      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] border border-primary/10 rounded-full" />
-      <div className="absolute -top-20 -right-20 w-96 h-96 border border-border/50 rounded-full" />
+      <motion.div 
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute -top-32 -right-32 w-[500px] h-[500px] border border-primary/10 rounded-full" 
+      />
+      <motion.div 
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+        className="absolute -top-20 -right-20 w-96 h-96 border border-border/50 rounded-full" 
+      />
       
       {/* Bottom left circle */}
-      <div className="absolute -bottom-20 -left-20 w-72 h-72 border border-primary/15 rounded-full" />
+      <motion.div 
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
+        className="absolute -bottom-20 -left-20 w-72 h-72 border border-primary/15 rounded-full" 
+      />
       
-      {/* Small accent circles */}
-      <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-primary rounded-full" />
-      <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-primary/60 rounded-full" />
-      <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-primary/40 rounded-full" />
+      {/* Small accent circles with floating animation */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, -10, 0] }}
+        transition={{ opacity: { duration: 0.5, delay: 0.8 }, y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
+        className="absolute top-1/4 left-1/4 w-3 h-3 bg-primary rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 8, 0] }}
+        transition={{ opacity: { duration: 0.5, delay: 1 }, y: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
+        className="absolute top-1/3 right-1/3 w-2 h-2 bg-primary/60 rounded-full" 
+      />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, -6, 0] }}
+        transition={{ opacity: { duration: 0.5, delay: 1.2 }, y: { duration: 3.5, repeat: Infinity, ease: "easeInOut" } }}
+        className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-primary/40 rounded-full" 
+      />
       
       {/* Vector lines - circuit style behind heading */}
       <svg 
@@ -26,8 +57,18 @@ const GeometricShapes = () => {
         preserveAspectRatio="xMidYMid slice"
       >
         {/* Horizontal lines */}
-        <line x1="0" y1="30%" x2="25%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="75%" y1="30%" x2="100%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        <motion.line 
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          x1="0" y1="30%" x2="25%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" 
+        />
+        <motion.line 
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 0.6 }}
+          x1="75%" y1="30%" x2="100%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" 
+        />
         <line x1="0" y1="50%" x2="20%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
         <line x1="80%" y1="50%" x2="100%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
         <line x1="0" y1="70%" x2="15%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
@@ -70,12 +111,49 @@ const GeometricShapes = () => {
   );
 };
 
+// Animated text with letter-by-letter reveal
+const AnimatedHeadingLine = ({ 
+  children, 
+  delay = 0,
+  className = ""
+}: { 
+  children: string; 
+  delay?: number;
+  className?: string;
+}) => {
+  const words = children.split(" ");
+  
+  return (
+    <motion.span className={`block ${className}`}>
+      {words.map((word, wordIndex) => (
+        <span key={wordIndex} className="inline-block overflow-hidden mr-[0.25em]">
+          <motion.span
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.6,
+              delay: delay + wordIndex * 0.1,
+              ease: [0.33, 1, 0.68, 1]
+            }}
+            className="inline-block"
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </motion.span>
+  );
+};
+
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
       {/* Vector Background Image with parallax */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 parallax-bg"
+      <motion.div 
+        initial={{ scale: 1.1, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.2 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat parallax-bg"
         style={{ backgroundImage: `url(${vectorBg})` }}
       />
       
@@ -85,29 +163,42 @@ const Hero = () => {
       {/* Hero Content */}
       <div className="relative z-10 container px-6 lg:px-12 py-20">
         <div className="max-w-5xl mx-auto text-center space-y-8">
-          {/* Main Heading - Linnify style bold uppercase */}
+          {/* Main Heading - Animated word-by-word */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[0.95]">
-            <span className="block text-foreground animate-fade-up" style={{ animationDelay: '0s' }}>Built By AI,</span>
-            <span className="block text-gradient animate-fade-up" style={{ animationDelay: '0.15s' }}>Driven By Intelligence</span>
+            <AnimatedHeadingLine delay={0.2} className="text-foreground">
+              Built By AI,
+            </AnimatedHeadingLine>
+            <AnimatedHeadingLine delay={0.5} className="text-gradient">
+              Driven By Intelligence
+            </AnimatedHeadingLine>
           </h1>
 
           {/* Core Values */}
-          <div 
-            className="animate-fade-up space-y-3" 
-            style={{ animationDelay: "0.3s" }}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="space-y-3"
           >
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Built to Perform. Supported for Growth.
             </p>
-            <p className="text-base md:text-lg text-primary font-medium tracking-wide">
+            <motion.p 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1.3 }}
+              className="text-base md:text-lg text-primary font-medium tracking-wide"
+            >
               Innovation | Excellence | Collaboration | Growth
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* CTA Buttons */}
-          <div 
-            className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-up" 
-            style={{ animationDelay: "0.45s" }}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.5 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
           >
             <Button 
               size="lg" 
@@ -129,13 +220,18 @@ const Hero = () => {
                 View Our Services
               </Link>
             </Button>
-          </div>
+          </motion.div>
 
         </div>
       </div>
 
       {/* Bottom line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <motion.div 
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1, delay: 1.8 }}
+        className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent origin-center" 
+      />
     </section>
   );
 };
