@@ -24,7 +24,7 @@ const NetworkBackground = () => {
   // Initialize nodes
   useEffect(() => {
     const initNodes = () => {
-      const nodeCount = window.innerWidth < 768 ? 25 : 50;
+      const nodeCount = window.innerWidth < 768 ? 35 : 60;
       const nodes: NetworkNode[] = [];
       
       for (let i = 0; i < nodeCount; i++) {
@@ -32,8 +32,8 @@ const NetworkBackground = () => {
           id: i,
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 1.5,
           size: Math.random() * 4 + 2,
         });
       }
