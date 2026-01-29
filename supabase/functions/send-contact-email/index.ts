@@ -6,6 +6,43 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+// Simple in-memory rate limiting
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 5; // Lower than chat (emails are more expensive)
+
+function getClientIP(req: Request): string {
+  return req.headers.get('x-forwarded-for')?.split(',')[0].trim() 
+    || req.headers.get('x-real-ip') 
+    || 'unknown';
+}
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const existing = rateLimitMap.get(ip);
+  
+  // Clean up old entries periodically
+  if (rateLimitMap.size > 1000) {
+    for (const [key, value] of rateLimitMap.entries()) {
+      if (now > value.resetTime) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+  
+  if (!existing || now > existing.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+  
+  if (existing.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false;
+  }
+  
+  existing.count++;
+  return true;
+}
+
 interface ContactFormRequest {
   name: string;
   email: string;
@@ -57,6 +94,16 @@ Deno.serve(async (req: Request): Promise<Response> => {
     return new Response("ok", { headers: corsHeaders });
   }
 
+  // Check rate limit
+  const clientIP = getClientIP(req);
+  if (!checkRateLimit(clientIP)) {
+    console.warn(`Rate limit exceeded for IP: ${clientIP}`);
+    return new Response(
+      JSON.stringify({ error: "Too many requests. Please try again in a moment." }),
+      { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
   try {
     const { 
       name, 
@@ -75,7 +122,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       service
     }: ContactFormRequest = await req.json();
 
-    console.log("Received contact form submission:", { name, email, company, timeline, budget, source, isChatLead, mobile, country, service, hasFile: !!fileContent });
+    console.log(`Processing contact form from IP: ${clientIP}`, { name, email, company, timeline, budget, source, isChatLead, mobile, country, service, hasFile: !!fileContent });
 
     // Validate required fields
     if (!name) {
