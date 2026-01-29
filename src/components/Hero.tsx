@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 // Network node type
 interface NetworkNode {
@@ -17,54 +17,57 @@ interface NetworkNode {
 // Animated network background component (similar to techpivot.in)
 const NetworkBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const nodesRef = useRef<NetworkNode[]>([]);
   const animationRef = useRef<number>(0);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const initializedRef = useRef(false);
 
-  // Initialize nodes
   useEffect(() => {
-    const initNodes = () => {
-      const nodeCount = window.innerWidth < 768 ? 35 : 60;
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const initNodes = (width: number, height: number) => {
+      const nodeCount = width < 768 ? 40 : 70;
       const nodes: NetworkNode[] = [];
       
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
           id: i,
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          vx: (Math.random() - 0.5) * 1.5,
-          vy: (Math.random() - 0.5) * 1.5,
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
           size: Math.random() * 4 + 2,
         });
       }
       nodesRef.current = nodes;
     };
 
-    initNodes();
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
-
-    const handleResize = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
-      initNodes();
+    const resizeCanvas = () => {
+      const rect = container.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      
+      if (!initializedRef.current) {
+        initNodes(rect.width, rect.height);
+        initializedRef.current = true;
+      }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Animation loop
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    resizeCanvas();
 
     const animate = () => {
-      ctx.clearRect(0, 0, dimensions.width, dimensions.height);
+      const width = canvas.width;
+      const height = canvas.height;
+      
+      ctx.clearRect(0, 0, width, height);
       
       const nodes = nodesRef.current;
-      const connectionDistance = window.innerWidth < 768 ? 120 : 180;
+      const connectionDistance = width < 768 ? 120 : 180;
 
       // Update node positions
       nodes.forEach(node => {
@@ -72,18 +75,15 @@ const NetworkBackground = () => {
         node.y += node.vy;
 
         // Bounce off edges
-        if (node.x < 0 || node.x > dimensions.width) node.vx *= -1;
-        if (node.y < 0 || node.y > dimensions.height) node.vy *= -1;
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
 
         // Keep in bounds
-        node.x = Math.max(0, Math.min(dimensions.width, node.x));
-        node.y = Math.max(0, Math.min(dimensions.height, node.y));
+        node.x = Math.max(0, Math.min(width, node.x));
+        node.y = Math.max(0, Math.min(height, node.y));
       });
 
       // Draw connections
-      ctx.strokeStyle = 'rgba(45, 156, 157, 0.15)'; // Primary teal color with opacity
-      ctx.lineWidth = 1;
-
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
@@ -92,9 +92,10 @@ const NetworkBackground = () => {
 
           if (distance < connectionDistance) {
             const opacity = 1 - distance / connectionDistance;
-            ctx.strokeStyle = `rgba(45, 156, 157, ${opacity * 0.2})`;
+            ctx.strokeStyle = `rgba(45, 156, 157, ${opacity * 0.25})`;
+            ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[j].y);
+            ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
           }
@@ -108,8 +109,8 @@ const NetworkBackground = () => {
           node.x, node.y, 0,
           node.x, node.y, node.size * 2
         );
-        gradient.addColorStop(0, 'rgba(45, 156, 157, 0.8)');
-        gradient.addColorStop(0.5, 'rgba(45, 156, 157, 0.3)');
+        gradient.addColorStop(0, 'rgba(45, 156, 157, 0.9)');
+        gradient.addColorStop(0.5, 'rgba(45, 156, 157, 0.4)');
         gradient.addColorStop(1, 'rgba(45, 156, 157, 0)');
         
         ctx.fillStyle = gradient;
@@ -118,7 +119,7 @@ const NetworkBackground = () => {
         ctx.fill();
 
         // Core dot
-        ctx.fillStyle = 'rgba(45, 156, 157, 0.9)';
+        ctx.fillStyle = 'rgba(45, 156, 157, 1)';
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
         ctx.fill();
@@ -129,20 +130,27 @@ const NetworkBackground = () => {
 
     animate();
 
+    const handleResize = () => {
+      resizeCanvas();
+    };
+
+    window.addEventListener('resize', handleResize);
+    
     return () => {
+      window.removeEventListener('resize', handleResize);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [dimensions]);
+  }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={dimensions.width}
-      height={dimensions.height}
-      className="absolute inset-0 pointer-events-none"
-    />
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none">
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+      />
+    </div>
   );
 };
 
