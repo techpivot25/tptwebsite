@@ -2,165 +2,290 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import vectorBg from "@/assets/vector-bg.jpg";
+import { useEffect, useRef, useState } from "react";
 
-// Geometric shapes component
-const GeometricShapes = () => {
+// Network node type
+interface NetworkNode {
+  id: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+}
+
+// Animated network background component (similar to techpivot.in)
+const NetworkBackground = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const nodesRef = useRef<NetworkNode[]>([]);
+  const animationRef = useRef<number>(0);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  // Initialize nodes
+  useEffect(() => {
+    const initNodes = () => {
+      const nodeCount = window.innerWidth < 768 ? 25 : 50;
+      const nodes: NetworkNode[] = [];
+      
+      for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+          id: i,
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 4 + 2,
+        });
+      }
+      nodesRef.current = nodes;
+    };
+
+    initNodes();
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+
+    const handleResize = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+      initNodes();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Animation loop
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const animate = () => {
+      ctx.clearRect(0, 0, dimensions.width, dimensions.height);
+      
+      const nodes = nodesRef.current;
+      const connectionDistance = window.innerWidth < 768 ? 120 : 180;
+
+      // Update node positions
+      nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        // Bounce off edges
+        if (node.x < 0 || node.x > dimensions.width) node.vx *= -1;
+        if (node.y < 0 || node.y > dimensions.height) node.vy *= -1;
+
+        // Keep in bounds
+        node.x = Math.max(0, Math.min(dimensions.width, node.x));
+        node.y = Math.max(0, Math.min(dimensions.height, node.y));
+      });
+
+      // Draw connections
+      ctx.strokeStyle = 'rgba(45, 156, 157, 0.15)'; // Primary teal color with opacity
+      ctx.lineWidth = 1;
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < connectionDistance) {
+            const opacity = 1 - distance / connectionDistance;
+            ctx.strokeStyle = `rgba(45, 156, 157, ${opacity * 0.2})`;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[j].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw nodes
+      nodes.forEach(node => {
+        // Outer glow
+        const gradient = ctx.createRadialGradient(
+          node.x, node.y, 0,
+          node.x, node.y, node.size * 2
+        );
+        gradient.addColorStop(0, 'rgba(45, 156, 157, 0.8)');
+        gradient.addColorStop(0.5, 'rgba(45, 156, 157, 0.3)');
+        gradient.addColorStop(1, 'rgba(45, 156, 157, 0)');
+        
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.size * 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Core dot
+        ctx.fillStyle = 'rgba(45, 156, 157, 0.9)';
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [dimensions]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={dimensions.width}
+      height={dimensions.height}
+      className="absolute inset-0 pointer-events-none"
+    />
+  );
+};
+
+// Decorative geometric elements (static network lines)
+const StaticNetworkElements = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Large circle outline - top right */}
-      <motion.div 
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute -top-32 -right-32 w-[500px] h-[500px] border border-primary/10 rounded-full" 
-      />
-      <motion.div 
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-        className="absolute -top-20 -right-20 w-96 h-96 border border-border/50 rounded-full" 
-      />
-      
-      {/* Bottom left circle */}
-      <motion.div 
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-        className="absolute -bottom-20 -left-20 w-72 h-72 border border-primary/15 rounded-full" 
-      />
-      
-      {/* Small accent circles with floating animation */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: [1, 1.2, 1], y: [0, -12, 0] }}
-        transition={{ opacity: { duration: 0.5, delay: 0.8 }, scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }, y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
-        className="absolute top-[20%] left-[15%] w-2 h-2 bg-primary rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0.4, 0.8, 0.4], y: [0, 8, 0], x: [0, 5, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="absolute top-[30%] right-[20%] w-1.5 h-1.5 bg-primary/70 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, -8, 0], scale: [1, 0.8, 1] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-[35%] left-[45%] w-1.5 h-1.5 bg-primary/50 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.5, 1] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-        className="absolute top-[45%] left-[10%] w-1 h-1 bg-primary/60 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, x: [0, -6, 0], y: [0, 6, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-        className="absolute top-[15%] right-[35%] w-1 h-1 bg-primary/40 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0.5, 1, 0.5], y: [0, -10, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
-        className="absolute bottom-[25%] right-[15%] w-2 h-2 bg-primary/50 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 0.8, scale: [1, 1.3, 1], x: [0, 4, 0] }}
-        transition={{ scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }, x: { duration: 4, repeat: Infinity, ease: "easeInOut" }, delay: 1.2 }}
-        className="absolute top-[55%] right-[25%] w-1 h-1 bg-primary/70 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0.4, 0.9, 0.4], y: [0, 5, 0], x: [0, -3, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[40%] left-[25%] w-1 h-1 bg-primary/50 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: [1, 0.7, 1], y: [0, -5, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
-        className="absolute top-[65%] left-[35%] w-1.5 h-1.5 bg-primary/30 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0.6, 1, 0.6], x: [0, 8, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
-        className="absolute top-[25%] left-[55%] w-1 h-1 bg-primary/60 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.7, y: [0, 7, 0], scale: [1, 1.2, 1] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-        className="absolute bottom-[20%] left-[60%] w-1 h-1 bg-primary/40 rounded-full" 
-      />
-      <motion.div 
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.4, 1] }}
-        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
-        className="absolute top-[40%] right-[40%] w-1 h-1 bg-primary/50 rounded-full" 
-      />
-      
-      {/* Vector lines - circuit style behind heading */}
+      {/* Central geometric network - SVG lines */}
       <svg 
-        className="absolute inset-0 w-full h-full opacity-[0.08]" 
+        className="absolute inset-0 w-full h-full opacity-20" 
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid slice"
       >
-        {/* Horizontal lines */}
-        <motion.line 
+        {/* Central triangle network */}
+        <motion.path
+          d="M 50% 20% L 35% 45% L 65% 45% Z"
+          fill="none"
+          stroke="hsl(var(--primary))"
+          strokeWidth="0.5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+        />
+        
+        {/* Left network branch */}
+        <motion.line
+          x1="20%" y1="25%" x2="35%" y2="45%"
+          stroke="hsl(var(--primary))"
+          strokeWidth="0.5"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: 1.5, delay: 0.5 }}
-          x1="0" y1="30%" x2="25%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" 
+          transition={{ duration: 1.5, delay: 0.8 }}
         />
-        <motion.line 
+        <motion.line
+          x1="10%" y1="35%" x2="20%" y2="25%"
+          stroke="hsl(var(--primary))"
+          strokeWidth="0.5"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: 1.5, delay: 0.6 }}
-          x1="75%" y1="30%" x2="100%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" 
+          transition={{ duration: 1.5, delay: 1 }}
         />
-        <line x1="0" y1="50%" x2="20%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="80%" y1="50%" x2="100%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="0" y1="70%" x2="15%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="85%" y1="70%" x2="100%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
         
-        {/* Diagonal connecting lines - left side */}
-        <line x1="25%" y1="30%" x2="20%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="20%" y1="50%" x2="15%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="10%" y1="20%" x2="25%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="5%" y1="80%" x2="15%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        {/* Right network branch */}
+        <motion.line
+          x1="80%" y1="25%" x2="65%" y2="45%"
+          stroke="hsl(var(--primary))"
+          strokeWidth="0.5"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 0.8 }}
+        />
+        <motion.line
+          x1="90%" y1="35%" x2="80%" y2="25%"
+          stroke="hsl(var(--primary))"
+          strokeWidth="0.5"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 1 }}
+        />
         
-        {/* Diagonal connecting lines - right side */}
-        <line x1="75%" y1="30%" x2="80%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="80%" y1="50%" x2="85%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="90%" y1="20%" x2="75%" y2="30%" stroke="currentColor" strokeWidth="1" className="text-primary" />
-        <line x1="95%" y1="80%" x2="85%" y2="70%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+        {/* Bottom connections */}
+        <motion.line
+          x1="35%" y1="45%" x2="25%" y2="70%"
+          stroke="hsl(var(--primary))"
+          strokeWidth="0.5"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 1.2 }}
+        />
+        <motion.line
+          x1="65%" y1="45%" x2="75%" y2="70%"
+          stroke="hsl(var(--primary))"
+          strokeWidth="0.5"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 1.2 }}
+        />
         
-        {/* Node circles at intersections */}
-        <circle cx="25%" cy="30%" r="4" fill="currentColor" className="text-primary" />
-        <circle cx="20%" cy="50%" r="3" fill="currentColor" className="text-primary" />
-        <circle cx="15%" cy="70%" r="4" fill="currentColor" className="text-primary" />
-        <circle cx="75%" cy="30%" r="4" fill="currentColor" className="text-primary" />
-        <circle cx="80%" cy="50%" r="3" fill="currentColor" className="text-primary" />
-        <circle cx="85%" cy="70%" r="4" fill="currentColor" className="text-primary" />
-        
-        {/* Additional accent lines */}
-        <line x1="30%" y1="25%" x2="35%" y2="35%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
-        <line x1="65%" y1="25%" x2="70%" y2="35%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
-        <line x1="28%" y1="65%" x2="32%" y2="75%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
-        <line x1="68%" y1="65%" x2="72%" y2="75%" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
+        {/* Node points at intersections */}
+        <motion.circle
+          cx="50%" cy="20%" r="4"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.5 }}
+        />
+        <motion.circle
+          cx="35%" cy="45%" r="3"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.6 }}
+        />
+        <motion.circle
+          cx="65%" cy="45%" r="3"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.6 }}
+        />
+        <motion.circle
+          cx="20%" cy="25%" r="3"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.7 }}
+        />
+        <motion.circle
+          cx="80%" cy="25%" r="3"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.7 }}
+        />
+        <motion.circle
+          cx="10%" cy="35%" r="2"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.8 }}
+        />
+        <motion.circle
+          cx="90%" cy="35%" r="2"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.8 }}
+        />
+        <motion.circle
+          cx="25%" cy="70%" r="3"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.9 }}
+        />
+        <motion.circle
+          cx="75%" cy="70%" r="3"
+          fill="hsl(var(--primary))"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1.9 }}
+        />
       </svg>
-      
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.015]" style={{
-        backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
-                         linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-        backgroundSize: '80px 80px'
-      }} />
     </div>
   );
 };
@@ -202,27 +327,11 @@ const AnimatedHeadingLine = ({
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
-      {/* Vector Background Image with parallax and slow movement */}
-      <motion.div 
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ 
-          scale: [1, 1.05, 1],
-          opacity: 0.4,
-          x: [0, 10, -10, 0],
-          y: [0, -8, 8, 0]
-        }}
-        transition={{ 
-          scale: { duration: 20, repeat: Infinity, ease: "easeInOut" },
-          opacity: { duration: 1.5, ease: "easeOut" },
-          x: { duration: 25, repeat: Infinity, ease: "easeInOut" },
-          y: { duration: 30, repeat: Infinity, ease: "easeInOut" }
-        }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${vectorBg})` }}
-      />
+      {/* Animated network background - floating dots with connections */}
+      <NetworkBackground />
       
-      {/* Geometric decorations */}
-      <GeometricShapes />
+      {/* Static network geometric elements */}
+      <StaticNetworkElements />
 
       {/* Hero Content */}
       <div className="relative z-10 container px-6 lg:px-12 py-20">
