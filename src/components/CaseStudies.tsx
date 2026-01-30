@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const caseStudies = [
   {
     id: 1,
-    title: "BuzzPay",
+    title: "KryptWallet Pro",
     category: "FinTech",
     description: "A comprehensive financial management platform enabling seamless transactions and real-time analytics for enterprise clients.",
     platforms: ["desktop", "mobile"],
@@ -16,7 +16,7 @@ const caseStudies = [
   },
   {
     id: 2,
-    title: "Rahbar Assistant",
+    title: "ReadMate AI",
     category: "EdTech",
     description: "AI-powered reading assistant that helps students improve comprehension and reading speed through personalized exercises.",
     platforms: ["mobile", "web"],
@@ -25,7 +25,7 @@ const caseStudies = [
   },
   {
     id: 3,
-    title: "MaxiLife HealthSync",
+    title: "Hugo Health Connect",
     category: "Healthcare",
     description: "Integrated healthcare platform connecting patients with providers, featuring telehealth and appointment management.",
     platforms: ["desktop", "mobile", "web"],
@@ -34,9 +34,9 @@ const caseStudies = [
   },
   {
     id: 4,
-    title: "MES Logistics",
+    title: "SupplyChain360 Go",
     category: "Logistics",
-    description: "End-to-end supply chain management system with real-time tracking, inventory optimization, and predictive analytics.",
+    description: "End-to-end supply chain management with real-time tracking, inventory optimization, and predictive analytics.",
     platforms: ["desktop", "web"],
     tags: ["Vue.js", "Go", "Azure"],
     image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&h=400&fit=crop",
