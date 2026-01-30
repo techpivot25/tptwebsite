@@ -42,8 +42,8 @@ const NetworkBackground = () => {
           id: i,
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
           size: Math.random() * 4 + 2,
         });
       }
