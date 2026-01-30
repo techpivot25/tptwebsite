@@ -30,6 +30,9 @@ const NetworkBackground = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let lastWidth = 0;
+    let lastHeight = 0;
+
     const initNodes = (width: number, height: number) => {
       const nodeCount = width < 768 ? 40 : 70;
       const nodes: NetworkNode[] = [];
@@ -49,12 +52,33 @@ const NetworkBackground = () => {
 
     const resizeCanvas = () => {
       const rect = container.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
+      const newWidth = rect.width;
+      const newHeight = rect.height;
       
-      if (!initializedRef.current) {
-        initNodes(rect.width, rect.height);
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      
+      // Reinitialize nodes if size changed significantly or first time
+      const widthChange = Math.abs(newWidth - lastWidth);
+      const heightChange = Math.abs(newHeight - lastHeight);
+      
+      if (!initializedRef.current || widthChange > 100 || heightChange > 100) {
+        initNodes(newWidth, newHeight);
         initializedRef.current = true;
+        lastWidth = newWidth;
+        lastHeight = newHeight;
+      } else {
+        // Scale existing nodes to fit new dimensions
+        const scaleX = newWidth / (lastWidth || newWidth);
+        const scaleY = newHeight / (lastHeight || newHeight);
+        
+        nodesRef.current.forEach(node => {
+          node.x = Math.min(newWidth, Math.max(0, node.x * scaleX));
+          node.y = Math.min(newHeight, Math.max(0, node.y * scaleY));
+        });
+        
+        lastWidth = newWidth;
+        lastHeight = newHeight;
       }
     };
 
