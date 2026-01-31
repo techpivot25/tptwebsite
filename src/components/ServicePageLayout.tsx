@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import VectorMeshBackground from "@/components/VectorMeshBackground";
 import GeometricBlocksBackground from "@/components/GeometricBlocksBackground";
+import SaaSIconsBackground from "@/components/SaaSIconsBackground";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,6 +22,7 @@ interface ServicePageLayoutProps {
   backgroundImage?: string;
   showVectorMesh?: boolean;
   showGeometricBlocks?: boolean;
+  showSaaSIcons?: boolean;
 }
 
 const ServicePageLayout = ({
@@ -32,6 +34,7 @@ const ServicePageLayout = ({
   backgroundImage,
   showVectorMesh = false,
   showGeometricBlocks = false,
+  showSaaSIcons = false,
 }: ServicePageLayoutProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -116,6 +119,9 @@ const ServicePageLayout = ({
 
           {/* Geometric Blocks Background */}
           {showGeometricBlocks && <GeometricBlocksBackground />}
+
+          {/* SaaS Icons Background */}
+          {showSaaSIcons && <SaaSIconsBackground />}
           
           {/* Geometric decorations */}
           <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
