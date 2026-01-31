@@ -72,6 +72,7 @@ const AgenticAI = () => {
       subtitle="Autonomous Intelligence"
       description="Intelligent autonomous agents that understand, reason, and act to achieve your business goals with minimal human intervention."
       icon={<Bot className="w-8 h-8 text-primary" />}
+      showVectorMesh={true}
     >
       {/* What is Agentic AI */}
       <section className="py-20 lg:py-28 animate-section">
