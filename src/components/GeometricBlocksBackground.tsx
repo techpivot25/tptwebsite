@@ -152,44 +152,44 @@ const GeometricBlocksBackground = () => {
       ctx.lineTo(bottomRight.x + depthX + 5, bottomRight.y + depthY + 8);
       ctx.lineTo(bottomLeft.x + depthX + 5, bottomLeft.y + depthY + 8);
       ctx.closePath();
-      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
       ctx.fill();
 
-      // Top face (brightest - the main visible surface)
+      // Top face (brightest - the main visible surface) - reduced opacity by 20%
       ctx.beginPath();
       ctx.moveTo(topLeft.x, topLeft.y);
       ctx.lineTo(topLeft.x + depthX, topLeft.y + depthY);
       ctx.lineTo(topRight.x + depthX, topRight.y + depthY);
       ctx.lineTo(topRight.x, topRight.y);
       ctx.closePath();
-      ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.096)";
       ctx.fill();
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Right face
+      // Right face - reduced opacity by 20%
       ctx.beginPath();
       ctx.moveTo(topRight.x, topRight.y);
       ctx.lineTo(topRight.x + depthX, topRight.y + depthY);
       ctx.lineTo(bottomRight.x + depthX, bottomRight.y + depthY);
       ctx.lineTo(bottomRight.x, bottomRight.y);
       ctx.closePath();
-      ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.064)";
       ctx.fill();
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
       ctx.stroke();
 
-      // Front face (visible bottom)
+      // Front face (visible bottom) - reduced opacity by 20%
       ctx.beginPath();
       ctx.moveTo(topLeft.x, topLeft.y);
       ctx.lineTo(topRight.x, topRight.y);
       ctx.lineTo(bottomRight.x, bottomRight.y);
       ctx.lineTo(bottomLeft.x, bottomLeft.y);
       ctx.closePath();
-      ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.04)";
       ctx.fill();
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.096)";
       ctx.stroke();
 
       // Draw security icon on top face if this block has one
