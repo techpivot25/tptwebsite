@@ -24,15 +24,15 @@ const VectorMeshBackground = () => {
     const initNodes = () => {
       nodes = [];
       const { width, height } = canvas;
-      const nodeCount = Math.floor((width * height) / 15000); // Density based on area
+      const nodeCount = Math.floor((width * height) / 12000); // Increased density
 
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          size: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          size: Math.random() * 3 + 1.5, // 20% larger nodes
         });
       }
     };
@@ -55,10 +55,9 @@ const VectorMeshBackground = () => {
         node.y = Math.max(0, Math.min(height, node.y));
       });
 
-      // Draw connections
-      const connectionDistance = 120;
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
-      ctx.lineWidth = 0.5;
+      // Draw connections - increased visibility
+      const connectionDistance = 150; // Increased connection distance
+      ctx.lineWidth = 0.8; // Thicker lines
 
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
@@ -67,7 +66,7 @@ const VectorMeshBackground = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < connectionDistance) {
-            const opacity = 0.12 * (1 - distance / connectionDistance);
+            const opacity = 0.2 * (1 - distance / connectionDistance); // Increased opacity
             ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -77,11 +76,11 @@ const VectorMeshBackground = () => {
         }
       }
 
-      // Draw nodes
+      // Draw nodes - larger and more visible
       nodes.forEach((node) => {
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; // Increased opacity
         ctx.fill();
       });
 
@@ -114,7 +113,7 @@ const VectorMeshBackground = () => {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.85 }}
     />
   );
 };
