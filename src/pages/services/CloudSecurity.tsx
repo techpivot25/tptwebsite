@@ -28,6 +28,7 @@ const CloudSecurity = () => {
       subtitle="Enterprise Protection"
       description="Secure, scalable cloud infrastructure and enterprise-grade security solutions to protect your data and ensure compliance."
       icon={<Shield className="w-8 h-8 text-primary" />}
+      showGeometricBlocks={true}
     >
       {/* Cloud Solutions */}
       <section className="py-20 lg:py-28 animate-section">
