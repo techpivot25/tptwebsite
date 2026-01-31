@@ -211,18 +211,23 @@ const GeometricBlocksBackground = () => {
       // Clear canvas (transparent - keep original dark background)
       ctx.clearRect(0, 0, width, height);
 
-      time += 0.008;
+      // Increased speed by 15%
+      time += 0.0092;
 
       blocks.forEach((block) => {
         // Gentle floating animation
         const floatOffset = Math.sin(time + block.phase) * 6 + block.z;
+        
+        // Pulsing scale effect - blocks expand and reduce
+        const scalePhase = time * 0.8 + block.phase * 0.5;
+        const scaleFactor = 1 + Math.sin(scalePhase) * 0.12; // 12% size variation
 
         drawBlock(
           block.x,
           block.y,
-          block.width,
-          block.height,
-          block.depth,
+          block.width * scaleFactor,
+          block.height * scaleFactor,
+          block.depth * scaleFactor,
           floatOffset,
           block.hasIcon
         );
