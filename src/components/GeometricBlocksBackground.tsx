@@ -102,9 +102,9 @@ const GeometricBlocksBackground = () => {
       ctx.lineTo(topRight.x + depthX, topRight.y + depthY);
       ctx.lineTo(topRight.x, topRight.y);
       ctx.closePath();
-      ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
       ctx.fill();
-      ctx.strokeStyle = "rgba(200, 200, 200, 0.4)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
       ctx.lineWidth = 1;
       ctx.stroke();
 
@@ -115,9 +115,9 @@ const GeometricBlocksBackground = () => {
       ctx.lineTo(bottomRight.x + depthX, bottomRight.y + depthY);
       ctx.lineTo(bottomRight.x, bottomRight.y);
       ctx.closePath();
-      ctx.fillStyle = "rgba(240, 240, 240, 0.9)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
       ctx.fill();
-      ctx.strokeStyle = "rgba(180, 180, 180, 0.3)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
       ctx.stroke();
 
       // Front face (visible bottom)
@@ -127,9 +127,9 @@ const GeometricBlocksBackground = () => {
       ctx.lineTo(bottomRight.x, bottomRight.y);
       ctx.lineTo(bottomLeft.x, bottomLeft.y);
       ctx.closePath();
-      ctx.fillStyle = "rgba(250, 250, 250, 0.85)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
       ctx.fill();
-      ctx.strokeStyle = "rgba(200, 200, 200, 0.35)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
       ctx.stroke();
 
       // Subtle shadow underneath
@@ -139,7 +139,7 @@ const GeometricBlocksBackground = () => {
       ctx.lineTo(bottomRight.x + depthX + 5, bottomRight.y + depthY + 8);
       ctx.lineTo(bottomLeft.x + depthX + 5, bottomLeft.y + depthY + 8);
       ctx.closePath();
-      ctx.fillStyle = "rgba(0, 0, 0, 0.03)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
       ctx.fill();
     };
 
@@ -148,9 +148,8 @@ const GeometricBlocksBackground = () => {
     const draw = () => {
       const { width, height } = canvas;
       
-      // Light gray background
-      ctx.fillStyle = "rgba(245, 245, 247, 1)";
-      ctx.fillRect(0, 0, width, height);
+      // Clear canvas (transparent - keep original dark background)
+      ctx.clearRect(0, 0, width, height);
 
       time += 0.008;
 
