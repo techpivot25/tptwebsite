@@ -38,6 +38,7 @@ const SaaSPlatform = () => {
       subtitle="Cloud-Native Solutions"
       description="Build secure, scalable cloud-native applications with APIs, microservices, multi-tenancy, and AI integration for rapid MVPs and subscription businesses."
       icon={<Cloud className="w-8 h-8 text-primary" />}
+      showSaaSIcons={true}
     >
       {/* Features */}
       <section className="py-20 lg:py-28 animate-section">
