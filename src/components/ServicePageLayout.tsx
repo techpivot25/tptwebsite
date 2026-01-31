@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import VectorMeshBackground from "@/components/VectorMeshBackground";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,6 +18,7 @@ interface ServicePageLayoutProps {
   children: React.ReactNode;
   icon: React.ReactNode;
   backgroundImage?: string;
+  showVectorMesh?: boolean;
 }
 
 const ServicePageLayout = ({
@@ -26,6 +28,7 @@ const ServicePageLayout = ({
   children,
   icon,
   backgroundImage,
+  showVectorMesh = false,
 }: ServicePageLayoutProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -104,6 +107,9 @@ const ServicePageLayout = ({
               style={{ backgroundImage: `url(${backgroundImage})` }}
             />
           )}
+
+          {/* Vector Mesh Background */}
+          {showVectorMesh && <VectorMeshBackground />}
           
           {/* Geometric decorations */}
           <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
