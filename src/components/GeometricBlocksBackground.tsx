@@ -8,6 +8,7 @@ interface Block {
   height: number;
   depth: number;
   phase: number;
+  hasIcon: boolean;
 }
 
 const GeometricBlocksBackground = () => {
@@ -54,6 +55,9 @@ const GeometricBlocksBackground = () => {
           const heightVar = 0.6 + Math.random() * 0.8;
           const depthVar = 0.5 + Math.random() * 0.5;
 
+          // Randomly assign security icons to ~15% of blocks
+          const hasIcon = Math.random() < 0.15;
+
           blocks.push({
             x,
             y,
@@ -62,6 +66,7 @@ const GeometricBlocksBackground = () => {
             height: blockHeight * heightVar,
             depth: 60 * depthVar,
             phase: (x * 0.01 + y * 0.015) + Math.random() * 2,
+            hasIcon,
           });
         }
       }
@@ -70,13 +75,58 @@ const GeometricBlocksBackground = () => {
       blocks.sort((a, b) => a.y - b.y);
     };
 
+    // Draw shield with lock icon
+    const drawSecurityIcon = (centerX: number, centerY: number, size: number) => {
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      
+      const scale = size / 24; // Base icon size is 24
+      ctx.scale(scale, scale);
+
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+      ctx.lineWidth = 1.5 / scale;
+
+      // Shield outline
+      ctx.beginPath();
+      ctx.moveTo(0, -10);
+      ctx.bezierCurveTo(-8, -8, -10, -4, -10, 2);
+      ctx.bezierCurveTo(-10, 8, -4, 12, 0, 14);
+      ctx.bezierCurveTo(4, 12, 10, 8, 10, 2);
+      ctx.bezierCurveTo(10, -4, 8, -8, 0, -10);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Lock body
+      ctx.beginPath();
+      ctx.roundRect(-4, -1, 8, 6, 1);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
+      ctx.fill();
+      ctx.stroke();
+
+      // Lock shackle (the curved part on top)
+      ctx.beginPath();
+      ctx.arc(0, -1, 3, Math.PI, 0, false);
+      ctx.stroke();
+
+      // Keyhole
+      ctx.beginPath();
+      ctx.arc(0, 2, 1, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+      ctx.fill();
+
+      ctx.restore();
+    };
+
     const drawBlock = (
       x: number,
       y: number,
       w: number,
       h: number,
       d: number,
-      zOffset: number
+      zOffset: number,
+      hasIcon: boolean
     ) => {
       // Isometric projection angles
       const isoX = 0.7;
@@ -94,6 +144,16 @@ const GeometricBlocksBackground = () => {
       // 3D offset for depth
       const depthX = d * isoX;
       const depthY = -d * isoY;
+
+      // Subtle shadow underneath
+      ctx.beginPath();
+      ctx.moveTo(bottomLeft.x + 5, bottomLeft.y + 8);
+      ctx.lineTo(bottomRight.x + 5, bottomRight.y + 8);
+      ctx.lineTo(bottomRight.x + depthX + 5, bottomRight.y + depthY + 8);
+      ctx.lineTo(bottomLeft.x + depthX + 5, bottomLeft.y + depthY + 8);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+      ctx.fill();
 
       // Top face (brightest - the main visible surface)
       ctx.beginPath();
@@ -132,15 +192,15 @@ const GeometricBlocksBackground = () => {
       ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
       ctx.stroke();
 
-      // Subtle shadow underneath
-      ctx.beginPath();
-      ctx.moveTo(bottomLeft.x + 5, bottomLeft.y + 8);
-      ctx.lineTo(bottomRight.x + 5, bottomRight.y + 8);
-      ctx.lineTo(bottomRight.x + depthX + 5, bottomRight.y + depthY + 8);
-      ctx.lineTo(bottomLeft.x + depthX + 5, bottomLeft.y + depthY + 8);
-      ctx.closePath();
-      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
-      ctx.fill();
+      // Draw security icon on top face if this block has one
+      if (hasIcon) {
+        // Calculate center of top face
+        const topCenterX = (topLeft.x + topRight.x + topLeft.x + depthX + topRight.x + depthX) / 4;
+        const topCenterY = (topLeft.y + topRight.y + topLeft.y + depthY + topRight.y + depthY) / 4;
+        
+        const iconSize = Math.min(w, d) * 0.5;
+        drawSecurityIcon(topCenterX, topCenterY, iconSize);
+      }
     };
 
     let time = 0;
@@ -163,7 +223,8 @@ const GeometricBlocksBackground = () => {
           block.width,
           block.height,
           block.depth,
-          floatOffset
+          floatOffset,
+          block.hasIcon
         );
       });
 
