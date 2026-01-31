@@ -55,8 +55,8 @@ const GeometricBlocksBackground = () => {
           const heightVar = 0.6 + Math.random() * 0.8;
           const depthVar = 0.5 + Math.random() * 0.5;
 
-          // Randomly assign security icons to ~15% of blocks
-          const hasIcon = Math.random() < 0.15;
+          // Randomly assign security icons to ~22.5% of blocks (increased by 50%)
+          const hasIcon = Math.random() < 0.225;
 
           blocks.push({
             x,
@@ -194,12 +194,13 @@ const GeometricBlocksBackground = () => {
 
       // Draw security icon on top face if this block has one
       if (hasIcon) {
-        // Calculate center of top face
-        const topCenterX = (topLeft.x + topRight.x + topLeft.x + depthX + topRight.x + depthX) / 4;
-        const topCenterY = (topLeft.y + topRight.y + topLeft.y + depthY + topRight.y + depthY) / 4;
+        // Calculate center of the front face (more visible)
+        const frontCenterX = x + w / 2;
+        const frontCenterY = adjustedY + h / 2;
         
-        const iconSize = Math.min(w, d) * 0.5;
-        drawSecurityIcon(topCenterX, topCenterY, iconSize);
+        // Larger icon size for better visibility
+        const iconSize = Math.min(w, h) * 0.7;
+        drawSecurityIcon(frontCenterX, frontCenterY, iconSize);
       }
     };
 
