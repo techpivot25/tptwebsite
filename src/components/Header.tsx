@@ -74,24 +74,33 @@ const Header = () => {
             <Link to="/" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Home
             </Link>
-            <div className="relative" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
-              <button className={`flex items-center gap-1 text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsServicesOpen(true)} 
+              onMouseLeave={() => setIsServicesOpen(false)}
+            >
+              <button className={`flex items-center gap-1 text-sm font-medium transition-colors uppercase tracking-wide py-2 ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
                 Services <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`} />
               </button>
+              {/* Invisible bridge to prevent gap */}
               {isServicesOpen && (
-                <div className="fixed left-0 right-0 top-20 animate-fade-in">
-                  <div className="bg-background/98 backdrop-blur-xl border-b border-border shadow-lg">
+                <div className="absolute left-1/2 -translate-x-1/2 top-full w-[200px] h-6" />
+              )}
+              {isServicesOpen && (
+                <div className="fixed left-0 right-0 top-20 z-[100] animate-fade-in">
+                  <div className="bg-background border-b border-border shadow-xl">
                     <div className="container mx-auto px-6 lg:px-12 py-8">
-                      <div className="flex items-center justify-center gap-6 lg:gap-10 flex-wrap">
+                      <div className="flex items-center justify-center gap-4 lg:gap-8 flex-wrap">
                         {services.map((s) => {
                           const IconComponent = s.icon;
                           return (
                             <Link 
                               key={s.href} 
                               to={s.href} 
-                              className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-all duration-200 group min-w-[100px]"
+                              className="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-muted transition-all duration-200 group min-w-[90px] cursor-pointer"
+                              onClick={() => setIsServicesOpen(false)}
                             >
-                              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-muted/50 group-hover:bg-primary/10 transition-colors">
+                              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-muted group-hover:bg-primary/10 transition-colors">
                                 <IconComponent className="w-6 h-6 text-foreground/70 group-hover:text-primary transition-colors" />
                               </div>
                               <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center whitespace-nowrap">
