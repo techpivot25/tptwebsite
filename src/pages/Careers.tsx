@@ -81,18 +81,19 @@ const Careers = () => {
 
         <main>
           {/* Hero Section */}
-          <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-b from-secondary/10 to-background relative overflow-hidden">
+          <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground relative overflow-hidden">
             {/* Background Image */}
             <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
               style={{ backgroundImage: `url(${heroBg})` }}
             />
             
-            <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
+            {/* Geometric decorations */}
+            <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
+            <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
 
             <div className="container px-6 lg:px-12 relative z-10">
-              <div className="max-w-3xl mx-auto text-center">
+              <div className="max-w-3xl">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -105,15 +106,15 @@ const Careers = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground uppercase tracking-tight mb-6"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mb-6"
                 >
-                  Build Your Career <span className="text-primary">With Us</span>
+                  Build Your Career With Us
                 </motion.h1>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+                  className="text-xl text-background/70 mb-8"
                 >
                   Join a team of innovators shaping the future of technology.
                 </motion.p>
@@ -122,7 +123,7 @@ const Careers = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                  <Button size="lg" className="group" asChild>
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground group" asChild>
                     <a href="#positions">
                       Open Positions
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />

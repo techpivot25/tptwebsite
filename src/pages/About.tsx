@@ -44,19 +44,20 @@ const About = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-24 lg:py-32 bg-foreground text-background relative overflow-hidden">
-          <div className="absolute -top-32 -right-32 w-64 h-64 border border-background/10 rounded-full" />
-          <div className="absolute bottom-20 left-20 w-24 h-24 border border-primary/30 rounded-full" />
+        <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground text-background relative overflow-hidden">
+          {/* Geometric decorations */}
+          <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
+          <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
           
           <div className="container px-6 lg:px-12 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
+            <div className="max-w-3xl">
               <motion.span 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block"
               >
-                About TechPivot Technologies
+                ABOUT US
               </motion.span>
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
@@ -70,7 +71,7 @@ const About = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl text-background/70 max-w-2xl mx-auto"
+                className="text-xl text-background/70"
               >
                 We specialize in cutting-edge AI, Blockchain, and Metaverse development, delivering smart solutions that transform businesses.
               </motion.p>
