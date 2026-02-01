@@ -73,7 +73,7 @@ const CaseStudies = () => {
             to="/contact" 
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group link-underline"
           >
-            View All Projects
+            Talk To Expert
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
         </AnimatedSection>
@@ -87,28 +87,15 @@ const CaseStudies = () => {
               delay={index * 100}
             >
               <motion.div 
-                className="group relative bg-[#f5f5f7] dark:bg-card rounded-2xl overflow-hidden h-full"
+                className="group relative bg-[#f5f5f7] dark:bg-card rounded-2xl overflow-hidden h-full flex flex-col"
                 whileHover={{ 
                   y: -8,
                   boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)"
                 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Title at top - Apple style */}
-                <div className="p-4 pb-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground tracking-tight group-hover:text-primary transition-colors">
-                        {study.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">{study.category}</p>
-                    </div>
-                    <ArrowUpRight className="w-4 h-4 flex-shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all" />
-                  </div>
-                </div>
-
-                {/* Image */}
-                <div className="relative h-36 lg:h-44 overflow-hidden mx-4 my-4 rounded-xl">
+                {/* Image with category badge and platform icons */}
+                <div className="relative h-44 lg:h-52 overflow-hidden">
                   <LazyImage 
                     src={study.image} 
                     alt={study.title}
@@ -116,30 +103,44 @@ const CaseStudies = () => {
                     height={400}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     wrapperClassName="w-full h-full"
-                    placeholderClassName="rounded-xl"
                   />
-                </div>
-
-                {/* Content at bottom */}
-                <div className="p-4 pt-0">
-                  {/* Platform icons */}
-                  <div className="flex items-center gap-2 mb-3">
+                  {/* Category badge */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2">
+                    <span className="px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wide">
+                      {study.category}
+                    </span>
+                  </div>
+                  {/* Platform icons overlay */}
+                  <div className="absolute bottom-3 left-3 flex items-center gap-2">
                     {study.platforms.map((platform) => (
                       <div 
                         key={platform}
-                        className="w-7 h-7 rounded-lg bg-background/80 dark:bg-background/50 flex items-center justify-center text-foreground"
+                        className="w-8 h-8 rounded-lg bg-background/90 backdrop-blur-sm flex items-center justify-center text-foreground"
                       >
                         <PlatformIcon platform={platform} />
                       </div>
                     ))}
                   </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-5 flex flex-col flex-grow">
+                  {/* Title */}
+                  <h3 className="text-base font-bold text-foreground tracking-tight uppercase mb-2 group-hover:text-primary transition-colors">
+                    {study.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-grow">
+                    {study.description}
+                  </p>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2 mt-auto">
                     {study.tags.map((tag) => (
                       <span 
                         key={tag}
-                        className="px-2 py-1 rounded-lg bg-background/80 dark:bg-background/50 text-muted-foreground text-xs font-medium"
+                        className="px-3 py-1 rounded-lg bg-background text-muted-foreground text-xs font-medium border border-border"
                       >
                         {tag}
                       </span>
