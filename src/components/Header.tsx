@@ -147,7 +147,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-6 border-t border-border animate-fade-in">
+          <div className="md:hidden py-6 border-t border-border animate-fade-in bg-background">
             <nav className="flex flex-col gap-2">
               <Link to="/" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Home</Link>
               <div className="py-2">
@@ -155,10 +155,20 @@ const Header = () => {
                   Services <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isServicesOpen && (
-                  <div className="mt-2 pl-4 space-y-2 border-l border-border">
-                    {services.map((s) => (
-                      <Link key={s.href} to={s.href} className="block py-2 text-sm text-muted-foreground hover:text-foreground">{s.label}</Link>
-                    ))}
+                  <div className="mt-3 p-4 space-y-1 rounded-xl bg-muted">
+                    {services.map((s) => {
+                      const IconComponent = s.icon;
+                      return (
+                        <Link 
+                          key={s.href} 
+                          to={s.href} 
+                          className="flex items-center gap-3 py-2.5 px-3 text-sm text-muted-foreground hover:text-foreground hover:bg-background rounded-lg transition-colors"
+                        >
+                          <IconComponent className="w-4 h-4" />
+                          {s.label}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
