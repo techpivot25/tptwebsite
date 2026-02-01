@@ -89,21 +89,21 @@ const Header = () => {
               {isServicesOpen && (
                 <div className="fixed left-0 right-0 top-20 z-[100] animate-fade-in">
                   <div className="bg-background border-b border-border shadow-xl">
-                    <div className="container mx-auto px-6 lg:px-12 py-8">
-                      <div className="flex items-center justify-center gap-4 lg:gap-8 flex-wrap">
+                    <div className="container mx-auto px-6 lg:px-12 py-6">
+                      <div className="flex items-center justify-center gap-2 lg:gap-4 overflow-x-auto">
                         {services.map((s) => {
                           const IconComponent = s.icon;
                           return (
                             <Link 
                               key={s.href} 
                               to={s.href} 
-                              className="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-muted transition-all duration-200 group min-w-[90px] cursor-pointer"
+                              className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-all duration-200 group min-w-[80px] flex-shrink-0 cursor-pointer"
                               onClick={() => setIsServicesOpen(false)}
                             >
-                              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-muted group-hover:bg-primary/10 transition-colors">
-                                <IconComponent className="w-6 h-6 text-foreground/70 group-hover:text-primary transition-colors" />
+                              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-muted group-hover:bg-primary/10 transition-colors">
+                                <IconComponent className="w-5 h-5 text-foreground/70 group-hover:text-primary transition-colors" />
                               </div>
-                              <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center whitespace-nowrap">
+                              <span className="text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center whitespace-nowrap">
                                 {s.label}
                               </span>
                             </Link>
