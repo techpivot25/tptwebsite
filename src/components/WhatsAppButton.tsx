@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/tooltip";
 
 const WhatsAppButton = () => {
-  const phoneNumber = "917838379095";
+  const phoneNumber = "918800518650";
   const whatsappUrl = `https://wa.me/${phoneNumber}`;
 
   return (
