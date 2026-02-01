@@ -1,21 +1,21 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Bot, Sparkles, Cloud, Globe, Smartphone, Shield, Code, Users, Cpu, Lightbulb } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
 import logoLight from "@/assets/logo-light.png";
 
 const services = [
-  { label: "Agentic AI", href: "/services/agentic-ai" },
-  { label: "Generative AI", href: "/services/generative-ai" },
-  { label: "SaaS Platform", href: "/services/saas-platform" },
-  { label: "Web Development", href: "/services/web-development" },
-  { label: "Mobile App", href: "/services/mobile-app" },
-  { label: "Cloud & Security", href: "/services/cloud-security" },
-  { label: "Custom Software", href: "/services/custom-software" },
-  { label: "Staff Augmentation", href: "/services/staff-augmentation" },
-  { label: "IoT Solutions", href: "/services/iot" },
-  { label: "Consultancy", href: "/services/consultancy" },
+  { label: "Agentic AI", href: "/services/agentic-ai", icon: Bot },
+  { label: "Generative AI", href: "/services/generative-ai", icon: Sparkles },
+  { label: "SaaS Platform", href: "/services/saas-platform", icon: Cloud },
+  { label: "Web Development", href: "/services/web-development", icon: Globe },
+  { label: "Mobile App", href: "/services/mobile-app", icon: Smartphone },
+  { label: "Cloud & Security", href: "/services/cloud-security", icon: Shield },
+  { label: "Custom Software", href: "/services/custom-software", icon: Code },
+  { label: "Staff Augmentation", href: "/services/staff-augmentation", icon: Users },
+  { label: "IoT Solutions", href: "/services/iot", icon: Cpu },
+  { label: "Consultancy", href: "/services/consultancy", icon: Lightbulb },
 ];
 
 const Header = () => {
@@ -74,22 +74,34 @@ const Header = () => {
             <Link to="/" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Home
             </Link>
-            <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
+            <div className="relative" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
               <button className={`flex items-center gap-1 text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-                Services <ChevronDown className="w-4 h-4" />
+                Services <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`} />
               </button>
               {isServicesOpen && (
-                <div className="absolute top-full left-0 pt-2 w-64 animate-fade-in">
-                  <div className="bg-card border border-border rounded-xl shadow-lg p-2">
-                    {services.map((s) => (
-                      <Link 
-                        key={s.href} 
-                        to={s.href} 
-                        className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/10 rounded-lg transition-colors"
-                      >
-                        {s.label}
-                      </Link>
-                    ))}
+                <div className="fixed left-0 right-0 top-20 animate-fade-in">
+                  <div className="bg-background/98 backdrop-blur-xl border-b border-border shadow-lg">
+                    <div className="container mx-auto px-6 lg:px-12 py-8">
+                      <div className="flex items-center justify-center gap-6 lg:gap-10 flex-wrap">
+                        {services.map((s) => {
+                          const IconComponent = s.icon;
+                          return (
+                            <Link 
+                              key={s.href} 
+                              to={s.href} 
+                              className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/50 transition-all duration-200 group min-w-[100px]"
+                            >
+                              <div className="w-12 h-12 flex items-center justify-center rounded-full bg-muted/50 group-hover:bg-primary/10 transition-colors">
+                                <IconComponent className="w-6 h-6 text-foreground/70 group-hover:text-primary transition-colors" />
+                              </div>
+                              <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center whitespace-nowrap">
+                                {s.label}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
