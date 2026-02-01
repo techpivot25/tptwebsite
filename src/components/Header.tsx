@@ -103,7 +103,7 @@ const Header = () => {
                               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-muted group-hover:bg-primary/10 transition-colors">
                                 <IconComponent className="w-5 h-5 text-foreground/70 group-hover:text-primary transition-colors" />
                               </div>
-                              <span className="text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center whitespace-nowrap">
+                              <span className="text-[13px] font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center whitespace-nowrap">
                                 {s.label}
                               </span>
                             </Link>
