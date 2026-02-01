@@ -155,16 +155,16 @@ const Header = () => {
                   Services <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isServicesOpen && (
-                  <div className="mt-3 p-4 space-y-1 rounded-xl bg-muted">
+                  <div className="mt-2 p-2 space-y-0 rounded-lg bg-muted">
                     {services.map((s) => {
                       const IconComponent = s.icon;
                       return (
                         <Link 
                           key={s.href} 
                           to={s.href} 
-                          className="flex items-center gap-3 py-2.5 px-3 text-sm text-muted-foreground hover:text-foreground hover:bg-background rounded-lg transition-colors"
+                          className="flex items-center gap-2 py-1.5 px-2 text-sm text-muted-foreground hover:text-foreground hover:bg-background rounded-md transition-colors"
                         >
-                          <IconComponent className="w-4 h-4" />
+                          <IconComponent className="w-3.5 h-3.5" />
                           {s.label}
                         </Link>
                       );
