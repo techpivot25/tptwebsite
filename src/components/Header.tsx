@@ -26,10 +26,9 @@ const Header = () => {
   const rafRef = useRef<number | null>(null);
   
   const isHomePage = location.pathname === "/";
-  // Check if current page has a dark hero background that needs white text
-  // Currently all pages use light gradient backgrounds, so we use dark text everywhere
-  const isServicePage = location.pathname.startsWith("/services/");
-  const useWhiteText = isServicePage && !isScrolled;
+  // All internal pages (except homepage) have dark hero backgrounds that need white text
+  const hasDarkHero = !isHomePage;
+  const useWhiteText = hasDarkHero && !isScrolled;
 
   const handleScroll = useCallback(() => {
     if (rafRef.current) {
