@@ -51,35 +51,58 @@ const Consultancy = () => {
       </section>
 
       {/* Our Approach */}
-      <section className="py-20 lg:py-28 bg-[#f5f5f7] dark:bg-secondary/30 animate-section">
+      <section className="py-20 lg:py-28 bg-foreground animate-section">
         <div className="container px-6 lg:px-12">
-          <AnimatedSection animation="fadeUp" className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Our Approach
+          <AnimatedSection animation="fadeUp" className="text-center mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-background mb-2">
+              Our Development Process
             </h2>
+            <p className="text-background/60">Our Approach</p>
           </AnimatedSection>
-          <div className="max-w-5xl mx-auto">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div className="max-w-6xl mx-auto mt-12">
+            {/* Cards Row */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               {approach.map((step, index) => (
                 <AnimatedSection key={step.step} animation="fadeUp" delay={index * 100}>
-                  <div className="relative h-full">
-                    <motion.div 
-                      className="p-6 bg-background dark:bg-card rounded-2xl shadow-sm text-center h-full"
-                      whileHover={{ 
-                        y: -6,
-                        boxShadow: "0 16px 32px -12px rgba(0,0,0,0.1)"
-                      }}
-                    >
-                      <div className="text-3xl font-bold text-primary/30 mb-3">{step.step}</div>
-                      <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
-                      <p className="text-sm text-muted-foreground">{step.description}</p>
-                    </motion.div>
-                    {index < approach.length - 1 && (
-                      <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 w-6 h-6 text-muted-foreground/30 -translate-y-1/2 z-10" />
-                    )}
-                  </div>
+                  <motion.div 
+                    className="p-6 bg-secondary/80 dark:bg-card/50 rounded-2xl h-full border border-muted/20"
+                    whileHover={{ 
+                      y: -6,
+                      boxShadow: "0 16px 32px -12px rgba(0,0,0,0.3)"
+                    }}
+                  >
+                    <div className="text-4xl font-bold text-background/90 mb-3">{step.step}</div>
+                    <h3 className="font-bold text-background uppercase tracking-wide mb-3">{step.title}</h3>
+                    <p className="text-sm text-background/60 leading-relaxed">{step.description}</p>
+                  </motion.div>
                 </AnimatedSection>
               ))}
+            </div>
+            
+            {/* Timeline */}
+            <div className="relative hidden lg:block">
+              {/* Connecting Line */}
+              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-primary/50 -translate-y-1/2" />
+              
+              {/* Timeline Circles */}
+              <div className="flex justify-around relative z-10">
+                {approach.map((step, index) => (
+                  <AnimatedSection key={`circle-${step.step}`} animation="scaleIn" delay={index * 150 + 400}>
+                    <div className="flex flex-col items-center">
+                      {/* Vertical connector line */}
+                      <div className="w-0.5 h-8 bg-primary/50 -mt-8 mb-0" />
+                      {/* Circle */}
+                      <motion.div 
+                        className="w-12 h-12 rounded-full border-2 border-primary bg-foreground flex items-center justify-center"
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <span className="text-primary font-semibold">{index + 1}</span>
+                      </motion.div>
+                    </div>
+                  </AnimatedSection>
+                ))}
+              </div>
             </div>
           </div>
         </div>
