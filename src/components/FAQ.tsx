@@ -47,10 +47,10 @@ const FAQ = () => {
       <div className="container mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <AnimatedSection animation="fadeUp" className="max-w-3xl mb-16 -mt-[50px]">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground uppercase mb-6">
-            FREQUENTLY ASKED
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
+            Frequently Asked
             <br />
-            <span className="text-primary">QUESTIONS</span>
+            <span className="text-primary">Questions</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             Everything you need to know about working with us. Can't find the answer you're looking for? Reach out to our team.

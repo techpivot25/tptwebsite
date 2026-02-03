@@ -5,12 +5,12 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
 
 const features = [
-  { icon: Layers, title: "Multi-Tenancy Architecture", description: "Isolated data and customizable experiences for each customer" },
-  { icon: Key, title: "Authentication & SSO", description: "Secure login with OAuth, SAML, and enterprise SSO integration" },
-  { icon: Users, title: "User Management", description: "Roles, permissions, and team collaboration features" },
-  { icon: Zap, title: "API-First Design", description: "RESTful and GraphQL APIs for seamless integrations" },
-  { icon: Shield, title: "Security & Compliance", description: "SOC 2, GDPR, and industry-specific compliance" },
-  { icon: Database, title: "Scalable Infrastructure", description: "Auto-scaling cloud architecture for any load" },
+  { icon: Layers, title: "Advanced Multi-Tenancy", description: "Enterprise-grade tenant isolation with customizable branding, feature flags, and data segregation ensuring complete security and personalization for each customer organization" },
+  { icon: Key, title: "Enterprise Authentication & SSO", description: "Secure, seamless login experiences with OAuth 2.0, SAML 2.0, OpenID Connect, enterprise SSO integration (Okta, Azure AD), and multi-factor authentication (MFA)" },
+  { icon: Users, title: "Comprehensive User Management", description: "Granular role-based access control (RBAC), team collaboration features, user provisioning, activity tracking, and delegation workflows for enterprise organizations" },
+  { icon: Zap, title: "API-First Architecture", description: "RESTful and GraphQL APIs with comprehensive documentation, webhooks, SDKs in multiple languages, and rate limiting for seamless third-party integrations and custom workflows" },
+  { icon: Shield, title: "Security & Compliance", description: "SOC 2 Type II, GDPR, HIPAA, PCI DSS compliance with encryption at rest and in transit, regular security audits, penetration testing, and vulnerability management" },
+  { icon: Database, title: "Auto-Scaling Infrastructure", description: "Cloud-native architecture on AWS/Azure/GCP with automatic horizontal scaling, load balancing, CDN integration, and 99.9% uptime SLA for global performance" },
 ];
 
 const solutions = [
@@ -36,7 +36,7 @@ const SaaSPlatform = () => {
     <ServicePageLayout
       title="SaaS Platform Development"
       subtitle="Cloud-Native Solutions"
-      description="Build secure, scalable cloud-native applications with APIs, microservices, multi-tenancy, and AI integration for rapid MVPs and subscription businesses."
+      description="Build secure, scalable cloud-native applications with APIs, microservices, multi-tenancy, and AI integration for rapid MVPs and subscription businesses. Our expert team specializes in architecting enterprise-grade SaaS platforms with built-in security, multi-tenant support, advanced analytics, and seamless integrations."
       icon={<Cloud className="w-8 h-8 text-primary" />}
       showSaaSIcons={true}
     >

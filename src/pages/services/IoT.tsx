@@ -4,19 +4,19 @@ import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const capabilities = [
-  { icon: Wifi, title: "Device Connectivity", description: "Connect and manage thousands of IoT devices seamlessly" },
-  { icon: Database, title: "Data Collection", description: "Real-time data ingestion from sensors and devices" },
-  { icon: BarChart, title: "Analytics Dashboard", description: "Visualize and analyze IoT data in real-time" },
-  { icon: Shield, title: "Security", description: "End-to-end encryption and secure device authentication" },
-  { icon: Zap, title: "Edge Computing", description: "Process data at the edge for faster response times" },
-  { icon: Cpu, title: "Automation", description: "Intelligent automation based on sensor data and triggers" },
+  { icon: Wifi, title: "Enterprise Device Connectivity", description: "Seamlessly connect, manage, and monitor thousands to millions of IoT devices using protocols like MQTT, CoAP, LoRaWAN, NB-IoT, and cellular. Support for WiFi, Bluetooth, Zigbee, Z-Wave, and proprietary protocols" },
+  { icon: Database, title: "Real-Time Data Ingestion", description: "High-throughput data collection from sensors with time-series databases (InfluxDB, TimescaleDB), streaming pipelines (Kafka, Kinesis), edge preprocessing, and data validation for reliable insights at scale" },
+  { icon: BarChart, title: "Advanced Analytics & Visualization", description: "Real-time dashboards with customizable KPIs, predictive analytics with machine learning, anomaly detection, historical trend analysis, and interactive data exploration with drill-down capabilities" },
+  { icon: Shield, title: "Military-Grade Security", description: "X.509 certificate-based device authentication, AES-256 encryption for data in transit and at rest, secure boot, hardware security modules (HSM), OTA firmware updates with rollback, and penetration testing" },
+  { icon: Zap, title: "Edge Computing & AI", description: "Process data locally on edge devices for sub-100ms response times, run AI models at the edge (TensorFlow Lite, ONNX), reduce bandwidth costs, and maintain functionality during network outages" },
+  { icon: Cpu, title: "Intelligent Automation", description: "Rule-based and AI-driven automation triggered by sensor data, threshold alerts, predictive maintenance schedules, automated workflows, integration with business systems, and custom logic execution" },
 ];
 
 const solutions = [
-  { icon: Factory, title: "Industrial IoT", description: "Smart manufacturing, predictive maintenance, and process optimization" },
-  { icon: Home, title: "Smart Buildings", description: "Energy management, access control, and occupancy monitoring" },
-  { icon: Heart, title: "Healthcare IoT", description: "Remote patient monitoring, medical device connectivity" },
-  { icon: Truck, title: "Fleet Management", description: "Vehicle tracking, driver behavior, and route optimization" },
+  { icon: Factory, title: "Industrial IoT (IIoT) & Industry 4.0", description: "Smart manufacturing with predictive maintenance using vibration sensors and ML, equipment monitoring with OEE tracking, process optimization with real-time quality control, digital twin simulations, and automated production scheduling" },
+  { icon: Home, title: "Smart Buildings & Facilities", description: "Intelligent HVAC with occupancy-based climate control, energy management with demand response, smart lighting with daylight harvesting, access control with facial recognition, leak detection, and air quality monitoring for healthier environments" },
+  { icon: Heart, title: "Healthcare & Medical IoT", description: "Remote patient monitoring with wearables, vital signs tracking (heart rate, blood pressure, glucose), medication adherence monitoring, fall detection for elderly care, hospital asset tracking, and HIPAA-compliant data management" },
+  { icon: Truck, title: "Fleet & Logistics Management", description: "Real-time GPS vehicle tracking, driver behavior monitoring (harsh braking, speeding), fuel consumption optimization, predictive maintenance for vehicles, route optimization with traffic integration, cold chain monitoring for perishables, and geofencing alerts" },
 ];
 
 const IoT = () => {
@@ -24,7 +24,7 @@ const IoT = () => {
     <ServicePageLayout
       title="IoT Solutions"
       subtitle="Connected Devices"
-      description="Connected device ecosystems with real-time data processing and intelligent automation for smarter operations."
+      description="Connected device ecosystems with real-time data processing and intelligent automation for smarter operations. Our IoT platform expertise includes device management, edge computing, telemetry systems, predictive maintenance, cloud integration, and applications across manufacturing, agriculture, healthcare, smart cities, and industrial automation."
       icon={<Cpu className="w-8 h-8 text-primary" />}
     >
       {/* Capabilities */}
@@ -57,7 +57,7 @@ const IoT = () => {
               Industry Solutions
             </h2>
           </AnimatedSection>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {solutions.map((solution, index) => (
               <AnimatedSection key={solution.title} animation="fadeUp" delay={index * 100}>
                 <AppleCardCompact

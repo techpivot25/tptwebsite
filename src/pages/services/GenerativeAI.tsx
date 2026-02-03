@@ -5,12 +5,36 @@ import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const capabilities = [
-  { icon: FileText, title: "Text Generation", description: "Create articles, product descriptions, marketing copy, and documentation at scale" },
-  { icon: Image, title: "Image Generation", description: "Generate custom visuals, product images, and creative assets" },
-  { icon: Code, title: "Code Generation", description: "Accelerate development with AI-assisted coding and automation" },
-  { icon: Video, title: "Video Generation", description: "Create promotional videos, tutorials, and animated content" },
-  { icon: Music, title: "Audio Generation", description: "Produce voiceovers, music, and sound effects" },
-  { icon: Palette, title: "Custom Models", description: "Fine-tuned models trained on your specific data and requirements" },
+  { 
+    icon: FileText, 
+    title: "Advanced Text Generation", 
+    description: "Create high-quality articles, blog posts, product descriptions, technical documentation, marketing copy, and customer communications at scale using state-of-the-art language models fine-tuned for your brand voice" 
+  },
+  { 
+    icon: Image, 
+    title: "AI Image & Visual Creation", 
+    description: "Generate stunning custom visuals, product images, marketing materials, brand assets, and creative designs using DALL-E, Midjourney, and Stable Diffusion with brand consistency" 
+  },
+  { 
+    icon: Code, 
+    title: "Intelligent Code Generation", 
+    description: "Accelerate software development with AI-assisted coding, automated testing, code refactoring, documentation generation, and bug detection across 50+ programming languages" 
+  },
+  { 
+    icon: Video, 
+    title: "Video & Animation Creation", 
+    description: "Produce professional promotional videos, explainer content, social media clips, video ads, and animated presentations with AI-powered editing and voiceovers" 
+  },
+  { 
+    icon: Music, 
+    title: "Audio & Voice Synthesis", 
+    description: "Generate natural-sounding voiceovers in 100+ languages, background music, sound effects, podcasts, and audio advertisements with emotion and tone control" 
+  },
+  { 
+    icon: Palette, 
+    title: "Custom Model Training", 
+    description: "Fine-tune foundation models on your proprietary data, industry knowledge, and brand guidelines to create bespoke AI systems that understand your unique business context" 
+  },
 ];
 
 const industries = [
@@ -62,20 +86,18 @@ const GenerativeAI = () => {
     <ServicePageLayout
       title="Generative AI Solutions"
       subtitle="Creative Intelligence"
-      description="Scale creative output and innovation with AI-generated content, designs, and synthetic data that boost creativity and efficiency."
+      description="Scale creative output and innovation with AI-generated content, designs, and synthetic data that boost creativity and efficiency. Leverage advanced foundation models like GPT-4, Claude, DALL-E, and Midjourney to automate content creation, enhance productivity, and unlock unprecedented creative possibilities across your organization."
       icon={<Sparkles className="w-8 h-8 text-primary" />}
     >
       {/* Overview */}
       <section className="py-20 lg:py-28 animate-section">
         <div className="container px-6 lg:px-12">
-          <div className="max-w-3xl mx-auto text-center mb-16">
+          <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Transform Your Creative Workflow
             </h2>
-            <p className="text-lg text-muted-foreground">
-              Generative AI enables unprecedented creative capabilities, from text and image generation 
-              to code and video creation. Our solutions help businesses automate content creation, 
-              personalize experiences, and unlock new creative possibilities.
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Generative AI represents a paradigm shift in how organizations create content and automate workflows. Our solutions harness advanced foundation models to generate high-quality text, images, code, and video at unprecedented scale. Whether you need to produce marketing content at volume, accelerate software development with AI-assisted coding, create personalized customer experiences, or generate synthetic data for training, our expertise ensures successful implementation. We handle model selection, fine-tuning on your data, integration with existing systems, quality assurance, and deployment. Our approach combines cutting-edge technology with practical business value, delivering measurable ROI through increased productivity, reduced content costs, faster time-to-market, and enhanced customer engagement.
             </p>
           </div>
         </div>
@@ -86,7 +108,7 @@ const GenerativeAI = () => {
         <div className="container px-6 lg:px-12">
           <AnimatedSection animation="fadeUp" className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Generative Capabilities
+              Key Capabilities
             </h2>
           </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
