@@ -1,16 +1,16 @@
-import { Lightbulb, Target, TrendingUp, Users, FileText, Zap, CheckCircle, ArrowRight } from "lucide-react";
+import { Lightbulb, Target, TrendingUp, Users, FileText, Zap, CheckCircle, ArrowRight, Settings } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
 
 const services = [
-  { icon: Target, title: "Technology Strategy", description: "Align your technology investments with business objectives" },
-  { icon: TrendingUp, title: "Digital Transformation", description: "Guide your organization through digital evolution" },
-  { icon: Users, title: "Team Building", description: "Build and scale high-performing engineering teams" },
-  { icon: FileText, title: "Architecture Review", description: "Evaluate and optimize your technical architecture" },
-  { icon: Zap, title: "Process Optimization", description: "Streamline development workflows and practices" },
-  { icon: CheckCircle, title: "Quality Assurance", description: "Implement robust testing and quality frameworks" },
+  { icon: Target, title: "Technology Strategy & Roadmap", description: "Align technology investments with business goals through comprehensive IT strategy development, technology stack evaluation, build vs buy analysis, vendor selection, digital maturity assessment, and multi-year transformation roadmaps with clear milestones and ROI projections" },
+  { icon: TrendingUp, title: "Digital Transformation Consulting", description: "Guide enterprise-wide digital evolution with change management, process reengineering, legacy system modernization, cloud migration strategy, data-driven decision-making frameworks, agile transformation, and organizational capability building" },
+  { icon: Users, title: "Engineering Team Building & Scaling", description: "Build high-performing teams through talent strategy, hiring process optimization, team structure design, engineering culture development, retention strategies, career frameworks, performance management, and leadership coaching" },
+  { icon: FileText, title: "Architecture Assessment & Design", description: "Evaluate system architecture for scalability, security, and maintainability. Includes architecture audits, microservices migration, API strategy, database optimization, cloud architecture design, disaster recovery planning, and technical debt reduction roadmaps" },
+  { icon: Settings, title: "DevOps & Process Optimization", description: "Streamline development workflows with CI/CD pipeline implementation, infrastructure as code, automated testing strategies, deployment automation, incident management, SRE practices, monitoring/observability, and post-mortem processes" },
+  { icon: CheckCircle, title: "Quality Assurance & Testing Strategy", description: "Implement comprehensive QA frameworks including test automation architecture, performance testing, security testing (OWASP), accessibility testing, test data management, QA metrics and reporting, and shift-left testing practices" },
 ];
 
 const approach = [
@@ -25,7 +25,7 @@ const Consultancy = () => {
     <ServicePageLayout
       title="Software Consultancy"
       subtitle="Strategic Guidance"
-      description="Strategic technology consulting to guide your digital transformation journey and maximize your technology investments."
+      description="Strategic technology consulting to guide your digital transformation journey and maximize your technology investments. Our consultants provide technology strategy, architecture design, agile coaching, team mentoring, process optimization, vendor evaluation, and implementation support across AI, cloud, web, mobile, and enterprise platforms."
       icon={<Lightbulb className="w-8 h-8 text-primary" />}
     >
       {/* Services */}
