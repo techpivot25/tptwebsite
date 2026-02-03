@@ -53,11 +53,10 @@ const Consultancy = () => {
       {/* Our Approach */}
       <section className="py-20 lg:py-28 bg-foreground animate-section">
         <div className="container px-6 lg:px-12">
-          <AnimatedSection animation="fadeUp" className="text-center mb-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-background mb-2">
-              Our Development Process
+          <AnimatedSection animation="fadeUp" className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-background">
+              Our Approach
             </h2>
-            <p className="text-background/60">Our Approach</p>
           </AnimatedSection>
           
           <div className="max-w-6xl mx-auto mt-12">
