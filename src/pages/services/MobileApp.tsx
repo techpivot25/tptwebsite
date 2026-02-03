@@ -4,10 +4,10 @@ import { AppleCardCompact, AppleCardFeature } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const platforms = [
-  { icon: Apple, title: "iOS Development", description: "Native iOS apps built with Swift and SwiftUI for optimal performance" },
-  { icon: Play, title: "Android Development", description: "Native Android apps using Kotlin and Jetpack Compose" },
-  { icon: Layers, title: "Cross-Platform", description: "React Native and Flutter apps from a single codebase" },
-  { icon: Wifi, title: "Progressive Web Apps", description: "Web apps that work offline with app-like experiences" },
+  { icon: Apple, title: "Native iOS Development", description: "Premium iOS applications built with Swift 5.9+ and SwiftUI for exceptional performance, native UI components, and full access to latest Apple platform features and APIs" },
+  { icon: Play, title: "Native Android Development", description: "High-performance Android apps using Kotlin, Jetpack Compose, and Material Design 3 with support for the latest Android features and backward compatibility" },
+  { icon: Layers, title: "Cross-Platform Development", description: "Build once, deploy everywhere with React Native or Flutter. Share 70-90% code between iOS and Android while maintaining native look, feel, and performance" },
+  { icon: Wifi, title: "Progressive Web Apps (PWA)", description: "Modern web applications with app-like experiences, offline functionality, push notifications, home screen installation, and cross-platform compatibility without app store distribution" },
 ];
 
 const features = [
@@ -18,12 +18,12 @@ const features = [
 ];
 
 const solutions = [
-  { icon: ShoppingCart, title: "E-Commerce Apps", description: "Full-featured mobile shopping with secure payments and personalized recommendations" },
-  { icon: Heart, title: "Healthcare Apps", description: "HIPAA-compliant health apps with telemedicine and patient monitoring" },
-  { icon: MapPin, title: "On-Demand Services", description: "Real-time tracking, matching algorithms, and payment integration" },
-  { icon: MessageCircle, title: "Social & Media Apps", description: "Engaging social features, content sharing, and live streaming" },
-  { icon: Users, title: "Communication Apps", description: "Real-time messaging, video calls, and collaboration features" },
-  { icon: Briefcase, title: "Enterprise Apps", description: "Custom business apps for workforce and field operations" },
+  { icon: ShoppingCart, title: "E-Commerce Mobile Apps", description: "Feature-rich shopping apps with product catalogs, AR try-on, barcode scanning, one-click checkout, order tracking, push notifications for deals, personalized recommendations, and loyalty programs" },
+  { icon: Heart, title: "Healthcare & Wellness Apps", description: "HIPAA-compliant health apps with telemedicine video consultations, electronic health records (EHR), appointment booking, prescription management, health tracking, wearable integration, and secure patient-doctor messaging" },
+  { icon: MapPin, title: "On-Demand Service Apps", description: "Uber-like platforms with real-time GPS tracking, intelligent matching algorithms, in-app payments, driver/customer ratings, route optimization, fare calculation, and multi-service support" },
+  { icon: MessageCircle, title: "Social & Media Apps", description: "Engaging social platforms with user profiles, feeds, stories, live streaming, video/photo sharing, comments, likes, hashtags, real-time messaging, and content moderation" },
+  { icon: Users, title: "Enterprise Communication Apps", description: "Real-time messaging, video/audio conferencing, screen sharing, file sharing, team channels, presence indicators, end-to-end encryption, and integrations with business tools (Slack, Teams alternatives)" },
+  { icon: Briefcase, title: "Field Service & Enterprise Apps", description: "Custom workforce management apps with offline data collection, mobile forms, digital signatures, barcode scanning, asset tracking, route planning, time tracking, and ERP/CRM integration" },
 ];
 
 const MobileApp = () => {
@@ -31,7 +31,7 @@ const MobileApp = () => {
     <ServicePageLayout
       title="Mobile App Development"
       subtitle="Native & Cross-Platform"
-      description="Develop secure, scalable, and high-performance mobile applications tailored for enterprise needs with native and cross-platform expertise."
+      description="Develop secure, scalable, and high-performance mobile applications tailored for enterprise needs with native and cross-platform expertise. We build iOS apps with Swift, Android apps with Kotlin, and cross-platform solutions with React Native and Flutter for maximum reach and code efficiency."
       icon={<Smartphone className="w-8 h-8 text-primary" />}
     >
       {/* Platforms */}

@@ -58,7 +58,7 @@ const CustomSoftware = () => {
     <ServicePageLayout
       title="Custom Software Development"
       subtitle="Tailored Solutions"
-      description="Delivering tailored software solutions built around your unique business processes and objectives for efficiency and growth."
+      description="Delivering tailored software solutions built around your unique business processes and objectives for efficiency and growth. Our expertise spans ERP systems, CRM platforms, automation tools, industry-specific applications, legacy system modernization, and enterprise integrations with proven methodologies and agile practices."
       icon={<Code className="w-8 h-8 text-primary" />}
     >
       {/* Services */}

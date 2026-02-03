@@ -62,9 +62,9 @@ const services = [
   },
   { 
     icon: Boxes, 
-    title: "End-to-End Delivery", 
-    subtitle: "Full Lifecycle",
-    description: "Complete project lifecycle management and delivery.", 
+    title: "Custom Software", 
+    subtitle: "Tailored Solutions",
+    description: "Tailored software solutions built around your unique business.", 
     href: "/services/custom-software",
     gradient: "from-fuchsia-500/10 to-pink-500/10"
   },
@@ -160,7 +160,7 @@ const Services = () => {
             What We Deliver.
           </h2>
           <p className="text-xl text-muted-foreground">
-            Take your pick.
+            Comprehensive technology solutions tailored to your business needs.
           </p>
         </AnimatedSection>
 

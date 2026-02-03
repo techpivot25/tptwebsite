@@ -5,10 +5,10 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { motion } from "framer-motion";
 
 const features = [
-  { icon: Monitor, title: "Responsive Design", description: "Seamless experiences across all devices with mobile-first approach" },
-  { icon: FileText, title: "CMS Integration", description: "Easy content management with WordPress, Strapi, or custom CMS" },
-  { icon: Search, title: "SEO Optimization", description: "Built-in SEO best practices for maximum visibility" },
-  { icon: Zap, title: "Performance Tuning", description: "Lightning-fast load times and optimal performance" },
+  { icon: Monitor, title: "Responsive Design", description: "Pixel-perfect experiences across all devices and screen sizes with mobile-first approach, progressive enhancement, and adaptive layouts that ensure optimal usability" },
+  { icon: FileText, title: "CMS Integration", description: "Flexible content management with WordPress, Contentful, Strapi, Sanity, or custom headless CMS solutions with intuitive editing interfaces and workflow automation" },
+  { icon: Search, title: "SEO Optimisation", description: "Built-in SEO best practices including semantic HTML, structured data, XML sitemaps, meta optimization, Core Web Vitals optimization, and technical audits for maximum search visibility" },
+  { icon: Zap, title: "Performance Tuning", description: "Lightning-fast load times with code splitting, lazy loading, image optimization, CDN integration, server-side rendering, and 90+ Google PageSpeed scores" },
 ];
 
 const process = [
@@ -21,10 +21,10 @@ const process = [
 ];
 
 const solutions = [
-  { icon: ShoppingCart, title: "E-Commerce", description: "Full-featured online stores with secure payments" },
-  { icon: Building, title: "Corporate Websites", description: "Professional sites that represent your brand" },
-  { icon: Layout, title: "Web Applications", description: "Complex apps with rich functionality" },
-  { icon: BookOpen, title: "Content Platforms", description: "Blogs, portals, and media sites" },
+  { icon: ShoppingCart, title: "E-Commerce Solutions", description: "Full-featured online stores with Shopify, WooCommerce, or custom platforms. Includes product catalogs, shopping carts, secure payments (Stripe, PayPal), inventory management, and customer accounts" },
+  { icon: Building, title: "Corporate Websites", description: "Professional enterprise websites that represent your brand with compelling design, clear messaging, lead generation, contact forms, blog integration, and multilingual support" },
+  { icon: Layout, title: "Complex Web Applications", description: "Feature-rich single-page applications (SPA) and progressive web apps (PWA) with real-time updates, interactive dashboards, user authentication, and third-party integrations" },
+  { icon: BookOpen, title: "Content & Media Platforms", description: "Scalable blogs, news portals, magazines, and media sites with advanced content management, user comments, social sharing, newsletters, and advertising integration" },
 ];
 
 const WebDevelopment = () => {
@@ -32,7 +32,7 @@ const WebDevelopment = () => {
     <ServicePageLayout
       title="Web Development Services"
       subtitle="Digital Presence"
-      description="Creating powerful, responsive websites that drive business growth and engage users with modern frameworks and best practices."
+      description="Creating powerful, responsive websites that drive business growth and engage users with modern frameworks and best practices. Our web development expertise includes React, Vue, and Next.js for frontend excellence, Node.js and Python for robust backends, and full-stack solutions with SEO optimization and accessibility compliance."
       icon={<Globe className="w-8 h-8 text-primary" />}
     >
       {/* Features */}
