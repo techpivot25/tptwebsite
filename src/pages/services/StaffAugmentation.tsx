@@ -1,15 +1,15 @@
-import { Users, Code, Brain, Briefcase, Clock, Shield, Target, Zap, Globe, Award } from "lucide-react";
+import { Users, Code, Brain, Briefcase, Clock, Shield, Target, Zap, Globe, Award, Palette } from "lucide-react";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const expertise = [
-  { icon: Code, title: "Developers", description: "Full-stack, frontend, backend, and mobile developers" },
-  { icon: Brain, title: "AI/ML Specialists", description: "Data scientists, ML engineers, and AI architects" },
-  { icon: Briefcase, title: "Project Managers", description: "Agile coaches, scrum masters, and technical PMs" },
-  { icon: Shield, title: "DevOps Engineers", description: "Cloud architects, SREs, and automation specialists" },
-  { icon: Target, title: "QA Engineers", description: "Test automation, performance testing, and security testing" },
-  { icon: Globe, title: "UI/UX Designers", description: "Product designers, UX researchers, and visual designers" },
+  { icon: Code, title: "Software Developers", description: "Full-stack engineers (React, Node.js, Python), frontend specialists (React, Vue, Angular), backend developers (Java, .NET, Go), mobile developers (iOS, Android, React Native, Flutter), and embedded systems engineers" },
+  { icon: Brain, title: "AI/ML Specialists", description: "Machine learning engineers, data scientists with Python/R, deep learning experts (TensorFlow, PyTorch), NLP specialists, computer vision engineers, MLOps practitioners, and AI solutions architects" },
+  { icon: Briefcase, title: "Project & Product Managers", description: "Certified scrum masters (CSM), agile coaches, technical program managers, product owners, delivery managers, and PMI-certified project managers with domain expertise" },
+  { icon: Shield, title: "DevOps & Cloud Engineers", description: "AWS/Azure/GCP architects, Kubernetes administrators, CI/CD specialists, site reliability engineers (SRE), infrastructure as code (Terraform, CloudFormation), and automation experts" },
+  { icon: Target, title: "QA & Test Engineers", description: "Test automation engineers (Selenium, Cypress), performance testing specialists (JMeter, LoadRunner), security testing (OWASP), mobile app testing, and QA team leads" },
+  { icon: Palette, title: "UI/UX Designers", description: "Product designers, UX researchers with user testing expertise, visual designers (Figma, Sketch), interaction designers, information architects, and design system specialists" },
 ];
 
 const benefits = [
@@ -24,7 +24,7 @@ const StaffAugmentation = () => {
     <ServicePageLayout
       title="IT Staff Augmentation"
       subtitle="On-Demand Talent"
-      description="On-demand expert teams of developers, PMs, and AI specialists to scale your projects quickly and efficiently."
+      description="On-demand expert teams of developers, PMs, and AI specialists to scale your projects quickly and efficiently. We provide full-stack developers, AI/ML engineers, DevOps specialists, quality assurance professionals, and solution architects who integrate seamlessly with your teams and deliver immediate business value."
       icon={<Users className="w-8 h-8 text-primary" />}
     >
       {/* Expertise */}
@@ -34,9 +34,6 @@ const StaffAugmentation = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Our Expertise
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Access top-tier talent across all technology domains
-            </p>
           </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {expertise.map((item, index) => (
