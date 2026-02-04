@@ -25,10 +25,8 @@ const Header = () => {
   const location = useLocation();
   const rafRef = useRef<number | null>(null);
   
-  const isHomePage = location.pathname === "/";
-  // All internal pages (except homepage) have dark hero backgrounds that need white text
-  const hasDarkHero = !isHomePage;
-  const useWhiteText = hasDarkHero && !isScrolled;
+  // Always use white background with dark logo on all pages
+  const useWhiteText = false;
 
   const handleScroll = useCallback(() => {
     if (rafRef.current) {
@@ -55,7 +53,7 @@ const Header = () => {
   }, [location]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border" : isHomePage ? "bg-background" : "bg-transparent"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border" : "bg-background"}`}>
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
