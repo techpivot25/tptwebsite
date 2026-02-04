@@ -106,7 +106,7 @@ const Careers = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mb-6"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-background tracking-tight mb-6"
                 >
                   Build Your Career With Us
                 </motion.h1>

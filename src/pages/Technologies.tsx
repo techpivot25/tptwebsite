@@ -57,7 +57,7 @@ const Technologies = () => (
             <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
               TECHNOLOGIES
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background tracking-tight mb-6">
               Technology Excellence
             </h1>
             <p className="text-xl text-background/70">
