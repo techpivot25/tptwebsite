@@ -125,6 +125,9 @@ const Header = () => {
             <Link to="/careers" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Careers
             </Link>
+            <Link to="/blogs" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
+              Blog
+            </Link>
             <Link to="/contact" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
               Contact
             </Link>
@@ -176,6 +179,7 @@ const Header = () => {
               <Link to="/technologies" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Technologies</Link>
               <Link to="/about" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">About</Link>
               <Link to="/careers" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Careers</Link>
+              <Link to="/blogs" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Blog</Link>
               <Link to="/contact" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Contact</Link>
               <Button className="mt-4 w-full" size="lg" asChild>
                 <Link to="/contact">Talk To Expert</Link>
