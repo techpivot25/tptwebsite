@@ -62,7 +62,11 @@ const Header = () => {
               src={useWhiteText ? logoLight : logoDark} 
               alt="TechPivot Logo" 
               className="w-[200px] h-[70px]" 
+              width={200}
+              height={70}
               loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </Link>
 
