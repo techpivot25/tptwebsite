@@ -15,6 +15,11 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Technologies = lazy(() => import("./pages/Technologies"));
 const Careers = lazy(() => import("./pages/Careers"));
 const About = lazy(() => import("./pages/About"));
+const Blogs = lazy(() => import("./pages/Blogs"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail"));
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const BlogEditor = lazy(() => import("./pages/admin/BlogEditor"));
 const AgenticAI = lazy(() => import("./pages/services/AgenticAI"));
 const GenerativeAI = lazy(() => import("./pages/services/GenerativeAI"));
 const SaaSPlatform = lazy(() => import("./pages/services/SaaSPlatform"));
@@ -65,6 +70,11 @@ const AnimatedRoutes = () => {
           <Routes location={location}>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:slug" element={<BlogDetail />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/blog/:id" element={<BlogEditor />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/technologies" element={<Technologies />} />
