@@ -157,7 +157,7 @@ const Services = () => {
         {/* Section Header - Apple style */}
         <AnimatedSection animation="fadeUp" className="text-center max-w-3xl mx-auto mb-16 -mt-[100px]">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-foreground">
-            What We Deliver.
+            Services We Deliver
           </h2>
           <p className="text-xl text-muted-foreground">
             Comprehensive technology solutions tailored to your business needs.
