@@ -29,7 +29,7 @@ const Index = () => {
           <Services />
           <CaseStudies />
           {/* <Testimonials /> */}{/* Hidden for now */}
-          <Partners />
+          {/* <Partners /> */}{/* Hidden for now */}
           <About />
           <FAQ />
         </main>
