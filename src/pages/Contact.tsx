@@ -181,7 +181,7 @@ const Contact = () => {
               <span className="text-sm font-semibold text-primary uppercase tracking-widest">
                 CONTACT US
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background uppercase tracking-tight mt-4 mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background tracking-tight mt-4 mb-6">
                 Let's Build Something Great Together
               </h1>
               <p className="text-xl text-background/70">
