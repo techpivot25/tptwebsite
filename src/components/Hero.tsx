@@ -370,19 +370,19 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto text-center space-y-8">
           {/* Main Heading - Animated word-by-word */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-tight leading-[0.95]">
-            <AnimatedHeadingLine delay={0.2} className="text-foreground">
+            <AnimatedHeadingLine delay={0.05} className="text-foreground">
               Built By AI,
             </AnimatedHeadingLine>
-            <AnimatedHeadingLine delay={0.5} className="text-gradient">
+            <AnimatedHeadingLine delay={0.15} className="text-gradient">
               Driven By Intelligence
             </AnimatedHeadingLine>
           </h1>
 
-          {/* Core Values */}
+          {/* Core Values - Reduced delays for faster LCP */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-3"
           >
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -391,7 +391,7 @@ const Hero = () => {
             <motion.p 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.3 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
               className="text-base md:text-lg text-primary font-medium tracking-wide"
             >
               Innovation | Excellence | Collaboration | Growth
@@ -402,7 +402,7 @@ const Hero = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.5 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
             className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
           >
             <Button 
