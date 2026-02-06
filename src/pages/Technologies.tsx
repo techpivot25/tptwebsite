@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroVectorAnimation from "@/components/HeroVectorAnimation";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
 
@@ -48,6 +49,9 @@ const Technologies = () => (
       
       {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground relative overflow-hidden">
+        {/* Animated vector background */}
+        <HeroVectorAnimation />
+        
         {/* Geometric decorations */}
         <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
         <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
