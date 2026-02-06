@@ -105,7 +105,7 @@ const ServicePageLayout = ({
         {/* Hero Section - Linnify style */}
         <section
           ref={heroRef}
-          className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-foreground overflow-hidden"
+          className="relative pt-36 pb-24 lg:pt-44 lg:pb-32 bg-foreground overflow-hidden"
         >
           {/* Background Image */}
           {backgroundImage && (
