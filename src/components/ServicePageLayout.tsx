@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import VectorMeshBackground from "@/components/VectorMeshBackground";
 import GeometricBlocksBackground from "@/components/GeometricBlocksBackground";
 import SaaSIconsBackground from "@/components/SaaSIconsBackground";
+import HeroVectorAnimation from "@/components/HeroVectorAnimation";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -122,6 +123,11 @@ const ServicePageLayout = ({
 
           {/* SaaS Icons Background */}
           {showSaaSIcons && <SaaSIconsBackground />}
+
+          {/* Light vector animation for pages without special backgrounds */}
+          {!showVectorMesh && !showGeometricBlocks && !showSaaSIcons && !backgroundImage && (
+            <HeroVectorAnimation />
+          )}
           
           {/* Geometric decorations */}
           <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />

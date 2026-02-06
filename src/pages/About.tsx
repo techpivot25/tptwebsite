@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Lightbulb, Users, Award, Shield } from "lucide-react";
 import { AppleCardCompact } from "@/components/ui/apple-card";
 import AnimatedSection from "@/components/AnimatedSection";
+import HeroVectorAnimation from "@/components/HeroVectorAnimation";
 import { motion } from "framer-motion";
 
 const coreValues = [
@@ -45,6 +46,9 @@ const About = () => {
       <main>
         {/* Hero Section */}
         <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground text-background relative overflow-hidden">
+          {/* Animated vector background */}
+          <HeroVectorAnimation />
+          
           {/* Geometric decorations */}
           <div className="absolute -top-20 -right-20 w-80 h-80 border border-background/10 rounded-full" />
           <div className="absolute bottom-10 left-10 w-32 h-32 border border-primary/20 rounded-full" />
