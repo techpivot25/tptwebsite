@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroVectorAnimation from "@/components/HeroVectorAnimation";
@@ -172,7 +173,7 @@ const Contact = () => {
         <Header />
         
         {/* Hero Section */}
-        <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground relative overflow-hidden">
+        <section className="pt-36 pb-20 lg:pt-44 lg:pb-24 bg-foreground relative overflow-hidden">
           {/* Animated vector background */}
           <HeroVectorAnimation />
           
@@ -188,9 +189,23 @@ const Contact = () => {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background tracking-tight mt-4 mb-6">
                 Let's Build Something Great Together
               </h1>
-              <p className="text-xl text-background/70">
+              <p className="text-xl text-background/70 mb-10">
                 Ready to transform your business? Let's discuss your project and explore how we can help.
               </p>
+              
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground group" asChild>
+                  <Link to="/contact">
+                    Start Your Project
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="border-background/30 hover:bg-background/10" style={{ color: '#1D2839' }} asChild>
+                  <Link to="/technologies">
+                    View Technologies
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

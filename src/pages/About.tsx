@@ -45,7 +45,7 @@ const About = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-foreground text-background relative overflow-hidden">
+        <section className="pt-36 pb-20 lg:pt-44 lg:pb-24 bg-foreground text-background relative overflow-hidden">
           {/* Animated vector background */}
           <HeroVectorAnimation />
           
@@ -75,10 +75,29 @@ const About = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl text-background/70"
+                className="text-xl text-background/70 mb-10"
               >
                 We specialize in cutting-edge AI, Blockchain, and Metaverse development, delivering smart solutions that transform businesses.
               </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground group" asChild>
+                  <Link to="/contact">
+                    Start Your Project
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="border-background/30 hover:bg-background/10" style={{ color: '#1D2839' }} asChild>
+                  <Link to="/technologies">
+                    View Technologies
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
           </div>
         </section>
