@@ -419,11 +419,14 @@ const Hero = () => {
               size="lg" 
               variant="outline"
               className="px-8 py-6 text-base font-semibold magnetic-hover"
-              asChild
+              onClick={() => {
+                const servicesSection = document.getElementById('services');
+                if (servicesSection) {
+                  servicesSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
-              <Link to="/#services">
-                View Our Services
-              </Link>
+              View Our Services
             </Button>
           </motion.div>
 
