@@ -33,10 +33,8 @@ const IoT = lazy(() => import("./pages/services/IoT"));
 const Consultancy = lazy(() => import("./pages/services/Consultancy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AnimationsDemo = lazy(() => import("./pages/AnimationsDemo"));
-import WhatsAppButton from "./components/WhatsAppButton";
-import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopOnNavigate from "./components/ScrollToTopOnNavigate";
-import ChatBot from "./components/ChatBot";
+import AppOverlays from "./components/AppOverlays";
 
 const queryClient = new QueryClient();
 
@@ -108,9 +106,7 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTopOnNavigate />
           <AnimatedRoutes />
-          <WhatsAppButton />
-          <ScrollToTop />
-          <ChatBot />
+          <AppOverlays />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
