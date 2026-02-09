@@ -59,7 +59,7 @@ const Footer = () => {
               <img src={logoLight} alt="TechPivot Logo" className="w-[200px] h-[70px]" loading="lazy" />
             </Link>
             <p className="text-background/60 text-sm leading-relaxed mb-6">
-              Your trusted partner for cutting-edge AI and digital transformation solutions. Building the future, one project at a time.
+              Your trusted partner for cutting edge AI and digital transformation solutions. Building the future, one project at a time.
             </p>
             <div className="flex gap-4">
               {social.map((item) => (
