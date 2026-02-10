@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight, Bot, Sparkles, Cloud, Globe, Smartphone, Shield, Code, Users, Cpu, Lightbulb } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
 import logoLight from "@/assets/logo-light.png";
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageSelector from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const services = [
   { label: "Agentic AI", href: "/services/agentic-ai", icon: Bot },
@@ -24,9 +28,8 @@ const Header = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const location = useLocation();
   const rafRef = useRef<number | null>(null);
-  
-  // Always use white background with dark logo on all pages
-  const useWhiteText = false;
+  const { t } = useLanguage();
+  const { theme } = useTheme();
 
   const handleScroll = useCallback(() => {
     if (rafRef.current) {
@@ -59,7 +62,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src={useWhiteText ? logoLight : logoDark} 
+              src={theme === "dark" ? logoLight : logoDark} 
               alt="TechPivot Logo" 
               className="w-[200px] h-[70px]" 
               width={200}
@@ -72,18 +75,17 @@ const Header = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-              Home
+            <Link to="/" className="text-sm font-medium transition-colors uppercase tracking-wide text-muted-foreground hover:text-foreground">
+              {t("nav.home")}
             </Link>
             <div 
               className="relative"
               onMouseEnter={() => setIsServicesOpen(true)} 
               onMouseLeave={() => setIsServicesOpen(false)}
             >
-              <button className={`flex items-center gap-1 text-sm font-medium transition-colors uppercase tracking-wide py-2 ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-                Services <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`} />
+              <button className="flex items-center gap-1 text-sm font-medium transition-colors uppercase tracking-wide py-2 text-muted-foreground hover:text-foreground">
+                {t("nav.services")} <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`} />
               </button>
-              {/* Invisible bridge to prevent gap */}
               {isServicesOpen && (
                 <div className="absolute left-1/2 -translate-x-1/2 top-full w-[200px] h-6" />
               )}
@@ -116,47 +118,53 @@ const Header = () => {
                 </div>
               )}
             </div>
-            <Link to="/technologies" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-              Technologies
+            <Link to="/technologies" className="text-sm font-medium transition-colors uppercase tracking-wide text-muted-foreground hover:text-foreground">
+              {t("nav.technologies")}
             </Link>
-            <Link to="/about" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-              About Us
+            <Link to="/about" className="text-sm font-medium transition-colors uppercase tracking-wide text-muted-foreground hover:text-foreground">
+              {t("nav.about")}
             </Link>
-            <Link to="/careers" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-              Careers
+            <Link to="/careers" className="text-sm font-medium transition-colors uppercase tracking-wide text-muted-foreground hover:text-foreground">
+              {t("nav.careers")}
             </Link>
-            <Link to="/blogs" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-              Blogs
+            <Link to="/blogs" className="text-sm font-medium transition-colors uppercase tracking-wide text-muted-foreground hover:text-foreground">
+              {t("nav.blogs")}
             </Link>
-            <Link to="/contact" className={`text-sm font-medium transition-colors uppercase tracking-wide ${useWhiteText ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"}`}>
-              Contact
+            <Link to="/contact" className="text-sm font-medium transition-colors uppercase tracking-wide text-muted-foreground hover:text-foreground">
+              {t("nav.contact")}
             </Link>
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* Right side: Theme + Language + CTA */}
+          <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
+            <LanguageSelector />
             <Button size="lg" className="group" asChild>
               <Link to="/contact">
-                Talk To Expert
+                {t("nav.talkToExpert")}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button className={`md:hidden p-2 ${useWhiteText ? "text-background" : "text-foreground"}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: Theme + Language + Menu Toggle */}
+          <div className="md:hidden flex items-center gap-1">
+            <ThemeToggle />
+            <LanguageSelector />
+            <button className="p-2 text-foreground" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-6 border-t border-border animate-fade-in bg-background">
             <nav className="flex flex-col gap-2">
-              <Link to="/" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Home</Link>
+              <Link to="/" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">{t("nav.home")}</Link>
               <div className="py-2">
                 <button onClick={() => setIsServicesOpen(!isServicesOpen)} className="flex items-center justify-between w-full text-base font-medium text-foreground uppercase tracking-wide">
-                  Services <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
+                  {t("nav.services")} <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isServicesOpen && (
                   <div className="mt-2 p-2 space-y-0 rounded-lg bg-muted">
@@ -176,13 +184,13 @@ const Header = () => {
                   </div>
                 )}
               </div>
-              <Link to="/technologies" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Technologies</Link>
-              <Link to="/about" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">About Us</Link>
-              <Link to="/careers" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Careers</Link>
-              <Link to="/blogs" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Blogs</Link>
-              <Link to="/contact" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">Contact</Link>
+              <Link to="/technologies" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">{t("nav.technologies")}</Link>
+              <Link to="/about" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">{t("nav.about")}</Link>
+              <Link to="/careers" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">{t("nav.careers")}</Link>
+              <Link to="/blogs" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">{t("nav.blogs")}</Link>
+              <Link to="/contact" className="py-3 text-base font-medium text-foreground uppercase tracking-wide">{t("nav.contact")}</Link>
               <Button className="mt-4 w-full" size="lg" asChild>
-                <Link to="/contact">Talk To Expert</Link>
+                <Link to="/contact">{t("nav.talkToExpert")}</Link>
               </Button>
             </nav>
           </div>

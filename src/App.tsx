@@ -6,6 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import CustomCursor from "@/components/CustomCursor";
 
 // Eagerly load the Index page for fast initial render
 import Index from "./pages/Index";
@@ -99,17 +102,22 @@ const AnimatedRoutes = () => {
 
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTopOnNavigate />
-          <AnimatedRoutes />
-          <AppOverlays />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTopOnNavigate />
+              <AnimatedRoutes />
+              <AppOverlays />
+              <CustomCursor />
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   </HelmetProvider>
 );
 
