@@ -1,11 +1,8 @@
 import { Mail, Phone, MapPin, ArrowUpRight, Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoLight from "@/assets/logo-light.png";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
-  const { t } = useLanguage();
-
   const servicesColumn1 = [
     { label: "Agentic AI", href: "/services/agentic-ai" },
     { label: "Generative AI", href: "/services/generative-ai" },
@@ -23,12 +20,13 @@ const Footer = () => {
   ];
 
   const company = [
-    { label: t("nav.about"), href: "/about" },
-    { label: t("caseStudies.title"), href: "/#case-studies" },
-    { label: t("nav.technologies"), href: "/technologies" },
-    { label: t("nav.careers"), href: "/careers" },
-    { label: t("nav.blogs"), href: "/blogs" },
-    { label: t("nav.contact"), href: "/contact" },
+    { label: "About Us", href: "/about" },
+    { label: "Case Studies", href: "/#case-studies" },
+    { label: "Technologies", href: "/technologies" },
+    { label: "Careers", href: "/careers" },
+    { label: "Blog", href: "/blogs" },
+    { label: "Testimonials", href: "/#testimonials" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const social = [
@@ -40,6 +38,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-foreground text-background relative overflow-hidden">
+      {/* Large background text */}
       <div 
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
@@ -60,7 +59,7 @@ const Footer = () => {
               <img src={logoLight} alt="TechPivot Logo" className="w-[200px] h-[70px]" loading="lazy" />
             </Link>
             <p className="text-background/60 text-sm leading-relaxed mb-6">
-              {t("footer.description")}
+              Your trusted partner for cutting-edge AI and digital transformation solutions. Building the future, one project at a time.
             </p>
             <div className="flex gap-4">
               {social.map((item) => (
@@ -80,11 +79,14 @@ const Footer = () => {
 
           {/* Services Column 1 */}
           <div>
-            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">{t("footer.services")}</h4>
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Services</h4>
             <ul className="space-y-3">
               {servicesColumn1.map((item) => (
                 <li key={item.label}>
-                  <Link to={item.href} className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group">
+                  <Link 
+                    to={item.href} 
+                    className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group"
+                  >
                     {item.label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
@@ -95,11 +97,14 @@ const Footer = () => {
 
           {/* Services Column 2 */}
           <div>
-            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">{t("footer.services")}</h4>
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Services</h4>
             <ul className="space-y-3">
               {servicesColumn2.map((item) => (
                 <li key={item.label}>
-                  <Link to={item.href} className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group">
+                  <Link 
+                    to={item.href} 
+                    className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group"
+                  >
                     {item.label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
@@ -110,11 +115,14 @@ const Footer = () => {
 
           {/* Company */}
           <div>
-            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">{t("footer.company")}</h4>
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Company</h4>
             <ul className="space-y-3">
               {company.map((item) => (
-                <li key={item.href}>
-                  <Link to={item.href} className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group">
+                <li key={item.label}>
+                  <Link 
+                    to={item.href} 
+                    className="text-sm text-background/60 hover:text-primary transition-colors flex items-center gap-1 group"
+                  >
                     {item.label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
@@ -125,13 +133,15 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">{t("footer.getInTouch")}</h4>
+            <h4 className="font-bold uppercase tracking-wider text-sm mb-6 text-background">Get in Touch</h4>
             <ul className="space-y-4 text-sm text-background/60">
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
                   <Mail size={14} className="text-primary" />
                 </div>
-                <a href="mailto:info@techpivot.in" className="hover:text-primary transition-colors">info@techpivot.in</a>
+              <a href="mailto:info@techpivot.in" className="hover:text-primary transition-colors">
+                  info@techpivot.in
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
@@ -151,11 +161,11 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/50">
-          <p>{t("footer.rights")}</p>
+          <p>© 2026 TechPivot Technologies & Consulting. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link to="/#faq" className="hover:text-primary transition-colors">{t("footer.faq")}</Link>
-            <a href="https://www.techpivot.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">{t("footer.privacy")}</a>
-            <a href="https://www.techpivot.in/terms-of-service" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">{t("footer.terms")}</a>
+            <Link to="/#faq" className="hover:text-primary transition-colors">FAQ</Link>
+            <a href="https://www.techpivot.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="https://www.techpivot.in/terms-of-service" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
