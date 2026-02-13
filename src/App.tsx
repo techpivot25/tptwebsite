@@ -8,7 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import CustomCursor from "@/components/CustomCursor";
+
 
 // Eagerly load the Index page for fast initial render
 import Index from "./pages/Index";
@@ -112,7 +112,7 @@ const App = () => (
               <ScrollToTopOnNavigate />
               <AnimatedRoutes />
               <AppOverlays />
-              <CustomCursor />
+              
             </BrowserRouter>
           </TooltipProvider>
         </QueryClientProvider>
