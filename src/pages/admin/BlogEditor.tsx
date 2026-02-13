@@ -12,22 +12,15 @@ import Image from "@tiptap/extension-image";
 import LinkExtension from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
+import { TableKit } from "@tiptap/extension-table";
+import { TextStyle, FontFamily, FontSize } from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
 import {
   ArrowLeft,
   Save,
   Send,
   Calendar,
   Loader2,
-  Bold,
-  Italic,
-  Underline as UnderlineIcon,
-  List,
-  ListOrdered,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
-  Link2,
-  Image as ImageIcon,
   Upload,
   Video,
 } from "lucide-react";
@@ -47,6 +40,7 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import logoDark from "@/assets/logo-dark.png";
+import EditorToolbar from "@/components/admin/EditorToolbar";
 
 const BlogEditor = () => {
   const { id } = useParams<{ id: string }>();
@@ -74,6 +68,11 @@ const BlogEditor = () => {
       LinkExtension.configure({ openOnClick: false }),
       Underline,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
+      TableKit,
+      TextStyle,
+      FontFamily,
+      FontSize,
+      Color,
     ],
     content: "",
     editorProps: {
@@ -186,33 +185,6 @@ const BlogEditor = () => {
     setUploadingImage(false);
   };
 
-  const insertImageToEditor = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file || !editor) return;
-
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${Date.now()}.${fileExt}`;
-
-    const { data, error } = await supabase.storage
-      .from("blog-media")
-      .upload(fileName, file);
-
-    if (error) {
-      toast({
-        title: "Upload failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("blog-media").getPublicUrl(data.path);
-      editor.chain().focus().setImage({ src: publicUrl }).run();
-    }
-  };
-
   const handleSave = async (
     status: "draft" | "published" | "scheduled" = "draft"
   ) => {
@@ -288,13 +260,6 @@ const BlogEditor = () => {
     } finally {
       setSaving(false);
       setShowScheduleDialog(false);
-    }
-  };
-
-  const addLink = () => {
-    const url = window.prompt("Enter URL:");
-    if (url && editor) {
-      editor.chain().focus().setLink({ href: url }).run();
     }
   };
 
@@ -472,133 +437,7 @@ const BlogEditor = () => {
 
           {/* Rich Text Editor */}
           <div className="bg-background rounded-xl border border-border overflow-hidden">
-            {/* Toolbar */}
-            <div className="border-b border-border p-2 flex flex-wrap gap-1">
-              <Button
-                variant={editor?.isActive("bold") ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => editor?.chain().focus().toggleBold().run()}
-              >
-                <Bold className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={editor?.isActive("italic") ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => editor?.chain().focus().toggleItalic().run()}
-              >
-                <Italic className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={editor?.isActive("underline") ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => editor?.chain().focus().toggleUnderline().run()}
-              >
-                <UnderlineIcon className="w-4 h-4" />
-              </Button>
-              <div className="w-px bg-border mx-1" />
-              <Button
-                variant={
-                  editor?.isActive("heading", { level: 2 })
-                    ? "secondary"
-                    : "ghost"
-                }
-                size="sm"
-                onClick={() =>
-                  editor?.chain().focus().toggleHeading({ level: 2 }).run()
-                }
-              >
-                H2
-              </Button>
-              <Button
-                variant={
-                  editor?.isActive("heading", { level: 3 })
-                    ? "secondary"
-                    : "ghost"
-                }
-                size="sm"
-                onClick={() =>
-                  editor?.chain().focus().toggleHeading({ level: 3 }).run()
-                }
-              >
-                H3
-              </Button>
-              <div className="w-px bg-border mx-1" />
-              <Button
-                variant={editor?.isActive("bulletList") ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => editor?.chain().focus().toggleBulletList().run()}
-              >
-                <List className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={
-                  editor?.isActive("orderedList") ? "secondary" : "ghost"
-                }
-                size="sm"
-                onClick={() =>
-                  editor?.chain().focus().toggleOrderedList().run()
-                }
-              >
-                <ListOrdered className="w-4 h-4" />
-              </Button>
-              <div className="w-px bg-border mx-1" />
-              <Button
-                variant={
-                  editor?.isActive({ textAlign: "left" }) ? "secondary" : "ghost"
-                }
-                size="sm"
-                onClick={() =>
-                  editor?.chain().focus().setTextAlign("left").run()
-                }
-              >
-                <AlignLeft className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={
-                  editor?.isActive({ textAlign: "center" })
-                    ? "secondary"
-                    : "ghost"
-                }
-                size="sm"
-                onClick={() =>
-                  editor?.chain().focus().setTextAlign("center").run()
-                }
-              >
-                <AlignCenter className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={
-                  editor?.isActive({ textAlign: "right" })
-                    ? "secondary"
-                    : "ghost"
-                }
-                size="sm"
-                onClick={() =>
-                  editor?.chain().focus().setTextAlign("right").run()
-                }
-              >
-                <AlignRight className="w-4 h-4" />
-              </Button>
-              <div className="w-px bg-border mx-1" />
-              <Button variant="ghost" size="sm" onClick={addLink}>
-                <Link2 className="w-4 h-4" />
-              </Button>
-              <label className="cursor-pointer">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={insertImageToEditor}
-                  className="hidden"
-                />
-                <Button variant="ghost" size="sm" asChild>
-                  <span>
-                    <ImageIcon className="w-4 h-4" />
-                  </span>
-                </Button>
-              </label>
-            </div>
-
-            {/* Editor */}
+            <EditorToolbar editor={editor} />
             <EditorContent editor={editor} />
           </div>
         </main>
