@@ -478,3 +478,23 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* TipTap Table Styles */
+.tiptap table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+.tiptap table td,
+.tiptap table th {
+  border: 1px solid hsl(var(--border));
+  padding: 0.5rem;
+  min-width: 80px;
+}
+.tiptap table th {
+  background-color: hsl(var(--muted));
+  font-weight: 600;
+}
+.tiptap table .selectedCell {
+  background-color: hsl(var(--primary) / 0.1);
+}
