@@ -64,8 +64,17 @@ const BlogEditor = () => {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Image,
-      LinkExtension.configure({ openOnClick: false }),
+      Image.configure({
+        inline: false,
+        allowBase64: true,
+      }),
+      LinkExtension.configure({
+        openOnClick: false,
+        autolink: true,
+        HTMLAttributes: {
+          class: "text-primary underline cursor-pointer",
+        },
+      }),
       Underline,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       TableKit,
@@ -78,7 +87,7 @@ const BlogEditor = () => {
     editorProps: {
       attributes: {
         class:
-          "prose prose-lg max-w-none dark:prose-invert min-h-[400px] focus:outline-none p-4",
+          "prose prose-sm sm:prose-base lg:prose-lg max-w-none dark:prose-invert min-h-[500px] focus:outline-none px-6 py-4",
       },
     },
   });
