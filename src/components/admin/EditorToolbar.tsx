@@ -99,7 +99,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   const currentColor = editor.getAttributes("textStyle").color || "#000000";
 
   return (
-    <div className="border-b border-border p-2 flex flex-wrap gap-1 items-center">
+    <div className="border-b border-border p-3 flex flex-wrap gap-1.5 items-center bg-muted/30">
       {/* Font Family */}
       <Select
         value={currentFontFamily}
