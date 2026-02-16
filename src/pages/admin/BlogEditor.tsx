@@ -23,6 +23,8 @@ import {
   Loader2,
   Upload,
   Video,
+  Eye,
+  PenLine,
 } from "lucide-react";
 import {
   Dialog,
@@ -60,6 +62,7 @@ const BlogEditor = () => {
   const [saving, setSaving] = useState(false);
   const [showScheduleDialog, setShowScheduleDialog] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
 
   const editor = useEditor({
     extensions: [
@@ -302,6 +305,23 @@ const BlogEditor = () => {
             </div>
             <div className="flex items-center gap-2">
               <Button
+                variant={previewMode ? "default" : "outline"}
+                size="sm"
+                onClick={() => setPreviewMode(!previewMode)}
+              >
+                {previewMode ? (
+                  <>
+                    <PenLine className="w-4 h-4 mr-2" />
+                    Edit
+                  </>
+                ) : (
+                  <>
+                    <Eye className="w-4 h-4 mr-2" />
+                    Preview
+                  </>
+                )}
+              </Button>
+              <Button
                 variant="outline"
                 onClick={() => handleSave("draft")}
                 disabled={saving}
@@ -444,10 +464,46 @@ const BlogEditor = () => {
             </div>
           </div>
 
-          {/* Rich Text Editor */}
+          {/* Rich Text Editor / Preview */}
           <div className="bg-background rounded-xl border border-border overflow-hidden">
-            <EditorToolbar editor={editor} />
-            <EditorContent editor={editor} />
+            {previewMode ? (
+              <div className="px-6 py-4">
+                {featuredImageUrl && (
+                  <img
+                    src={featuredImageUrl}
+                    alt={title}
+                    className="w-full max-h-96 object-cover rounded-lg mb-6"
+                  />
+                )}
+                {videoUrl && (
+                  <div className="aspect-video mb-6">
+                    <iframe
+                      src={videoUrl}
+                      className="w-full h-full rounded-lg"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
+                <h1 className="text-3xl font-bold mb-2">{title || "Untitled Post"}</h1>
+                {subtitle && (
+                  <p className="text-lg text-muted-foreground mb-4">{subtitle}</p>
+                )}
+                {publishDate && (
+                  <p className="text-sm text-muted-foreground mb-6">
+                    {format(publishDate, "MMMM dd, yyyy")}
+                  </p>
+                )}
+                <div
+                  className="prose prose-sm sm:prose-base lg:prose-lg max-w-none dark:prose-invert"
+                  dangerouslySetInnerHTML={{ __html: editor?.getHTML() || "" }}
+                />
+              </div>
+            ) : (
+              <>
+                <EditorToolbar editor={editor} />
+                <EditorContent editor={editor} />
+              </>
+            )}
           </div>
         </main>
 
