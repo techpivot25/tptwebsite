@@ -14,6 +14,7 @@ import {
   Eye,
   Clock,
   Loader2,
+  BarChart3,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -152,12 +153,20 @@ const AdminDashboard = () => {
                 Manage your blog content
               </p>
             </div>
-            <Button asChild>
-              <Link to="/admin/blog/new">
-                <Plus className="w-4 h-4 mr-2" />
-                New Post
-              </Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" asChild>
+                <Link to="/admin/analytics">
+                  <BarChart3 className="w-4 h-4 mr-2" />
+                  Analytics
+                </Link>
+              </Button>
+              <Button asChild>
+                <Link to="/admin/blog/new">
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Post
+                </Link>
+              </Button>
+            </div>
           </div>
 
           {/* Stats */}
