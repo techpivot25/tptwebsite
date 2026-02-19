@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -76,11 +76,12 @@ const CHART_COLORS = [
 
 const BlogAnalytics = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [analytics, setAnalytics] = useState<AnalyticsRow[]>([]);
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState("30d");
-  const [selectedBlog, setSelectedBlog] = useState("all");
+  const [selectedBlog, setSelectedBlog] = useState(searchParams.get("blog") || "all");
 
   useEffect(() => {
     checkAuth();
