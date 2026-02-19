@@ -45,18 +45,6 @@ const BlogDetail = () => {
 
       setBlog(data);
       setLoading(false);
-
-      // Track view
-      try {
-        const sessionId = sessionStorage.getItem("tp_session") || crypto.randomUUID();
-        sessionStorage.setItem("tp_session", sessionId);
-        const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/track-blog-view`;
-        fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
-          body: JSON.stringify({ blog_id: data.id, session_id: sessionId, referrer: document.referrer }),
-        }).catch(() => {});
-      } catch {}
     };
 
     fetchBlog();

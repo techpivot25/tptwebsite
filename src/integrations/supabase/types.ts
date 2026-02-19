@@ -14,56 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      blog_analytics: {
-        Row: {
-          blog_id: string
-          city: string | null
-          country_code: string | null
-          country_name: string | null
-          device_type: string | null
-          id: string
-          referrer: string | null
-          session_id: string | null
-          state_code: string | null
-          user_agent: string | null
-          viewed_at: string
-        }
-        Insert: {
-          blog_id: string
-          city?: string | null
-          country_code?: string | null
-          country_name?: string | null
-          device_type?: string | null
-          id?: string
-          referrer?: string | null
-          session_id?: string | null
-          state_code?: string | null
-          user_agent?: string | null
-          viewed_at?: string
-        }
-        Update: {
-          blog_id?: string
-          city?: string | null
-          country_code?: string | null
-          country_name?: string | null
-          device_type?: string | null
-          id?: string
-          referrer?: string | null
-          session_id?: string | null
-          state_code?: string | null
-          user_agent?: string | null
-          viewed_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "blog_analytics_blog_id_fkey"
-            columns: ["blog_id"]
-            isOneToOne: false
-            referencedRelation: "blogs"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       blogs: {
         Row: {
           author_id: string | null

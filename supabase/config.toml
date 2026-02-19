@@ -5,6 +5,3 @@ verify_jwt = false
 
 [functions.send-contact-email]
 verify_jwt = false
-
-[functions.track-blog-view]
-verify_jwt = false
