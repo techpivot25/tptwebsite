@@ -15,6 +15,9 @@ import {
   Clock,
   Loader2,
   BarChart3,
+  TrendingUp,
+  TrendingDown,
+  Minus,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -40,8 +43,15 @@ interface Blog {
   created_at: string;
 }
 
+interface BlogWithAnalytics extends Blog {
+  views_total: number;
+  views_7d: number;
+  views_prev_7d: number;
+  trend_pct: number | null;
+}
+
 const AdminDashboard = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<BlogWithAnalytics[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -73,13 +83,37 @@ const AdminDashboard = () => {
   };
 
   const fetchBlogs = async () => {
-    const { data, error } = await supabase
-      .from("blogs")
-      .select("id, title, slug, status, publish_date, scheduled_date, created_at")
-      .order("created_at", { ascending: false });
+    const now = new Date();
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const fourteenDaysAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString();
 
-    if (!error && data) {
-      setBlogs(data as Blog[]);
+    const [blogsRes, analyticsRes] = await Promise.all([
+      supabase
+        .from("blogs")
+        .select("id, title, slug, status, publish_date, scheduled_date, created_at")
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("blog_analytics")
+        .select("blog_id, viewed_at")
+        .gte("viewed_at", fourteenDaysAgo),
+    ]);
+
+    if (!blogsRes.error && blogsRes.data) {
+      const analyticsData = (analyticsRes.data || []) as { blog_id: string; viewed_at: string }[];
+
+      const enriched: BlogWithAnalytics[] = (blogsRes.data as Blog[]).map((blog) => {
+        const blogViews = analyticsData.filter((a) => a.blog_id === blog.id);
+        const views_total = blogViews.length;
+        const views_7d = blogViews.filter((a) => a.viewed_at >= sevenDaysAgo).length;
+        const views_prev_7d = blogViews.filter((a) => a.viewed_at < sevenDaysAgo).length;
+        const trend_pct = views_prev_7d > 0
+          ? Math.round(((views_7d - views_prev_7d) / views_prev_7d) * 100)
+          : views_7d > 0 ? 100 : null;
+
+        return { ...blog, views_total, views_7d, views_prev_7d, trend_pct };
+      });
+
+      setBlogs(enriched);
     }
     setLoading(false);
   };
@@ -249,6 +283,43 @@ const AdminDashboard = () => {
                           ? `Published ${format(new Date(blog.publish_date), "MMM dd, yyyy")}`
                           : `Created ${format(new Date(blog.created_at), "MMM dd, yyyy")}`}
                       </p>
+                    </div>
+                    {/* Views Column */}
+                    <div className="flex items-center gap-3 mr-4">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="secondary" className="font-mono text-xs px-2 py-1">
+                          <Eye className="w-3 h-3 mr-1" />
+                          {blog.views_7d.toLocaleString()}
+                        </Badge>
+                        {blog.trend_pct !== null && (
+                          <span className={`flex items-center text-xs font-medium ${
+                            blog.trend_pct > 0
+                              ? "text-green-600"
+                              : blog.trend_pct < 0
+                              ? "text-red-500"
+                              : "text-muted-foreground"
+                          }`}>
+                            {blog.trend_pct > 0 ? (
+                              <TrendingUp className="w-3 h-3 mr-0.5" />
+                            ) : blog.trend_pct < 0 ? (
+                              <TrendingDown className="w-3 h-3 mr-0.5" />
+                            ) : (
+                              <Minus className="w-3 h-3 mr-0.5" />
+                            )}
+                            {blog.trend_pct > 0 ? "+" : ""}{blog.trend_pct}%
+                          </span>
+                        )}
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                        title="View detailed analytics"
+                      >
+                        <Link to={`/admin/analytics?blog=${blog.id}`}>
+                          <BarChart3 className="w-4 h-4" />
+                        </Link>
+                      </Button>
                     </div>
                     <div className="flex items-center gap-2 ml-4">
                       {blog.status === "published" && (
