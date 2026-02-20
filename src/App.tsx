@@ -21,6 +21,7 @@ const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const BlogEditor = lazy(() => import("./pages/admin/BlogEditor"));
 const ResetPassword = lazy(() => import("./pages/admin/ResetPassword"));
+const AnalyticsDashboard = lazy(() => import("./pages/admin/AnalyticsDashboard"));
 const AgenticAI = lazy(() => import("./pages/services/AgenticAI"));
 const GenerativeAI = lazy(() => import("./pages/services/GenerativeAI"));
 const SaaSPlatform = lazy(() => import("./pages/services/SaaSPlatform"));
@@ -77,6 +78,7 @@ const AnimatedRoutes = () => {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/blog/:id" element={<BlogEditor />} />
             <Route path="/admin/reset-password" element={<ResetPassword />} />
+            <Route path="/admin/analytics" element={<AnalyticsDashboard />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/technologies" element={<Technologies />} />
