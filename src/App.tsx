@@ -32,6 +32,7 @@ const CustomSoftware = lazy(() => import("./pages/services/CustomSoftware"));
 const StaffAugmentation = lazy(() => import("./pages/services/StaffAugmentation"));
 const IoT = lazy(() => import("./pages/services/IoT"));
 const Consultancy = lazy(() => import("./pages/services/Consultancy"));
+const FAQPage = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AnimationsDemo = lazy(() => import("./pages/AnimationsDemo"));
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -92,6 +93,7 @@ const AnimatedRoutes = () => {
             <Route path="/services/staff-augmentation" element={<StaffAugmentation />} />
             <Route path="/services/iot" element={<IoT />} />
             <Route path="/services/consultancy" element={<Consultancy />} />
+            <Route path="/faq" element={<FAQPage />} />
             <Route path="/animations" element={<AnimationsDemo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

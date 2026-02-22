@@ -163,7 +163,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/50">
           <p>© 2026 TechPivot Technologies & Consulting. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link to="/#faq" className="hover:text-primary transition-colors">FAQ</Link>
+            <Link to="/faq" className="hover:text-primary transition-colors">FAQ</Link>
             <a href="https://www.techpivot.in/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="https://www.techpivot.in/terms-of-service" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Terms of Service</a>
           </div>
