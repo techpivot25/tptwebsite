@@ -6,7 +6,7 @@ import CaseStudies from "@/components/CaseStudies";
 // import Testimonials from "@/components/Testimonials"; // Hidden for now
 import Partners from "@/components/Partners";
 import About from "@/components/About";
-import FAQ from "@/components/FAQ";
+
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -31,7 +31,6 @@ const Index = () => {
           {/* <Testimonials /> */}{/* Hidden for now */}
           {/* <Partners /> */}{/* Hidden for now */}
           <About />
-          <FAQ />
         </main>
         <Footer />
       </div>
