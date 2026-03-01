@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 interface Blog {
   id: string;
@@ -21,24 +22,32 @@ interface Blog {
 const Blogs = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const fetchBlogs = useCallback(async () => {
+    setLoading(true);
+    setErrorMessage(null);
+
+    const { data, error } = await supabase
+      .from("blogs")
+      .select("id, title, subtitle, slug, featured_image_url, publish_date, created_at")
+      .eq("status", "published")
+      .order("publish_date", { ascending: false, nullsFirst: false })
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      setBlogs([]);
+      setErrorMessage("Unable to load blogs right now. Please check your connection and try again.");
+    } else {
+      setBlogs(data ?? []);
+    }
+
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      const { data, error } = await supabase
-        .from("blogs")
-        .select("id, title, subtitle, slug, featured_image_url, publish_date, created_at")
-        .eq("status", "published")
-        .lte("publish_date", new Date().toISOString())
-        .order("publish_date", { ascending: false });
-
-      if (!error && data) {
-        setBlogs(data);
-      }
-      setLoading(false);
-    };
-
     fetchBlogs();
-  }, []);
+  }, [fetchBlogs]);
 
   return (
     <>
@@ -76,6 +85,11 @@ const Blogs = () => {
                     <Skeleton className="h-4 w-1/2" />
                   </div>
                 ))}
+              </div>
+            ) : errorMessage ? (
+              <div className="text-center py-20 space-y-4">
+                <p className="text-xl text-muted-foreground">{errorMessage}</p>
+                <Button variant="outline" onClick={fetchBlogs}>Try Again</Button>
               </div>
             ) : blogs.length === 0 ? (
               <div className="text-center py-20">
